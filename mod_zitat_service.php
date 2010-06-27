@@ -1,27 +1,23 @@
 <?php
 /*
  * mod_zitat_service.php
- * Joomla 1.0 Module to show fortune quotation
- * version: 1.1.2
- * Heiko LÃ¼bbe
+ * Joomla 1.5 Module to show fortune quotation
+ * version: 1.1.3
+ * Heiko Lübbe
  * http://www.zitat-service.de
- * Feb/21/2008 - May/13/2009
+ * Feb/21/2008 - June/27/2010
  */
 
-defined( '_VALID_MOS' ) or die( 'Direct Access to this location is not allowed.' );
+// no direct access
+defined('_JEXEC') or die('Restricted access');
 
-$query = "SELECT * FROM #__modules WHERE module = 'mod_zitat_service' ";
-$database->setQuery($query);
-$rows = $database->loadObjectList();
-$params = mosParseParams($rows[0]->params);
+$run = "http://www.zitat-service.de/quote?content_only=true&encoding=UTF-8";
 
-$run = "http://www.zitat-service.de/quote?content_only=true";
-
-$category = trim($params->mod_zitat_service_category);
-$user = trim($params->mod_zitat_service_user);
-$author = trim($params->mod_zitat_service_author);
-$window = trim($params->mod_zitat_service_window);
-$script = $params->mod_zitat_service_script; // boolean 0 or 1
+$category = trim($params->get('mod_zitat_service_category'));
+$user     = trim($params->get('mod_zitat_service_user'    ));
+$author   = trim($params->get('mod_zitat_service_author'  ));
+$window   = trim($params->get('mod_zitat_service_window'  ));
+$script   = $params->get('mod_zitat_service_script'); // boolean 0 or 1
 
 if (!empty($category)) {
 	$run .= "&category=$category";
@@ -49,17 +45,20 @@ if (!$script) {
           'http' => array(
               'timeout' => 3, // just in case to prevent too long waiting, set 3 secs
               'header'  => 'Referer: ' . $server . "\r\n" .
-                           'User-Agent: mod_zitat_service_j10_1.1.2'
+                           'User-Agent: mod_zitat_service_j15_1.1.2'
           )
       ));
-  // Be warned as we don't wish to establish an own exception handler in case of timeout
-  // you'll see the following error message on the screen if Debug-Setting is ON in Joomla.
+  // warnings like the typical following one are removed by @ before function
   // Warning: file_get_contents(http://www.zitat-service.de/quote.cgi?content_only=true): failed to open stream: HTTP request failed!
-  echo file_get_contents($run, 0, $ctx);
+  $quote = file_get_contents($run, 0, $ctx);
+  if(false == ($quote = @file_get_contents($run, 0, $ctx))) {
+    // PHP like exception handler wich gives everytime a quote as result.
+    $quote = '<!-- Problem with getting the quote from file_get_contents(), typically timeout. --><div class="quote"><div class="quotation"><a href="http://www.zitat-service.de/quotation/show/839" target="_parent">Wer Fehler finden will, findet sie auch im Paradies.</a></div><div class="source"><a href="http://de.wikipedia.org/wiki/Henry_David_Thoreau" target="_parent">Henry David Thoreau</a>, zugeschrieben</div></div>';
+  }
 } else {
   // use JavaScript or noscript tag if JavaScript is also disabled
   $run = str_replace('content_only=true', 'content_only=JavaScript', $run);
-  echo '<script src="' . $run . '" type="text/javascript"></script><noscript><!-- allow_url_fopen ist auf dem Server aus und JavaScript auf dem client.--><div class="quote"><div class="quotation"><a href="http://www.zitat-service.de/quotation/show/367" target="_parent">Der Weg ist das Ziel.</a></div><div class="source"><a href="http://de.wikipedia.org/wiki/Konfuzius" target="_parent">Konfuzius</a></div></div></noscript>';
+  $quote = '<script src="' . $run . '" type="text/javascript"></script><noscript><!-- allow_url_fopen is disbaled on server and JavaScript is disabled on the client.--><div class="quote"><div class="quotation"><a href="http://www.zitat-service.de/quotation/show/367" target="_parent">Der Weg ist das Ziel.</a></div><div class="source"><a href="http://de.wikipedia.org/wiki/Konfuzius" target="_parent">Konfuzius</a></div></div></noscript>';
 }
 
-?>
+require(JModuleHelper::getLayoutPath('mod_zitat_service'));

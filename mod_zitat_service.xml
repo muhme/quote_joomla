@@ -1,29 +1,32 @@
-<?xml version="1.0" encoding="iso-8859-1" ?>
-<mosinstall type="module" version="1.0.0">
-    <name>Zitate von zitat-service.de</name>
-    <author>Heiko Lübbe</author>
-    <creationDate>May, 13th 2009</creationDate>
-    <copyright>Heiko Lübbe</copyright>
+<?xml version="1.0" encoding="utf-8"?>
+<install type="module" version="1.5.0">
+	<name>Zitate von zitat-service.de</name>
+	<author>Heiko LÃ¼bbe</author>
+	<creationDate>27. Juni 2010</creationDate>
+	<copyright>Heiko LÃ¼bbe</copyright>
 	<license>Open Source</license>
-    <authorEmail>heiko.luebbe@zitat-service.de</authorEmail>
-    <authorUrl>www.zitat-service.de/joomla</authorUrl>
-    <version>1.1.2</version>
-	<description>Zeigt ein Zufalls-Zitat von www.zitat-service.de an. Die Zitatauswahl kann auf einen Autor, eine Kategorie oder die eigene Sammlung eingeschänkt werden.</description>
-    <files>
-        <filename module="mod_zitat_service">mod_zitat_service.php</filename>
-    </files>
+	<authorEmail>heiko.luebbe@zitat-service.de</authorEmail>
+	<authorUrl>www.zitat-service.de/joomla</authorUrl>
+	<version>1.1.3</version>
+	<description>Zeigt ein Zufalls-Zitat von www.zitat-service.de an. Die Zitatauswahl kann auf einen Autor, eine Kategorie oder die eigene Sammlung eingeschÃ¤nkt werden.</description>
+	<files>
+		<filename module="mod_zitat_service">mod_zitat_service.php</filename>
+        <filename>index.html</filename>
+        <filename>tmpl/default.php</filename>
+        <filename>tmpl/index.html</filename>
+	</files>
     <params>
-        <param name="mod_zitat_service_author" type="text" default="" label="Nur Zitate von einem Autor" description="Nachname des gewünschten Autors eingeben, z.B. Goethe.">
+        <param name="mod_zitat_service_author" type="text" default="" label="Nur Zitate von einem Autor" description="Nachname des gewÃ¼nschten Autors eingeben, z.B. Goethe.">
         </param>
-        <param name="mod_zitat_service_category" type="text" default="" label="Nur Zitate aus einer Kategorie" description="Nachname der gewünschten Kategorie eingeben, z.B. Liebe.">
+        <param name="mod_zitat_service_category" type="text" default="" label="Nur Zitate aus einer Kategorie" description="Nachname der gewÃ¼nschten Kategorie eingeben, z.B. Liebe.">
         </param>
-        <param name="mod_zitat_service_user" type="text" default="" label="Nur Zitate von einem Benutzer" description="Den gewünschten Benutzernamen eingeben, z.B. ina.">
+        <param name="mod_zitat_service_user" type="text" default="" label="Nur Zitate von einem Benutzer" description="Den gewÃ¼nschten Benutzernamen eingeben, z.B. ina.">
         </param>
-        <param name="mod_zitat_service_window" type="text" default="" label="Neues Fenster für Links." description="Den gewünschten Fensternamen, z.B. quote.">
+        <param name="mod_zitat_service_window" type="text" default="" label="Neues Fenster fÃ¼r Links." description="Den gewÃ¼nschten Fensternamen, z.B. quote.">
         </param>
-        <param name="mod_zitat_service_script" type="radio" default="0" label="Abfragemethode" description="Bei dem Fehler 'failed to open stream' bitte den Abruf der Zitate mit JavaScript aus dem Web-Browser auswählen.">
+        <param name="mod_zitat_service_script" type="radio" default="0" label="Abfragemethode" description="Bei dem Fehler 'failed to open stream' bitte den Abruf der Zitate mit JavaScript aus dem Web-Browser auswÃ¤hlen.">
           <option value="0">Aus Joomla (empfohlen)</option>
           <option value="1">Mit JavaScript im Web-Browser</option>
         </param>
     </params>
-</mosinstall>
+</install>
