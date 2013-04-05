@@ -1,27 +1,29 @@
 <?php
 /*
- * mod_zitat_service.php
- * Joomla 1.5 Module to show fortune quotation
- * version: 1.2.1
+ * mod_zitat_service_de.php
+ * Joomla 2.5 Module to show fortune quotation
+ * version: 1.3
  * Heiko Lübbe
  * http://www.zitat-service.de
- * Feb/21/2008 - Dec/10/2010
+ * Feb/21/2008 - Apr/4/2013
+ *
+ * todo: Can only be used once at the moment. Could be extended with module's id to enable multiple JavaScript event handlers. But I cannot get module's id at the moment.
  */
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-$document =& JFactory::getDocument();
-$modbase = ''.JURI::base().'modules/mod_zitat_service/';
+$document = JFactory::getDocument();
+$modbase = ''.JURI::base().'modules/mod_zitat_service_de/';
 
 $run = "http://www.zitat-service.de/quote?content_only=true&encoding=UTF-8";
 
-$script   = $params->get('mod_zitat_service_script'); // boolean 0 or 1
-$category = trim($params->get('mod_zitat_service_category'));
-$user     = trim($params->get('mod_zitat_service_user'    ));
-$author   = trim($params->get('mod_zitat_service_author'  ));
-$window   = trim($params->get('mod_zitat_service_window'  ));
-$height   = trim($params->get('mod_zitat_service_height'   ));
+$script   = $params->get('script'); // boolean 0 or 1
+$category = trim($params->get('category'));
+$user     = trim($params->get('user'    ));
+$author   = trim($params->get('author'  ));
+$window   = trim($params->get('window'  ));
+$height   = trim($params->get('height'   ));
 
 if (!empty($category)) {
 	$run .= "&category=$category";
@@ -49,7 +51,7 @@ if (!$script) {
           'http' => array(
               'timeout' => 3, // just in case to prevent too long waiting, set 3 secs
               'header'  => 'Referer: ' . $server . "\r\n" .
-                           'User-Agent: mod_zitat_service_j15_1.2.1'
+                           'User-Agent: mod_zitat_service_de_1.3'
           )
       ));
   // warnings like the typical following one are removed by @ before function
@@ -99,7 +101,7 @@ if (!$script) {
 
     /* for HTML head */
 	$document->addScript($modbase . "js/lazyload-min.js");
-    // onload event handler loadQuote, which calls quote() JavaScript function, given from zitat-service, to fill div with id quoteId with the quotation
+    // onload event handler loadQuote(), which calls quote() JavaScript function, given from zitat-service, to fill div with id quoteId with the quotation
 	$document->addScriptDeclaration('
       //<![CDATA[
       function loadQuote() {
@@ -109,4 +111,4 @@ if (!$script) {
     ');
 }
 
-require(JModuleHelper::getLayoutPath('mod_zitat_service'));
+require(JModuleHelper::getLayoutPath('mod_zitat_service_de'));

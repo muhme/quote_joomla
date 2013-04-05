@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension	type="module"
+		version="2.5"
+		client="site"
+		method="upgrade">
+	<name>zitat-service.de</name>
+	<author>Heiko Lübbe</author>
+	<creationDate>April, 4th 2013</creationDate>
+	<copyright>Heiko Lübbe</copyright>
+	<license>Open Source</license>
+	<authorEmail>heiko.luebbe@zitat-service.de</authorEmail>
+	<authorUrl>www.zitat-service.de/joomla</authorUrl>
+	<version>1.3</version>
+	<description>MOD_ZITAT_SERVICE_DE_XML_DESCRIPTION</description>
+	<files>
+		<filename module="mod_zitat_service_de">mod_zitat_service_de.php</filename>
+		<filename>index.html</filename>
+		<filename>tmpl/default.php</filename>
+		<filename>tmpl/index.html</filename>
+		<filename>js/lazyload-min.js</filename>
+	</files>
+	<languages folder="language">
+		<language tag="en-GB">en-GB.mod_zitat_service_de.ini</language>
+		<language tag="de-DE">de-DE.mod_zitat_service_de.ini</language>
+		<language tag="en-GB">en-GB.mod_zitat_service_de.sys.ini</language>
+		<language tag="de-DE">de-DE.mod_zitat_service_de.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field	name="author"
+					type="text"
+					filter="safehtml"
+					maxlength="50"
+					label="MOD_ZITAT_SERVICE_DE_FIELD_AUTHOR_LABEL"
+					description="MOD_ZITAT_SERVICE_DE_FIELD_AUTHOR_DESC" />
+				<field	name="category"
+					type="text"
+					filter="safehtml"
+					maxlength="50"
+					label="MOD_ZITAT_SERVICE_DE_FIELD_CATEGORY_LABEL"
+					description="MOD_ZITAT_SERVICE_DE_FIELD_CATEGORY_DESC" />
+				<field	name="user"
+					type="text"
+					filter="safehtml"
+					maxlength="50"
+					label="MOD_ZITAT_SERVICE_DE_FIELD_USER_LABEL"
+					description="MOD_ZITAT_SERVICE_DE_FIELD_USER_DESC" />
+			</fieldset>
+			<fieldset name="advanced">
+				<field	name="window"
+					type="text"
+					filter="safehtml"
+					maxlength="50"
+					label="MOD_ZITAT_SERVICE_DE_FIELD_WINDOW_LABEL"
+					description="MOD_ZITAT_SERVICE_DE_FIELD_WINDOW_DESC" />
+				<field	name="height"
+					type="text"
+					filter="safehtml"
+					maxlength="50"
+					label="MOD_ZITAT_SERVICE_DE_FIELD_HEIGHT_LABEL"
+					description="MOD_ZITAT_SERVICE_DE_FIELD_HEIGHT_DESC" />
+				<field	name="script"
+					type="radio"
+					default="1"
+					label="MOD_ZITAT_SERVICE_DE_FIELD_SCRIPT_LABEL"
+					description="MOD_ZITAT_SERVICE_DE_FIELD_SCRIPT_DESC">
+						<option value="0">MOD_ZITAT_SERVICE_DE_FIELD_SCRIPT_0</option>
+						<option value="1">MOD_ZITAT_SERVICE_DE_FIELD_SCRIPT_1</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
