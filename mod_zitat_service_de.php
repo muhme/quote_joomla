@@ -3,9 +3,11 @@
  * mod_zitat_service_de.php
  * Joomla 3 Module to show fortune quotation
  * version: 1.4
- * Heiko Lübbe
+ * @author Heiko Lübbe
+ * @copyright (C) 2008- Heiko Lübbe
+ * @licence GNI/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  * https://www.zitat-service.de
- * Feb/21/2008 - Aug/20/2019
+ * Feb/21/2008 - Sep/24/2019
  *
  * todo: Can only be used once at the moment. Could be extended with module's id to enable multiple JavaScript event handlers. But I cannot get module's id at the moment.
  */
