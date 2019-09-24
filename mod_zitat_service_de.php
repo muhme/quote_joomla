@@ -1,11 +1,11 @@
 <?php
 /*
  * mod_zitat_service_de.php
- * Joomla 2.5 Module to show fortune quotation
- * version: 1.3
- * Heiko Lübbe
- * http://www.zitat-service.de
- * Feb/21/2008 - Apr/4/2013
+ * Joomla 3 Module to show fortune quotation
+ * version: 1.4
+ * Heiko LÃ¼bbe
+ * https://www.zitat-service.de
+ * Feb/21/2008 - Aug/20/2019
  *
  * todo: Can only be used once at the moment. Could be extended with module's id to enable multiple JavaScript event handlers. But I cannot get module's id at the moment.
  */
@@ -16,7 +16,7 @@ defined('_JEXEC') or die('Restricted access');
 $document = JFactory::getDocument();
 $modbase = ''.JURI::base().'modules/mod_zitat_service_de/';
 
-$run = "http://www.zitat-service.de/quote?content_only=true&encoding=UTF-8";
+$run = "https://www.zitat-service.de/quote?content_only=true&encoding=UTF-8";
 
 $script   = $params->get('script'); // boolean 0 or 1
 $category = trim($params->get('category'));
@@ -51,19 +51,19 @@ if (!$script) {
           'http' => array(
               'timeout' => 3, // just in case to prevent too long waiting, set 3 secs
               'header'  => 'Referer: ' . $server . "\r\n" .
-                           'User-Agent: mod_zitat_service_de_1.3'
+                           'User-Agent: mod_zitat_service_de_1.4'
           )
       ));
   // warnings like the typical following one are removed by @ before function
-  // Warning: file_get_contents(http://www.zitat-service.de/quote.cgi?content_only=true): failed to open stream: HTTP request failed!
+  // Warning: file_get_contents(https://www.zitat-service.de/quote.cgi?content_only=true): failed to open stream: HTTP request failed!
   $quote = file_get_contents($run, 0, $ctx);
   if(false == ($quote = @file_get_contents($run, 0, $ctx))) {
     // PHP like exception handler wich gives everytime a quote as result.
     $quote = '
       <!-- Problem with getting the quote from file_get_contents(), typically timeout. -->
       <div class="quote">
-        <div class="quotation"><a href="http://www.zitat-service.de/quotation/show/839" target="_parent">Wer Fehler finden will, findet sie auch im Paradies.</a></div>
-        <div class="source"><a href="http://de.wikipedia.org/wiki/Henry_David_Thoreau" target="_parent">Henry David Thoreau</a>, zugeschrieben</div>
+        <div class="quotation"><a href="https://www.zitat-service.de/quotation/show/839" target="_parent">Wer Fehler finden will, findet sie auch im Paradies.</a></div>
+        <div class="source"><a href="https://de.wikipedia.org/wiki/Henry_David_Thoreau" target="_parent">Henry David Thoreau</a>, zugeschrieben</div>
       </div>';
   }
 
@@ -94,8 +94,8 @@ if (!$script) {
     <noscript>
       <!-- JavaScript is disabled on Web browser.-->
       <div class="quote">
-        <div class="quotation"><a href="http://www.zitat-service.de/quotation/show/367" target="_parent">Der Weg ist das Ziel.</a></div>
-        <div class="source"><a href="http://de.wikipedia.org/wiki/Konfuzius" target="_parent">Konfuzius</a></div>
+        <div class="quotation"><a href="https://www.zitat-service.de/quotation/show/367" target="_parent">Der Weg ist das Ziel.</a></div>
+        <div class="source"><a href="https://de.wikipedia.org/wiki/Konfuzius" target="_parent">Konfuzius</a></div>
       </div>
     </noscript>';
 

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension	type="module"
-		version="2.5"
+		version="3.1"
 		client="site"
 		method="upgrade">
 	<name>zitat-service.de</name>
 	<author>Heiko Lübbe</author>
-	<creationDate>April, 4th 2013</creationDate>
+	<creationDate>September, 24th 2019</creationDate>
 	<copyright>Heiko Lübbe</copyright>
 	<license>Open Source</license>
 	<authorEmail>heiko.luebbe@zitat-service.de</authorEmail>
-	<authorUrl>www.zitat-service.de/joomla</authorUrl>
-	<version>1.3</version>
+	<authorUrl>https://www.zitat-service.de/joomla</authorUrl>
+	<version>1.4.0</version>
 	<description>MOD_ZITAT_SERVICE_DE_XML_DESCRIPTION</description>
 	<files>
 		<filename module="mod_zitat_service_de">mod_zitat_service_de.php</filename>
@@ -71,4 +71,7 @@
 			</fieldset>
 		</fields>
 	</config>
+	<updateservers>
+    	<server type="extension" priority="1" name="zitat-service.de">https://www.zitat-service.de/joomla/zitat-service-update.xml</server>
+  	</updateservers>
 </extension>
