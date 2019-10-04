@@ -18,7 +18,7 @@ defined('_JEXEC') or die('Restricted access');
 $document = JFactory::getDocument();
 $modbase = ''.JURI::base().'modules/mod_zitat_service_de/';
 
-$run = "https://www.zitat-service.de/quote?content_only=true&encoding=UTF-8";
+$run = "https://www.zitat-service.de/quote?content_only=true&encoding=UTF-8&mod_zitat_service_1.4.2";
 
 $script   = $params->get('script'); // boolean 0 or 1
 $category = trim($params->get('category'));

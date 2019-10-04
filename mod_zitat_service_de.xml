@@ -5,12 +5,12 @@
 		method="upgrade">
 	<name>zitat-service.de</name>
 	<author>Heiko Lübbe</author>
-	<creationDate>September, 24th 2019</creationDate>
+	<creationDate>October, 4th 2019</creationDate>
 	<copyright>Heiko Lübbe</copyright>
 	<license>GNU/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html</license>
 	<authorEmail>heiko.luebbe@zitat-service.de</authorEmail>
 	<authorUrl>https://www.zitat-service.de/joomla</authorUrl>
-	<version>1.4.1</version>
+	<version>1.4.2</version>
 	<description>MOD_ZITAT_SERVICE_DE_XML_DESCRIPTION</description>
 	<files>
 		<filename module="mod_zitat_service_de">mod_zitat_service_de.php</filename>
