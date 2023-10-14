@@ -1,0 +1,76 @@
+# Joomla! module for zitat-service.de
+# version 3, 4 and 5 (release candidate) test and development environment
+#
+version: '3.1'
+
+services:
+
+  mysql:
+    container_name: quote_joomla_mysql
+    image: mysql # actual 8.1.0, fine Joomla 5 needs >= 8.0.13
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+  mysqladmin:
+    container_name: quote_joomla_mysqladmin
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: quote_joomla_mysql
+    ports:
+      - "2001:80"
+    restart: unless-stopped
+    depends_on:
+      - mysql
+
+  joomla3:
+    container_name: quote_joomla_3
+    image: joomla:3 # actual 3.10.12
+    restart: always
+    ports:
+      - 2003:80
+    environment:
+      JOOMLA_DB_HOST: mysql
+      JOOMLA_DB_PASSWORD: root
+    volumes:
+      - .:/quote_joomla
+    depends_on:
+      - mysql
+
+  joomla4:
+    container_name: quote_joomla_4
+    image: joomla:4 # actual 4.3
+    restart: unless-stopped
+    ports:
+      - 2004:80
+    environment:
+      JOOMLA_DB_HOST: mysql
+      JOOMLA_DB_PASSWORD: root
+    volumes:
+      - .:/quote_joomla
+    depends_on:
+      - mysql
+
+  joomla5:
+    container_name: quote_joomla_5
+    image: joomla:5.0 # actual 5.0.0-rc1
+    restart: unless-stopped
+    ports:
+      - 2005:80
+    environment:
+      JOOMLA_DB_HOST: mysql
+      JOOMLA_DB_PASSWORD: root
+    volumes:
+      - .:/quote_joomla
+    depends_on:
+      - mysql
+
+  cypress:
+    container_name: quote_joomla_cypress
+    image: cypress/included # actual 13. + Chrome 116. + Edge 116. + Firefox 117.
+    restart: unless-stopped
+    entrypoint: ["sleep", "31536000"] # don't use cypress run, instead sleep one year
+    ports:
+      - 2080:80
+    volumes:
+      - .:/quote_joomla
