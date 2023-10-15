@@ -1,0 +1,25 @@
+{
+  "name": "quote_joomla",
+  "version": "1.0.0",
+  "description": "Joomla module for zitat-service.de",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muhme/quote_joomla.git"
+  },
+  "author": "Heiko Lübbe",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/muhme/quote_joomla/issues"
+  },
+  "homepage": "https://github.com/muhme/quote_joomla#readme",
+  "dependencies": {
+    "joomla-cypress": "github:muhme/joomla-cypress#issue-9-fix-functions"
+  }
+}

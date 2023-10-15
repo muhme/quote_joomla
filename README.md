@@ -1,7 +1,9 @@
 # quote_joomla
 Joomla! module for zitat-service.de
 
-## Docker Containers
+## Installation
+
+### Docker Containers
 
 There is a Docker based test and development environment prepared:
 
@@ -35,3 +37,10 @@ cypress/included        0.0.0.0:2080->80/tcp   quote_joomla_cypress
   - http://localhost:2003
 - quote_joomla_5 – Joomla! 5, ready for installation
   - http://localhost:2003
+
+### joomla-cypress
+
+As a base for the Cypress test automation [joomla-projects/joomla-cypress](https://github.com/joomla-projects/joomla-cypress) is used. Currently my fork is used until all fixes and pull request are done. To install the dependencies do:
+```
+$ npm i
+```
