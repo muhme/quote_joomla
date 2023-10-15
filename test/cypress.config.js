@@ -13,6 +13,7 @@ module.exports = defineConfig({
     supportFile: "cypress/support/index.js",
   },
   env: {
+    joomla_version: `${JOOMLA_VERSION}`,
     sitename: `Joomla ${JOOMLA_VERSION} CMS Test`,
     name: "Admin Tester",
     email: "admin@example.com",
