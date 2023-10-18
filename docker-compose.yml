@@ -74,3 +74,4 @@ services:
       - 2080:80
     volumes:
       - .:/quote_joomla
+    working_dir: /quote_joomla/test

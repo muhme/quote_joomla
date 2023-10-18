@@ -46,12 +46,16 @@ cypress/included        0.0.0.0:2080->80/tcp   quote_joomla_cypress
 
 ### joomla-cypress
 
-As a base for the Cypress test automation [joomla-projects/joomla-cypress](https://github.com/joomla-projects/joomla-cypress) is used. Currently my fork is used until all the fixes are done with the pull request. To install the dependencies do:
+As a base for the Cypress test automation the npm package [joomla-projects/joomla-cypress](https://github.com/joomla-projects/joomla-cypress) is used. Currently my fork is used until all the fixes are done with the pull request. To install the dependencies do:
 ```
 $ npm i
 ```
 
 ## Testing
+
+:warning: You have to remember for each new created docker container you can run installation only once.
+
+### Interactive on Host Machine
 You can choose the desired Joomla! version with environment variable `JOOMLA_VERSION`. [Cypress](https://www.cypress.io/) can be started inside subfolder `cypress`.
 ```
 $ cd cypress
@@ -61,3 +65,9 @@ $ JOOMLA_VERSION=4 npx cypress open
 In Cypress, you use E2E Testing, launch your favorite browser and with the install.cy.js script you have automatic Joomla and module installation. This needs to be run once after the Docker containers are created.
 
 ![Cypress install screen shoot](images/install_screen.png)
+
+### Headless With Docker Container
+You can use the prepared docker container `quote_joomla_cypress`:
+```
+$ docker exec -it quote_joomla_cypress cypress run
+```

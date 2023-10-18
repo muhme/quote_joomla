@@ -4,7 +4,7 @@
 // type definitions for Cypress object "cy"
 import "joomla-cypress";
 
-describe("Install Joomla and module zitat-service", () => {
+describe(`Install Joomla ${Cypress.env("joomla_version")} and module zitat-service`, () => {
   it("Install Joomla and module zitat-service", function () {
     cy.exec("rm configuration.php", { failOnNonZeroExit: false });
 
