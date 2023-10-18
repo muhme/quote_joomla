@@ -4,8 +4,8 @@ Joomla! module for zitat-service.de
 Prepared for Joomla versions 3, 4 and 5. But today it is necessary to note:
 * the Joomla! module is still using the old API (Perl script) at the moment and the goal is it to migrate to the new OpenAPI [api.zitat-service.de](https://api.zitat-service.de/)
 * Joomla 3 – the automatic installation with Cypress does not work here (currently)
-* Joomla 4 - the automatic installation with Cypress works only partially (need fixes in joomla-cypress - under work)
-* Joomla 5 - module is not migrated yet
+* Joomla 4 - the automatic installation with Cypress works :smiley:
+* Joomla 5 - module is not migrated yet and throws errors
 
 ## Installation
 
