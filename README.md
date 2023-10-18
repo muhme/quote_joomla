@@ -55,9 +55,9 @@ You can test the Joomla module with automatic Joomla and module installation.
 :warning: You have to remember for each new created docker container you can run installation only once.
 
 ### Interactive on Host Machine
-You can choose the desired Joomla! version with environment variable `JOOMLA_VERSION`. [Cypress](https://www.cypress.io/) can be started inside subfolder `cypress`.
+You can choose the desired Joomla! version with environment variable `JOOMLA_VERSION`. [Cypress](https://www.cypress.io/) can be started inside subfolder `test`.
 ```
-$ cd cypress
+$ cd test
 $ JOOMLA_VERSION=4 npx cypress open
 ```
 
