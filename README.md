@@ -30,12 +30,9 @@ joomla:3                0.0.0.0:2003->80/tcp   quote_joomla_3
 joomla:4                0.0.0.0:2004->80/tcp   quote_joomla_4
 joomla:5.0              0.0.0.0:2005->80/tcp   quote_joomla_5
 cypress/included        0.0.0.0:2080->80/tcp   quote_joomla_cypress
-
 ```
 
-- quote_joomla_mysql – MySQL database server
-  - admin user is root/root
-- quote_joomla_mysqladmin – phpMyAdmin (user root/root)
+- quote_joomla_mysqladmin – phpMyAdmin (database user root/root)
   - http://localhost:2001
 - quote_joomla_3 – Joomla! 3, ready for installation
   - http://localhost:2003
@@ -64,7 +61,7 @@ $ cd cypress
 $ JOOMLA_VERSION=4 npx cypress open
 ```
 
-In Cypress, you use E2E Testing, launch your favorite browser and with the install.cy.js script you have automatic Joomla and module installation. This needs to be run once after the Docker containers are created.
+In Cypress, you use E2E Testing, launch your favorite browser and with the `install.cy.js` script you have automatic Joomla and module installation. This can run once after the Docker containers are created.
 
 ![Cypress install screen shoot](images/install_screen.png)
 
@@ -85,7 +82,6 @@ $ docker exec -it quote_joomla_cypress cypress run
                                                                                                     
   Running:  install.cy.js                                                                   (1 of 1)
 
-
   Install Joomla 4 and module zitat-service
     ✓ Install Joomla and module zitat-service (40084ms)
 
@@ -96,5 +92,4 @@ $ docker exec -it quote_joomla_cypress cypress run
   │ ✔  install.cy.js                            00:40        1        1        -        -        - │
   └────────────────────────────────────────────────────────────────────────────────────────────────┘
     ✔  All specs passed!                        00:40        1        1        -        -        -  
-
 ```
