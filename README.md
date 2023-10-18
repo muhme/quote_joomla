@@ -40,9 +40,9 @@ cypress/included        0.0.0.0:2080->80/tcp   quote_joomla_cypress
 - quote_joomla_3 – Joomla! 3, ready for installation
   - http://localhost:2003
 - quote_joomla_4 – Joomla! 4, ready for installation
-  - http://localhost:2003
+  - http://localhost:2004
 - quote_joomla_5 – Joomla! 5, ready for installation
-  - http://localhost:2003
+  - http://localhost:2005
 
 ### joomla-cypress
 
