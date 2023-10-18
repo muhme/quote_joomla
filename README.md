@@ -2,10 +2,10 @@
 Joomla! module for zitat-service.de
 
 Prepared for Joomla versions 3, 4 and 5. But today it is necessary to note:
-* the Joomla! module is still using the old API (Perl script) at the moment and the goal is it to migrate to the new OpenAPI [api.zitat-service.de](https://api.zitat-service.de/)
-* Joomla 3 – the automatic installation with Cypress does not work here (currently)
+* the Joomla! module is currently still using the old API (Perl script) and is to be migrated to the new OpenAPI [api.zitat-service.de](https://api.zitat-service.de/)
+* Joomla 3 – there is no automatic installation with Cypress
 * Joomla 4 - the automatic installation with Cypress works :smiley:
-* Joomla 5 - module is not migrated yet and throws errors
+* Joomla 5 - the automatic installation with Cypress works :smiley:
 
 ## Installation
 
@@ -46,7 +46,7 @@ cypress/included        0.0.0.0:2080->80/tcp   quote_joomla_cypress
 
 ### joomla-cypress
 
-As a base for the Cypress test automation [joomla-projects/joomla-cypress](https://github.com/joomla-projects/joomla-cypress) is used. Currently my fork is used until all fixes and pull request are done. To install the dependencies do:
+As a base for the Cypress test automation [joomla-projects/joomla-cypress](https://github.com/joomla-projects/joomla-cypress) is used. Currently my fork is used until all the fixes are done with the pull request. To install the dependencies do:
 ```
 $ npm i
 ```
@@ -58,6 +58,6 @@ $ cd cypress
 $ JOOMLA_VERSION=4 npx cypress open
 ```
 
-In Cypress, you use E2E Testing, launch your favorite browser and with the install.cy.js script you have automatic Joomla and module installation. This needs to be run once after Docker containers are created.
+In Cypress, you use E2E Testing, launch your favorite browser and with the install.cy.js script you have automatic Joomla and module installation. This needs to be run once after the Docker containers are created.
 
 ![Cypress install screen shoot](images/install_screen.png)

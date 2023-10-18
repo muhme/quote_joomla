@@ -2,12 +2,12 @@
 /*
  * mod_zitat_service_de.php
  * Joomla 3 Module to show fortune quotation
- * version: 1.4
+ * version: 1.4.1
  * @author Heiko Lübbe
  * @copyright (C) 2008- Heiko Lübbe
  * @licence GNI/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  * https://www.zitat-service.de
- * Feb/21/2008 - Sep/24/2019
+ * Feb/21/2008 - Oct/18/2023
  *
  * todo: Can only be used once at the moment. Could be extended with module's id to enable multiple JavaScript event handlers. But I cannot get module's id at the moment.
  */
@@ -15,17 +15,20 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
+// Suppress deprecated messages
+error_reporting(error_reporting() & ~E_DEPRECATED);
+
 $document = JFactory::getDocument();
 $modbase = ''.JURI::base().'modules/mod_zitat_service_de/';
 
 $run = "https://www.zitat-service.de/quote?content_only=true&encoding=UTF-8&mod_zitat_service_1.4.2";
 
 $script   = $params->get('script'); // boolean 0 or 1
-$category = trim($params->get('category'));
-$user     = trim($params->get('user'    ));
-$author   = trim($params->get('author'  ));
-$window   = trim($params->get('window'  ));
-$height   = trim($params->get('height'   ));
+$category = trim($params->get('category' ?? ''));
+$user     = trim($params->get('user'     ?? ''));
+$author   = trim($params->get('author'   ?? ''));
+$window   = trim($params->get('window'   ?? ''));
+$height   = trim($params->get('height'   ?? ''));
 
 if (!empty($category)) {
 	$run .= "&category=$category";
