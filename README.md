@@ -68,7 +68,7 @@ In Cypress, you use E2E Testing, launch your favorite browser and with the `inst
 ### Headless With Docker Container
 You can use the prepared docker container `quote_joomla_cypress`:
 ```
-$ docker exec -it quote_joomla_cypress cypress run
+$ docker exec -it quote_joomla_cypress sh -c "JOOMLA_VERSION=5 cypress run"
 
   (Run Starting)
 
