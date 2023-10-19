@@ -2,12 +2,12 @@
 /*
  * mod_zitat_service_de.php
  * Joomla 3 Module to show fortune quotation
- * version: 1.4.3
+ * version: 2.0.0
  * @author Heiko Lübbe
  * @copyright (C) 2008- Heiko Lübbe
  * @licence GNI/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  * https://www.zitat-service.de
- * Feb/21/2008 - Oct/18/2023
+ * Feb/21/2008 - Oct/19/2023
  *
  * todo: Can only be used once at the moment. Could be extended with module's id to enable multiple JavaScript event handlers. But I cannot get module's id at the moment.
  */
@@ -15,13 +15,18 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-// Suppress deprecated messages
-error_reporting(error_reporting() & ~E_DEPRECATED);
+// TODO: correct to supress deprecated depending on error reporting or better on logging, and what about to have deprecated directly to the logs and not the user
+$config = JFactory::getConfig();
+$errorReporting = $config->get('error_reporting');
+if ($errorReporting != 'maximun') {
+	// Suppress deprecated messages
+	error_reporting(error_reporting() & ~E_DEPRECATED);
+}
 
 $document = JFactory::getDocument();
 $modbase = ''.JURI::base().'modules/mod_zitat_service_de/';
 
-$run = "https://www.zitat-service.de/quote?content_only=true&encoding=UTF-8&mod_zitat_service_1.4.3";
+$run = "https://api.zitat-service.de/v1/quote_html?content_only=true&language=es&mod_zitat_service_2.0.0";
 
 $script   = $params->get('script'); // boolean 0 or 1
 $category = trim($params->get('category' ?? ''));
@@ -56,7 +61,7 @@ if (!$script) {
           'http' => array(
               'timeout' => 3, // just in case to prevent too long waiting, set 3 secs
               'header'  => 'Referer: ' . $server . "\r\n" .
-                           'User-Agent: mod_zitat_service_de_1.4.3'
+                           'User-Agent: mod_zitat_service_de_2.0.0'
           )
       ));
   // warnings like the typical following one are removed by @ before function
