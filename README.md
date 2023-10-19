@@ -72,24 +72,24 @@ $ docker exec -it quote_joomla_cypress cypress run
 
   (Run Starting)
 
-  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
-  │ Cypress:        13.3.0                                                                         │
-  │ Browser:        Electron 114 (headless)                                                        │
-  │ Node Version:   v20.6.1 (/usr/local/bin/node)                                                  │
-  │ Specs:          1 found (install.cy.js)                                                        │
-  │ Searched:       cypress/e2e/**/*.cy.{js,jsx,ts,tsx}                                            │
-  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+  ┌──────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        13.3.0                                                               │
+  │ Browser:        Electron 114 (headless)                                              │
+  │ Node Version:   v20.6.1 (/usr/local/bin/node)                                        │
+  │ Specs:          1 found (install.cy.js)                                              │
+  │ Searched:       cypress/e2e/**/*.cy.{js,jsx,ts,tsx}                                  │
+  └──────────────────────────────────────────────────────────────────────────────────────┘
                                                                                                     
-  Running:  install.cy.js                                                                   (1 of 1)
+  Running:  install.cy.js                                                         (1 of 1)
 
   Install Joomla 4 and module zitat-service
     ✓ Install Joomla and module zitat-service (40084ms)
 
   (Run Finished)
 
-       Spec                                              Tests  Passing  Failing  Pending  Skipped  
-  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
-  │ ✔  install.cy.js                            00:40        1        1        -        -        - │
-  └────────────────────────────────────────────────────────────────────────────────────────────────┘
-    ✔  All specs passed!                        00:40        1        1        -        -        -  
+       Spec                                    Tests  Passing  Failing  Pending  Skipped  
+  ┌──────────────────────────────────────────────────────────────────────────────────────┐
+  │ ✔  install.cy.js                  00:40        1        1        -        -        - │
+  └──────────────────────────────────────────────────────────────────────────────────────┘
+    ✔  All specs passed!              00:40        1        1        -        -        -  
 ```

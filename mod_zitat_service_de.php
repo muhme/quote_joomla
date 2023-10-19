@@ -2,7 +2,7 @@
 /*
  * mod_zitat_service_de.php
  * Joomla 3 Module to show fortune quotation
- * version: 1.4.1
+ * version: 1.4.3
  * @author Heiko Lübbe
  * @copyright (C) 2008- Heiko Lübbe
  * @licence GNI/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
@@ -21,7 +21,7 @@ error_reporting(error_reporting() & ~E_DEPRECATED);
 $document = JFactory::getDocument();
 $modbase = ''.JURI::base().'modules/mod_zitat_service_de/';
 
-$run = "https://www.zitat-service.de/quote?content_only=true&encoding=UTF-8&mod_zitat_service_1.4.2";
+$run = "https://www.zitat-service.de/quote?content_only=true&encoding=UTF-8&mod_zitat_service_1.4.3";
 
 $script   = $params->get('script'); // boolean 0 or 1
 $category = trim($params->get('category' ?? ''));
@@ -56,7 +56,7 @@ if (!$script) {
           'http' => array(
               'timeout' => 3, // just in case to prevent too long waiting, set 3 secs
               'header'  => 'Referer: ' . $server . "\r\n" .
-                           'User-Agent: mod_zitat_service_de_1.4'
+                           'User-Agent: mod_zitat_service_de_1.4.3'
           )
       ));
   // warnings like the typical following one are removed by @ before function
