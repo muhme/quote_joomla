@@ -1,4 +1,5 @@
 # quote_joomla
+
 Joomla! module for zitat-service.de
 
 Prepared for Joomla versions 3, 4 and 5. But today it is necessary to note:
@@ -14,15 +15,15 @@ Prepared for Joomla versions 3, 4 and 5. But today it is necessary to note:
 There is a Docker based test and development environment prepared:
 
 ```
-$ git clone https://github.com/muhme/quote_joomla
-$ cd quote_joomla
-$ docker compose up -d
+host$ git clone https://github.com/muhme/quote_joomla
+host$ cd quote_joomla
+host$ docker compose up -d
 ```
 
 Six Docker containers are running:
 
 ```
-$ docker ps
+host$ docker ps
 IMAGE                   PORTS                  NAMES
 mysql                   3306/tcp, 33060/tcp    quote_joomla_mysql
 phpmyadmin/phpmyadmin   0.0.0.0:2001->80/tcp   quote_joomla_mysqladmin
@@ -45,7 +46,7 @@ cypress/included        0.0.0.0:2080->80/tcp   quote_joomla_cypress
 
 As a base for the Cypress test automation the npm package [joomla-projects/joomla-cypress](https://github.com/joomla-projects/joomla-cypress) is used. Currently my fork is used until all the fixes are done with the pull request. To install the dependencies do:
 ```
-$ npm i
+host$ npm i
 ```
 
 ## Testing
@@ -55,10 +56,11 @@ You can test the Joomla module with automatic Joomla and module installation.
 :warning: You have to remember for each new created docker container you can run installation only once.
 
 ### Interactive on Host Machine
+
 You can choose the desired Joomla! version with environment variable `JOOMLA_VERSION`. [Cypress](https://www.cypress.io/) can be started inside subfolder `test`.
 ```
-$ cd test
-$ JOOMLA_VERSION=4 npx cypress open
+host$ cd test
+host$ JOOMLA_VERSION=4 npx cypress open
 ```
 
 In Cypress, you use E2E Testing, launch your favorite browser and with the `install.cy.js` script you have automatic Joomla and module installation. This can run once after the Docker containers are created.
@@ -66,9 +68,10 @@ In Cypress, you use E2E Testing, launch your favorite browser and with the `inst
 ![Cypress install screen shoot](images/install_screen.png)
 
 ### Headless With Docker Container
+
 You can use the prepared docker container `quote_joomla_cypress`:
 ```
-$ docker exec -it quote_joomla_cypress sh -c "JOOMLA_VERSION=5 cypress run"
+host$ docker exec -it quote_joomla_cypress sh -c "JOOMLA_VERSION=5 cypress run"
 
   (Run Starting)
 
@@ -92,4 +95,16 @@ $ docker exec -it quote_joomla_cypress sh -c "JOOMLA_VERSION=5 cypress run"
   │ ✔  install.cy.js                  00:40        1        1        -        -        - │
   └──────────────────────────────────────────────────────────────────────────────────────┘
     ✔  All specs passed!              00:40        1        1        -        -        -  
+```
+
+## Development
+
+One way to work inside the Docker container is to use "Attach to running Docker container" from VS Code.
+
+If you want to sync your checkout with Docker as well, that's a bit tricky. After installation of the moduel we sym link the mounted git checkout `/quote_joomla` inside container as module folder. Here from example for the Joomla 5 container:
+```
+host$ docker exec -it quote_joomla_5 /bin/bash
+quote_joomla_5$ cd /var/www/html/modules
+quote_joomla_5$ rm -r mod_zitat_service_de
+quote_joomla_5$ ln -s /quote_joomla mod_zitat_service_de
 ```
