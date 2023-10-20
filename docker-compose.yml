@@ -7,7 +7,7 @@ services:
 
   mysql:
     container_name: quote_joomla_mysql
-    image: mysql # actual 8.1.0, fine Joomla 5 needs >= 8.0.13
+    image: mysql # Joomla 5 needs >= 8.0.13, actual 8.1.0
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -39,7 +39,7 @@ services:
 
   joomla4:
     container_name: quote_joomla_4
-    image: joomla:4 # actual 4.3
+    image: joomla:4.4 # actual 4.4.0
     restart: unless-stopped
     ports:
       - 2004:80
@@ -53,7 +53,7 @@ services:
 
   joomla5:
     container_name: quote_joomla_5
-    image: joomla:5.0 # actual 5.0.0-rc1
+    image: joomla:5 # actual 5.0.0
     restart: unless-stopped
     ports:
       - 2005:80

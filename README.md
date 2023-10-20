@@ -104,7 +104,7 @@ One way to work inside the Docker container is to use "Attach to running Docker 
 If you want to sync your checkout with Docker as well, that's a bit tricky. After installation of the moduel we sym link the mounted git checkout `/quote_joomla` inside container as module folder. Here from example for the Joomla 5 container:
 ```
 host$ docker exec -it quote_joomla_5 /bin/bash
-quote_joomla_5$ cd /var/www/html/modules
-quote_joomla_5$ rm -r mod_zitat_service_de
-quote_joomla_5$ ln -s /quote_joomla mod_zitat_service_de
+quote_joomla_5# cd /var/www/html/modules
+quote_joomla_5# rm -r mod_zitat_service_de
+quote_joomla_5# ln -s /quote_joomla mod_zitat_service_de
 ```
