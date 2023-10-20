@@ -101,7 +101,7 @@ host$ docker exec -it quote_joomla_cypress sh -c "JOOMLA_VERSION=5 cypress run"
 
 One way to work inside the Docker container is to use "Attach to running Docker container" from VS Code.
 
-If you want to sync your checkout with Docker as well, that's a bit tricky. Reason for this is that the Joomla container uses a volume for `/var/www/html` and the folder `modules/mod_zitat_service_en` exists of course only after the installation.  The reason is that the Joomla container uses a volume for folder `/var/www/html` and inside the folder `modules/mod_zitat_service_en` does not exist before the module installation.  As an example for the Joomla 5 container:
+If you want to sync your checkout with Docker as well, that's a bit tricky. The reason is that the Joomla container uses a volume for folder `/var/www/html` and inside the folder `modules/mod_zitat_service_en` does not exist before the module installation.  As an example for the Joomla 5 container:
 ```
 host$ docker exec -it quote_joomla_5 /bin/bash
 quote_joomla_5# cd /var/www/html/modules
