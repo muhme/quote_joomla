@@ -44,7 +44,7 @@ describe(`Install Joomla ${Cypress.env("joomla_version")} and module zitat-servi
     cy.setErrorReportingToDevelopment();
 
     // cy.installExtensionFromUrl('https://www.zitat-service.de/joomla/mod_zitat_service_de_1.4.2.zip')
-    cy.installExtensionFromFolder("/quote_joomla"); // as mounted in docker image
+    cy.installExtensionFromFolder("/quote_joomla/src"); // as mounted in docker image
 
     cy.publishModule("zitat-service.de");
 

@@ -9,15 +9,17 @@
 	<copyright>Heiko Lübbe</copyright>
 	<license>GNU/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html</license>
 	<authorEmail>heiko.luebbe@zitat-service.de</authorEmail>
-	<authorUrl>https://www.zitat-service.de/joomla</authorUrl>
-	<version>1.4.3</version>
+	<authorUrl>https://github.com/muhme/quote_joomla</authorUrl>
+	<version>2.0.0</version>
 	<description>MOD_ZITAT_SERVICE_DE_XML_DESCRIPTION</description>
 	<files>
 		<filename module="mod_zitat_service_de">mod_zitat_service_de.php</filename>
+		<filename>helper.php</filename>
 		<filename>index.html</filename>
 		<filename>tmpl/default.php</filename>
 		<filename>tmpl/index.html</filename>
 		<filename>js/lazyload-min.js</filename>
+		<filename>fields/categorylist.php</filename>
 	</files>
 	<languages folder="language">
 		<language tag="en-GB">en-GB.mod_zitat_service_de.ini</language>
@@ -27,25 +29,19 @@
 	</languages>
 	<config>
 		<fields name="params">
-			<fieldset name="basic">
+			<fieldset name="basic" addfieldpath="modules/mod_zitat_service_de/fields">
 				<field	name="author"
-					type="text"
-					filter="safehtml"
-					maxlength="50"
-					label="MOD_ZITAT_SERVICE_DE_FIELD_AUTHOR_LABEL"
-					description="MOD_ZITAT_SERVICE_DE_FIELD_AUTHOR_DESC" />
+						type="ZitatService.AuthorList"
+						label="MOD_ZITAT_SERVICE_DE_FIELD_AUTHOR_LABEL"
+						description="MOD_ZITAT_SERVICE_DE_FIELD_AUTHOR_DESC" />
 				<field	name="category"
-					type="text"
-					filter="safehtml"
-					maxlength="50"
-					label="MOD_ZITAT_SERVICE_DE_FIELD_CATEGORY_LABEL"
-					description="MOD_ZITAT_SERVICE_DE_FIELD_CATEGORY_DESC" />
+						type="ZitatService.CategoryList"
+						label="MOD_ZITAT_SERVICE_DE_FIELD_CATEGORY_LABEL"
+						description="MOD_ZITAT_SERVICE_DE_FIELD_CATEGORY_DESC" />
 				<field	name="user"
-					type="text"
-					filter="safehtml"
-					maxlength="50"
-					label="MOD_ZITAT_SERVICE_DE_FIELD_USER_LABEL"
-					description="MOD_ZITAT_SERVICE_DE_FIELD_USER_DESC" />
+						type="ZitatService.UserList"
+						label="MOD_ZITAT_SERVICE_DE_FIELD_USER_LABEL"
+						description="MOD_ZITAT_SERVICE_DE_FIELD_USER_DESC" />
 			</fieldset>
 			<fieldset name="advanced">
 				<field	name="window"

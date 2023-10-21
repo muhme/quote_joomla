@@ -15,6 +15,11 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
+JFormHelper::addFieldPath(JPATH_SITE . '/modules/mod_zitat_service_de/fields');
+require_once dirname(__FILE__) . '/helper.php';
+$language = ZitatServiceHelper::getActualLanguage();
+echo "language: " . $language;
+
 // TODO: correct to supress deprecated depending on error reporting or better on logging, and what about to have deprecated directly to the logs and not the user
 $config = JFactory::getConfig();
 $errorReporting = $config->get('error_reporting');
@@ -26,7 +31,7 @@ if ($errorReporting != 'maximun') {
 $document = JFactory::getDocument();
 $modbase = ''.JURI::base().'modules/mod_zitat_service_de/';
 
-$run = "https://api.zitat-service.de/v1/quote_html?content_only=true&language=es&mod_zitat_service_2.0.0";
+$run = "https://api.zitat-service.de/v1/quote_html?content_only=true&mod_zitat_service_2.0.0&language=" . $language;
 
 $script   = $params->get('script'); // boolean 0 or 1
 $category = trim($params->get('category' ?? ''));
@@ -36,13 +41,16 @@ $window   = trim($params->get('window'   ?? ''));
 $height   = trim($params->get('height'   ?? ''));
 
 if (!empty($category)) {
-	$run .= "&category=$category";
+  echo "category: $category";
+	$run .= "&categoryId=$category";
 };
 if (!empty($user)) {
-	$run .= "&user=$user";
+  echo "user: $user";
+	$run .= "&userId=$user";
 };
 if (!empty($author)) {
-	$run .= "&author=$author";
+  echo "author: $author";
+	$run .= "&authorId=$author";
 };
 if (!empty($window)) {
 	$run .= "&window=$window";
