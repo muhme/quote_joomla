@@ -1,6 +1,7 @@
 <?php
 
 define('ZITAT_SERVICE_MODULE_VERSION', '2.0.0');
+// define('ZITAT_SERVICE_API_URL', 'http://host.docker.internal:3000/v1');
 define('ZITAT_SERVICE_API_URL', 'https://api.zitat-service.de/v1');
 
 defined('_JEXEC') or die;
@@ -26,10 +27,23 @@ class ZitatServiceHelper
         return in_array($langShort, $validLanguages) ? $langShort : 'en';
     }
 
+    /**
+     * return HTML quote
+     * e.g. <div class="quote">
+     *        <div class="quotation">
+     *          <a href="https://www.zitat-service.de/en/quotations/1127">
+     *            It's nice to be important, but it's more important to be nice.
+     *          </a>
+     *        </div>
+     *        <div class="source">John Cassis
+     *        </div>
+     *      </div>
+     */
     public static function getQuote($params)
     {
 
-        $url = ZITAT_SERVICE_API_URL . '/quote_html?mod_zitat_service_' . ZITAT_SERVICE_MODULE_VERSION;
+        $url = ZITAT_SERVICE_API_URL . '/quote_html?contentOnly=true' .
+               '&mod_zitat_service_' . ZITAT_SERVICE_MODULE_VERSION;
         $url = self::extendWithParams($url, $params);
 
         try {
@@ -51,21 +65,43 @@ class ZitatServiceHelper
                 // check if the required keys exist
                 if (isset($data['error']['message'])) {
                     // return only the error message
-                    return $data['error']['message'];
+                    return self::ohDear($url, $response->code, $data['error']['message']);
                 }
                 // else use the entire returned content
-                return 'Error ' . substring($response->body, 0, 100);
+                return self::ohDear($url, 'Error', $response->body);
             } else {
-                // e.g. HTTP/1.1 301 Moved Permanently
-                $quote = "Error "; //. substr($response->body, 0, 100) . $url;
+                // converts the JSON object into a PHP associative array
+                // from e.g. {"error":{"statusCode":500,"message":"Internal Server Error"}}
+                $data = json_decode($response->body, true);
+                // check if the required keys exist
+                if (isset($data['error']['message'])) {
+                    // return only the error message
+                    return self::ohDear($url, $response->code, $data['error']['message']);
+                }
+                // else e.g. HTTP/1.1 301 Moved Permanently
+                return self::ohDear($url, 'Error', $response->code, $response->body);
             }
-        } catch (Exception $e) {
-            // handle exceptions if any
-            return 'Exception ' . get_class($e) . ' ' . $e->getMessage() . ", url=[" . $url . "]";
-        } catch (Error $e) {
-            // handle errors like TypeError, ParseError, etc.
-            return 'Error ' . $e->getMessage() . ", url=[" . $url . "]";
-        }
+        } catch (Throwable $t) {
+            // handle Exceptions and Errors
+            return self::ohDear($url, get_class($t), $t->getMessage());
+        } 
+        return self::ohDear($url, 'Error', 'End of getQuote()');
+    }
+
+    /**
+     * Oh my dear!
+     * shorten error $msg to 100 chars if needed and extend with $url
+     * e.g. 500 Internal Server Error "http://host.docker.internal:3000/v1/quote_html?mod_zitat_service_2.0.0&language=de"
+     */
+    private static function ohDear($url, ...$params) {
+        $processedParams = array_map(function($param) {
+            // if the parameter is a string and its length is more than 100 characters, truncate it
+            if (is_string($param) && strlen($param) > 100) {
+                return substr($param, 0, 100);
+            }
+            return $param;
+        }, $params);
+        return implode(' ', $processedParams) . ' "' . $url . '"';
     }
 
     /**
