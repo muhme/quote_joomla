@@ -1,17 +1,20 @@
 <?php
+
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Form\FormField;
 use Joomla\CMS\Http\HttpFactory;
 
-class ZitatServiceFormFieldAuthorList extends FormField
+class JFormFieldZitatServiceAuthorList extends JFormField
 {
     protected $type = 'ZitatServiceAuthorList';
 
     protected function getInput()
     {
         $http = HttpFactory::getHttp();
-        $url = 'https://api.zitat-service.de/v1/authors?size=2000&language=de';
+        $language = ZitatServiceHelper::getActualLanguage();
+        // Oct 24th 2023 we have 562 authors, simple get them all in one request
+        $url = ZITAT_SERVICE_API_URL . '/authors?size=2000&language=' . $language;
         $response = $http->get($url);
 
         $authors = [];

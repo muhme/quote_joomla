@@ -1,4 +1,5 @@
 <?php
+
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Form\FormField;
@@ -6,7 +7,7 @@ use Joomla\CMS\Http\HttpFactory;
 
 require_once dirname(__FILE__) . '/../helper.php';
 
-class ZitatServiceFormFieldCategoryList extends FormField
+class JFormFieldZitatServiceCategoryList extends JFormField
 {
     protected $type = 'ZitatServiceCategoryList';
 
@@ -14,7 +15,8 @@ class ZitatServiceFormFieldCategoryList extends FormField
     {
         $http = HttpFactory::getHttp();
         $language = ZitatServiceHelper::getActualLanguage();
-        $url = 'https://api.zitat-service.de/v1/categories?size=2000&language=' . $language;
+        // Oct 24th 2023 we have 570 categories, simple get them all in one request
+        $url = ZITAT_SERVICE_API_URL . '/categories?size=2000&language=' . $language;
         $response = $http->get($url);
 
         $categories = [];

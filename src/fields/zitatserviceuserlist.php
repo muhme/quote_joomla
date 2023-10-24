@@ -1,17 +1,19 @@
 <?php
+
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Form\FormField;
 use Joomla\CMS\Http\HttpFactory;
 
-class ZitatServiceFormFieldUserList extends FormField
+class JFormFieldZitatServiceUserList extends JFormField
 {
-    protected $type = 'UserList';
+    protected $type = 'ZitatServiceUserList';
 
     protected function getInput()
     {
         $http = HttpFactory::getHttp();
-        $url = 'https://api.zitat-service.de/v1/users?size=2000';
+        // Oct 24th 2023 we have 60 users with quotes, simple get them all in one request
+        $url = ZITAT_SERVICE_API_URL . '/users?size=2000&';
         $response = $http->get($url);
 
         $users = [];
