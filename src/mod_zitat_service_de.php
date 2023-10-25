@@ -1,7 +1,7 @@
 <?php
 /*
  * mod_zitat_service_de.php
- * Joomla 3 Module to show fortune quotation
+ * Joomla 3/4/5 Module to show random quote
  * version: 2.0.0
  * @author Heiko Lübbe
  * @copyright (C) 2008- Heiko Lübbe

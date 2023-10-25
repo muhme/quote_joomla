@@ -2,9 +2,20 @@
 
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Form\FormField;
 use Joomla\CMS\Http\HttpFactory;
 
+/*
+ * Custom field which fetches all authors from API to select one by ID.
+ * 
+ * zitatserviceauthorlist.php
+ * Joomla 3/4/5 Module to show random quote
+ * version: 2.0.0
+ * @author Heiko Lübbe
+ * @copyright (C) 2023- Heiko Lübbe
+ * @licence GNI/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
+ * https://www.zitat-service.de
+ * Oct/25/2023
+ */
 class JFormFieldZitatServiceAuthorList extends JFormField
 {
     protected $type = 'ZitatServiceAuthorList';
@@ -28,7 +39,7 @@ class JFormFieldZitatServiceAuthorList extends JFormField
                     }
                     if (isset($author->firstname)) {
                         $authors[$author->authorId] .= ", " . $author->firstname;
-                    } 
+                    }
                 }
             }
         }
