@@ -21,10 +21,16 @@
 		<filename>js/lazyload-min.js</filename>
 	</files>
 	<languages folder="language">
-		<language tag="en-GB">en-GB.mod_zitat_service_de.ini</language>
-		<language tag="de-DE">de-DE.mod_zitat_service_de.ini</language>
-		<language tag="en-GB">en-GB.mod_zitat_service_de.sys.ini</language>
-		<language tag="de-DE">de-DE.mod_zitat_service_de.sys.ini</language>
+		<language tag="en-GB">en-GB/en-GB.mod_zitat_service_de.ini</language>
+		<language tag="en-GB">en-GB/en-GB.mod_zitat_service_de.sys.ini</language>
+		<language tag="de-DE">de-DE/de-DE.mod_zitat_service_de.ini</language>
+		<language tag="de-DE">de-DE/de-DE.mod_zitat_service_de.sys.ini</language>
+		<language tag="es-ES">es-ES/es-ES.mod_zitat_service_de.ini</language>
+		<language tag="es-ES">es-ES/es-ES.mod_zitat_service_de.sys.ini</language>
+		<language tag="ja-JP">ja-JP/ja-JP.mod_zitat_service_de.ini</language>
+		<language tag="ja-JP">ja-JP/ja-JP.mod_zitat_service_de.sys.ini</language>
+		<language tag="uk-UA">uk-UA/uk-UA.mod_zitat_service_de.ini</language>
+		<language tag="uk-UA">uk-UA/uk-UA.mod_zitat_service_de.sys.ini</language>
 	</languages>
 	<config>
 		<fields name="params">
