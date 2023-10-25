@@ -1,6 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!-- (c) www.zitat-service.de, Heiko Lübbe -->
 <!-- Apr-5-2013 - Oct-25-2023              -->
-<?xml version="1.0" encoding="utf-8"?>
 <extension	type="module"
 		version="3.1"
 		client="site"
@@ -21,6 +21,11 @@
 		<filename>tmpl/default.php</filename>
 		<filename>tmpl/index.html</filename>
 		<filename>js/zitatservice.js</filename>
+		<filename>js/index.html</filename>
+		<filename>fields/zitatservicecategorylist.php</filename>
+		<filename>fields/zitatserviceauthorlist.php</filename>
+		<filename>fields/zitatserviceuserlist.php</filename>
+		<filename>fields/index.html</filename>
 	</files>
 	<languages folder="language">
 		<language tag="en-GB">en-GB/en-GB.mod_zitat_service_de.ini</language>
@@ -39,20 +44,16 @@
 			<fieldset name="basic" addfieldpath="modules/mod_zitat_service_de/fields">
 				<field	name="author"
 						type="ZitatServiceAuthorList"
-						label="MOD_ZITAT_SERVICE_DE_FIELD_AUTHOR_LABEL"
-						description="MOD_ZITAT_SERVICE_DE_FIELD_AUTHOR_DESC" />
+						label="MOD_ZITAT_SERVICE_DE_FIELD_AUTHOR_LABEL" />
 				<field	name="category"
 						type="ZitatServiceCategoryList"
-						label="MOD_ZITAT_SERVICE_DE_FIELD_CATEGORY_LABEL"
-						description="MOD_ZITAT_SERVICE_DE_FIELD_CATEGORY_DESC" />
+						label="MOD_ZITAT_SERVICE_DE_FIELD_CATEGORY_LABEL" />
 				<field	name="user"
 						type="ZitatServiceUserList"
-						label="MOD_ZITAT_SERVICE_DE_FIELD_USER_LABEL"
-						description="MOD_ZITAT_SERVICE_DE_FIELD_USER_DESC" />
+						label="MOD_ZITAT_SERVICE_DE_FIELD_USER_LABEL" />
 				<field	name="language" 
                 		type="list"
-                		label="Select Language" 
-                		description="Select a language">
+                		label="MOD_ZITAT_SERVICE_DE_FIELD_LANGUAGE_LABEL">
 					<option value="">frontend</option>
 					<option value="all">&#127757; all</option>        <!-- 🌍 -->
 					<option value="de">&#127465;&#127466; de</option> <!-- 🇩🇪 -->
@@ -67,19 +68,16 @@
 					type="text"
 					filter="safehtml"
 					maxlength="50"
-					label="MOD_ZITAT_SERVICE_DE_FIELD_WINDOW_LABEL"
-					description="MOD_ZITAT_SERVICE_DE_FIELD_WINDOW_DESC" /> <!-- TODO in target -->
+					label="MOD_ZITAT_SERVICE_DE_FIELD_TARGET_LABEL" />
 				<field	name="height"
 					type="text"
 					filter="safehtml"
 					maxlength="50"
-					label="MOD_ZITAT_SERVICE_DE_FIELD_HEIGHT_LABEL"
-					description="MOD_ZITAT_SERVICE_DE_FIELD_HEIGHT_DESC" />
+					label="MOD_ZITAT_SERVICE_DE_FIELD_HEIGHT_LABEL" />
 				<field	name="script"
 					type="radio"
 					default="1"
-					label="MOD_ZITAT_SERVICE_DE_FIELD_SCRIPT_LABEL"
-					description="MOD_ZITAT_SERVICE_DE_FIELD_SCRIPT_DESC">
+					label="MOD_ZITAT_SERVICE_DE_FIELD_SCRIPT_LABEL">
 						<option value="0">MOD_ZITAT_SERVICE_DE_FIELD_SCRIPT_0</option>
 						<option value="1">MOD_ZITAT_SERVICE_DE_FIELD_SCRIPT_1</option>
 				</field>
