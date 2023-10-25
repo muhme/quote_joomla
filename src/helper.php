@@ -57,10 +57,10 @@ class ZitatServiceHelper
             $document = JFactory::getDocument();
             // load asynchron and in the end
             $document->addScript(JUri::base() . 'modules/mod_zitat_service_de/js/zitatservice.js', [], ['defer' => 'false']); // , 'async' => 'true']);
-            $style = isset($height) ? 'style="min-height: ' . htmlspecialchars($height, ENT_QUOTES, 'UTF-8') . ';" ' : ''; 
+            $style = isset($height) ? 'style="min-height: ' . htmlspecialchars($height, ENT_QUOTES, 'UTF-8') . ';" ' : '';
             return '<div id="zitat-service-data"' .
-              ' url="' . htmlspecialchars($url, ENT_QUOTES, 'UTF-8') . '"' .
-              '></div><div ' . $style . 'id="zitat-service"></div>';
+            ' url="' . htmlspecialchars($url, ENT_QUOTES, 'UTF-8') . '"' .
+                '></div><div ' . $style . 'id="zitat-service"></div>';
         } else {
             // synchronous PHP
             try {
@@ -128,7 +128,7 @@ class ZitatServiceHelper
      */
     private static function extendWithParams($url, $params)
     {
-        // module parameter
+        // module parameter for URL
         $user = trim($params->get('user' ?? ''));
         $author = trim($params->get('author' ?? ''));
         $category = trim($params->get('category' ?? ''));
@@ -144,10 +144,8 @@ class ZitatServiceHelper
             $url .= "&language=" . ZitatServiceHelper::getActualLanguage();
         }
 
-        // enhanced module parameter
-        $script = $params->get('script'); // boolean 0 or 1
-        $window = trim($params->get('window' ?? ''));
-        $height = trim($params->get('height' ?? ''));
+        // enhanced module parameter for URL
+        $target = trim($params->get('target' ?? ''));
 
         if (!empty($category)) {
             $url .= "&categoryId=$category";
@@ -158,8 +156,8 @@ class ZitatServiceHelper
         if (!empty($author)) {
             $url .= "&authorId=$author";
         }
-        if (!empty($window)) {
-            $url .= "&window=$window";
+        if (!empty($target)) {
+            $url .= "&target=$target";
         }
         return $url;
     }

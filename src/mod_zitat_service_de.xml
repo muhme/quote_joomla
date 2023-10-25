@@ -55,12 +55,12 @@
             	</field>
 			</fieldset>
 			<fieldset name="advanced">
-				<field	name="window"
+				<field	name="target"
 					type="text"
 					filter="safehtml"
 					maxlength="50"
 					label="MOD_ZITAT_SERVICE_DE_FIELD_WINDOW_LABEL"
-					description="MOD_ZITAT_SERVICE_DE_FIELD_WINDOW_DESC" />
+					description="MOD_ZITAT_SERVICE_DE_FIELD_WINDOW_DESC" /> <!-- TODO in target -->
 				<field	name="height"
 					type="text"
 					filter="safehtml"
