@@ -43,48 +43,66 @@ class ZitatServiceHelper
     {
 
         $url = ZITAT_SERVICE_API_URL . '/quote_html?contentOnly=true' .
-               '&mod_zitat_service_' . ZITAT_SERVICE_MODULE_VERSION;
+            '&mod_zitat_service_' . ZITAT_SERVICE_MODULE_VERSION;
         $url = self::extendWithParams($url, $params);
 
-        try {
-            // don't follow redirect
-            $options = new JRegistry();
-            $options->set('timeout', 3); // seconds
-            $options->set('transport.curl', array(CURLOPT_FOLLOWLOCATION => 0)); // do not follow redirects
-            $http = JHttpFactory::getHttp($options, 'curl');
-            $response = $http->get($url);
+        // advanced module parameters
+        $height = $params->get('height');
+        // use synchronous getHttp() or asynchronous JavaScript?
+        $script = $params->get('script'); // boolean 0 or 1
 
-            if ($response->code == 200) {
-                return $response->body;
-            } else if ($response->code == 404) {
-                // converts the JSON object into a PHP associative array
-                // from e.g. {"error":{"statusCode":404,"name":"NotFoundError",
-                //            "message":"No quote found for given parameters:
-                //            language=es (Spanish), userId=12 (Ingridko)."}}
-                $data = json_decode($response->body, true);
-                // check if the required keys exist
-                if (isset($data['error']['message'])) {
-                    // return only the error message
-                    return self::ohDear($url, $response->code, $data['error']['message']);
+        // TODO: check if JavaScript available in client
+        if ($script) {
+            // asynchronous JavaScript
+            $document = JFactory::getDocument();
+            // load asynchron and in the end
+            $document->addScript(JUri::base() . 'modules/mod_zitat_service_de/js/zitatservice.js', [], ['defer' => 'false']); // , 'async' => 'true']);
+            $style = isset($height) ? 'style="min-height: ' . htmlspecialchars($height, ENT_QUOTES, 'UTF-8') . ';" ' : ''; 
+            return '<div id="zitat-service-data"' .
+              ' url="' . htmlspecialchars($url, ENT_QUOTES, 'UTF-8') . '"' .
+              '></div><div ' . $style . 'id="zitat-service"></div>';
+        } else {
+            // synchronous PHP
+            try {
+                // don't follow redirect
+                $options = new JRegistry();
+                $options->set('timeout', 3); // seconds
+                $options->set('transport.curl', array(CURLOPT_FOLLOWLOCATION => 0)); // do not follow redirects
+                $http = JHttpFactory::getHttp($options, 'curl');
+                $response = $http->get($url);
+
+                if ($response->code == 200) {
+                    return $response->body;
+                } else if ($response->code == 404) {
+                    // converts the JSON object into a PHP associative array
+                    // from e.g. {"error":{"statusCode":404,"name":"NotFoundError",
+                    //            "message":"No quote found for given parameters:
+                    //            language=es (Spanish), userId=12 (Ingridko)."}}
+                    $data = json_decode($response->body, true);
+                    // check if the required keys exist
+                    if (isset($data['error']['message'])) {
+                        // return only the error message
+                        return self::ohDear($url, $response->code, $data['error']['message']);
+                    }
+                    // else use the entire returned content
+                    return self::ohDear($url, 'Error', $response->body);
+                } else {
+                    // converts the JSON object into a PHP associative array
+                    // from e.g. {"error":{"statusCode":500,"message":"Internal Server Error"}}
+                    $data = json_decode($response->body, true);
+                    // check if the required keys exist
+                    if (isset($data['error']['message'])) {
+                        // return only the error message
+                        return self::ohDear($url, $response->code, $data['error']['message']);
+                    }
+                    // else e.g. HTTP/1.1 301 Moved Permanently
+                    return self::ohDear($url, 'Error', $response->code, $response->body);
                 }
-                // else use the entire returned content
-                return self::ohDear($url, 'Error', $response->body);
-            } else {
-                // converts the JSON object into a PHP associative array
-                // from e.g. {"error":{"statusCode":500,"message":"Internal Server Error"}}
-                $data = json_decode($response->body, true);
-                // check if the required keys exist
-                if (isset($data['error']['message'])) {
-                    // return only the error message
-                    return self::ohDear($url, $response->code, $data['error']['message']);
-                }
-                // else e.g. HTTP/1.1 301 Moved Permanently
-                return self::ohDear($url, 'Error', $response->code, $response->body);
+            } catch (Throwable $t) {
+                // handle Exceptions and Errors
+                return self::ohDear($url, get_class($t), $t->getMessage());
             }
-        } catch (Throwable $t) {
-            // handle Exceptions and Errors
-            return self::ohDear($url, get_class($t), $t->getMessage());
-        } 
+        }
         return self::ohDear($url, 'Error', 'End of getQuote()');
     }
 
@@ -93,8 +111,9 @@ class ZitatServiceHelper
      * shorten error $msg to 100 chars if needed and extend with $url
      * e.g. 500 Internal Server Error "http://host.docker.internal:3000/v1/quote_html?mod_zitat_service_2.0.0&language=de"
      */
-    private static function ohDear($url, ...$params) {
-        $processedParams = array_map(function($param) {
+    private static function ohDear($url, ...$params)
+    {
+        $processedParams = array_map(function ($param) {
             // if the parameter is a string and its length is more than 100 characters, truncate it
             if (is_string($param) && strlen($param) > 100) {
                 return substr($param, 0, 100);
