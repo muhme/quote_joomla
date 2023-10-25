@@ -1,3 +1,5 @@
+<!-- (c) www.zitat-service.de, Heiko Lübbe -->
+<!-- Apr-5-2013 - Oct-25-2023              -->
 <?xml version="1.0" encoding="utf-8"?>
 <extension	type="module"
 		version="3.1"
@@ -18,7 +20,7 @@
 		<filename>index.html</filename>
 		<filename>tmpl/default.php</filename>
 		<filename>tmpl/index.html</filename>
-		<filename>js/lazyload-min.js</filename>
+		<filename>js/zitatservice.js</filename>
 	</files>
 	<languages folder="language">
 		<language tag="en-GB">en-GB/en-GB.mod_zitat_service_de.ini</language>
