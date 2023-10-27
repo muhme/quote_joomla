@@ -1,30 +1,59 @@
 <?php
+/*
+ * helper.php
+ * Joomla 3/4/5 Module to show random quote
+ * version: 2.0.0
+ * @author Heiko Lübbe
+ * @copyright (C) 2008- Heiko Lübbe
+ * @licence GNI/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
+ * https://www.zitat-service.de
+ * Oct-21-2023 - Oct-27-2023
+ */
+
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
 define('ZITAT_SERVICE_MODULE_VERSION', '2.0.0');
 // define('ZITAT_SERVICE_API_URL', 'http://host.docker.internal:3000/v1');
 define('ZITAT_SERVICE_API_URL', 'https://api.zitat-service.de/v1');
+// list of valid languages as from https://api.zitat-service.de/v1/languages
+define('LANGUAGES', ['de', 'es', 'en', 'ja', 'uk']);
+
+use \Joomla\CMS\Factory;
+use \Joomla\CMS\Uri\Uri;
+use \Joomla\Registry\Registry;
+use \Joomla\CMS\Http\HttpFactory;
 
 class ZitatServiceHelper
 {
+
+    // TODO lösche mich
+    public static function ensureBackwardCompatibility()
+    {
+        if (!class_exists('FormHelper')) {
+            // Ensure backward compatibility with Joomla 3/4
+            if (class_exists('JFormHelper')) {
+                class_alias('JFormHelper', 'FormHelper');
+            } else {
+                // Handle the case where neither FormHelper nor JFormHelper exists
+                throw new Exception('Neither FormHelper nor JFormHelper class is available.');
+            }
+        }
+    }
     /**
-     * get actual language w/o locale and fall back to "en" if not supported
-     * used for frontend module and backend module administration
+     * get actual language w/o locale and fall back to 'en' if not supported
      */
     public static function getActualLanguage()
     {
-        $language = JFactory::getLanguage();
+        // get actual used language from frontend or backend
+        $language = Factory::getLanguage();
         $tag = $language->getTag();
 
-        // Extract the first two characters to get the language shorthand
+        // from e.g. 'de-DE' extract the first two characters to get the language w/o country
         $langShort = substr($tag, 0, 2);
 
-        // List of valid languages
-        $validLanguages = ['de', 'es', 'en', 'ja', 'uk'];
-
-        // Check if the extracted language is in the valid list or default to 'en'
-        return in_array($langShort, $validLanguages) ? $langShort : 'en';
+        // extracted language is valid or default to 'en'
+        return in_array($langShort, LANGUAGES) ? $langShort : 'en';
     }
 
     /**
@@ -54,9 +83,9 @@ class ZitatServiceHelper
         // TODO: check if JavaScript available in client
         if ($script) {
             // asynchronous JavaScript
-            $document = JFactory::getDocument();
+            $document = Factory::getDocument();
             // load asynchron and in the end
-            $document->addScript(JUri::base() . 'modules/mod_zitat_service_de/js/zitatservice.js', [], ['defer' => 'false']); // , 'async' => 'true']);
+            $document->addScript(Uri::base() . 'modules/mod_zitat_service_de/js/zitatservice.js', [], ['defer' => 'false']); // , 'async' => 'true']);
             $style = isset($height) ? 'style="min-height: ' . htmlspecialchars($height, ENT_QUOTES, 'UTF-8') . ';" ' : '';
             return '<div id="zitat-service-data"' .
             ' url="' . htmlspecialchars($url, ENT_QUOTES, 'UTF-8') . '"' .
@@ -65,10 +94,10 @@ class ZitatServiceHelper
             // synchronous PHP
             try {
                 // don't follow redirect
-                $options = new JRegistry();
+                $options = new Registry();
                 $options->set('timeout', 3); // seconds
                 $options->set('transport.curl', array(CURLOPT_FOLLOWLOCATION => 0)); // do not follow redirects
-                $http = JHttpFactory::getHttp($options, 'curl');
+                $http = HttpFactory::getHttp($options, 'curl');
                 $response = $http->get($url);
 
                 if ($response->code == 200) {

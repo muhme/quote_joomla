@@ -2,8 +2,8 @@
 
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Form\FormField;
-use Joomla\CMS\Http\HttpFactory;
+use \Joomla\CMS\Form\FormField;
+use \Joomla\CMS\Http\HttpFactory;
 
 /*
  * Custom field which fetches all user login names with quotes from API to select one by ID.
@@ -17,7 +17,7 @@ use Joomla\CMS\Http\HttpFactory;
  * https://www.zitat-service.de
  * Oct/25/2023
  */
-class JFormFieldZitatServiceUserList extends JFormField
+class JFormFieldZitatServiceUserList extends FormField
 {
     protected $type = 'ZitatServiceUserList';
 

@@ -2,7 +2,8 @@
 
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Http\HttpFactory;
+use \Joomla\CMS\Http\HttpFactory;
+use \Joomla\CMS\Form\FormField;
 
 /*
  * Custom field which fetches all authors from API to select one by ID.
@@ -16,7 +17,7 @@ use Joomla\CMS\Http\HttpFactory;
  * https://www.zitat-service.de
  * Oct/25/2023
  */
-class JFormFieldZitatServiceAuthorList extends JFormField
+class JFormFieldZitatServiceAuthorList extends FormField
 {
     protected $type = 'ZitatServiceAuthorList';
 

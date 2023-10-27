@@ -15,11 +15,15 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-JFormHelper::addFieldPath(JPATH_SITE . '/modules/mod_zitat_service_de/fields');
+use \Joomla\CMS\Factory;
+use \Joomla\CMS\Form\FormHelper;
+use \Joomla\CMS\Helper\ModuleHelper;
+
+FormHelper::addFieldPath(JPATH_SITE . '/modules/mod_zitat_service_de/fields');
 require_once dirname(__FILE__) . '/helper.php';
 
 // TODO: correct to supress deprecated depending on error reporting or better on logging, and what about to have deprecated directly to the logs and not the user
-$config = JFactory::getConfig();
+$config = Factory::getConfig();
 $errorReporting = $config->get('error_reporting');
 if ($errorReporting != 'maximun') {
     // Suppress deprecated messages
@@ -28,4 +32,4 @@ if ($errorReporting != 'maximun') {
 
 $quote = ZitatServiceHelper::getQuote($params);
 
-require JModuleHelper::getLayoutPath('mod_zitat_service_de');
+require ModuleHelper::getLayoutPath('mod_zitat_service_de');

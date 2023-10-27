@@ -2,8 +2,8 @@
 
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Form\FormField;
-use Joomla\CMS\Http\HttpFactory;
+use \Joomla\CMS\Form\FormField;
+use \Joomla\CMS\Http\HttpFactory;
 
 require_once dirname(__FILE__) . '/../helper.php';
 
@@ -19,7 +19,7 @@ require_once dirname(__FILE__) . '/../helper.php';
  * https://www.zitat-service.de
  * Oct/25/2023
  */
-class JFormFieldZitatServiceCategoryList extends JFormField
+class JFormFieldZitatServiceCategoryList extends FormField
 {
     protected $type = 'ZitatServiceCategoryList';
 

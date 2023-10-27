@@ -1,6 +1,9 @@
 # Joomla! module for zitat-service.de
-# version 3, 4 and 5 (release candidate) test and development environment
+# supporting test and development environment for Joomla version 3, 4 and 5
 #
+# www.zitat-service.de, Heiko Lübbe
+# Oct-14-2013 - Oct-27-2023
+
 version: '3.1'
 
 services:
