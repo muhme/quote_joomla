@@ -4,9 +4,8 @@
 // type definitions for Cypress object "cy"
 import "joomla-cypress";
 
-describe(`Install Joomla ${Cypress.env("joomla_version")} and module zitat-service`, () => {
-  it("Install Joomla and module zitat-service", function () {
-    cy.exec("rm configuration.php", { failOnNonZeroExit: false });
+describe(`Install Joomla 3 and module zitat-service`, () => {
+  it("Install Joomla 3 and module zitat-service", function () {
 
     let config = {
       joomla_version: Cypress.env("joomla_version"),
@@ -23,9 +22,7 @@ describe(`Install Joomla ${Cypress.env("joomla_version")} and module zitat-servi
       db_prefix: Cypress.env("db_prefix"),
     };
 
-    const languages = ["German", "Japanese", "Spanish", "Ukrainian"];
-
-    cy.installJoomlaMultilingualSite(config, languages);
+    cy.installJoomla(config);
 
     cy.doAdministratorLogin(config.username, config.password);
 
