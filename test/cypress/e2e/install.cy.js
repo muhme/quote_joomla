@@ -1,7 +1,14 @@
 /// <reference types="cypress" />
+
+// Copyright (c) 2023 Heiko Lübbe
+// This software is licensed under the MIT License.
+// For the full license text, see the LICENSE file in the project root or visit https://opensource.org/licenses/MIT
+//
+// Cypress automated Joomla 4 and 5 multilingual installation with five languages + module installation and configuration
+// 
 // Inspired from https://github.com/joomla/joomla-cms/blob/5.0-dev/tests/System/integration/install/Installation.cy.js
 
-// type definitions for Cypress object "cy"
+// based on npm joomla-cypress, import type definitions for Cypress object "cy"
 import "joomla-cypress";
 
 describe(`Install Joomla ${Cypress.env("joomla_version")} and module zitat-service`, () => {
@@ -35,7 +42,6 @@ describe(`Install Joomla ${Cypress.env("joomla_version")} and module zitat-servi
 
     cy.setErrorReportingToDevelopment();
 
-    // cy.installExtensionFromUrl('https://www.zitat-service.de/joomla/mod_zitat_service_de_1.4.2.zip')
     cy.installExtensionFromFolder("/quote_joomla/src"); // as mounted in docker image
 
     cy.publishModule("zitat-service.de");
