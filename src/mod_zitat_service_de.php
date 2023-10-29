@@ -1,13 +1,10 @@
 <?php
 /*
  * mod_zitat_service_de.php
- * Joomla 3/4/5 Module to show random quote
- * version: 2.0.0
- * @author Heiko Lübbe
- * @copyright (C) 2008- Heiko Lübbe
- * @licence GNI/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
- * https://www.zitat-service.de
  * Feb/21/2008 - Oct/24/2023
+ * 
+ * MIT License, Copyright (c) 2008 - 2023 Heiko Lübbe
+ * https://github.com/muhme/quote_joomla
  *
  * todo: Can only be used once at the moment. Could be extended with module's id to enable multiple JavaScript event handlers. But I cannot get module's id at the moment.
  */

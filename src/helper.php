@@ -1,19 +1,16 @@
 <?php
 /*
  * helper.php
- * Joomla 3/4/5 Module to show random quote
- * version: 2.0.0
- * @author Heiko Lübbe
- * @copyright (C) 2008- Heiko Lübbe
- * @licence GNI/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
- * https://www.zitat-service.de
- * Oct-21-2023 - Oct-27-2023
+ * Oct-21-2023 - Oct-29-2023
+ *
+ * MIT License, Copyright (c) 2008 - 2023 Heiko Lübbe
+ * https://github.com/muhme/quote_joomla
  */
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-define('ZITAT_SERVICE_MODULE_VERSION', '2.0.0');
+define('ZITAT_SERVICE_MODULE_VERSION', '2.0.1');
 // define('ZITAT_SERVICE_API_URL', 'http://host.docker.internal:3000/v1');
 define('ZITAT_SERVICE_API_URL', 'https://api.zitat-service.de/v1');
 // list of valid languages as from https://api.zitat-service.de/v1/languages
@@ -26,20 +23,6 @@ use \Joomla\CMS\Http\HttpFactory;
 
 class ZitatServiceHelper
 {
-
-    // TODO lösche mich
-    public static function ensureBackwardCompatibility()
-    {
-        if (!class_exists('FormHelper')) {
-            // Ensure backward compatibility with Joomla 3/4
-            if (class_exists('JFormHelper')) {
-                class_alias('JFormHelper', 'FormHelper');
-            } else {
-                // Handle the case where neither FormHelper nor JFormHelper exists
-                throw new Exception('Neither FormHelper nor JFormHelper class is available.');
-            }
-        }
-    }
     /**
      * get actual language w/o locale and fall back to 'en' if not supported
      */
@@ -70,9 +53,7 @@ class ZitatServiceHelper
      */
     public static function getQuote($params)
     {
-
-        $url = ZITAT_SERVICE_API_URL . '/quote_html?contentOnly=true' .
-            '&mod_zitat_service_' . ZITAT_SERVICE_MODULE_VERSION;
+        $url = ZITAT_SERVICE_API_URL . '/quote_html?contentOnly=true&mod_zitat_service_' . ZITAT_SERVICE_MODULE_VERSION;
         $url = self::extendWithParams($url, $params);
 
         // advanced module parameters
@@ -85,7 +66,7 @@ class ZitatServiceHelper
             // asynchronous JavaScript
             $document = Factory::getDocument();
             // load asynchron and in the end
-            $document->addScript(Uri::base() . 'modules/mod_zitat_service_de/js/zitatservice.js', [], ['defer' => 'false']); // , 'async' => 'true']);
+            $document->addScript(Uri::base() . 'modules/mod_zitat_service_de/js/zitatservice.js', [], ['defer' => 'false']);
             $style = isset($height) ? 'style="min-height: ' . htmlspecialchars($height, ENT_QUOTES, 'UTF-8') . ';" ' : '';
             return '<div id="zitat-service-data"' .
             ' url="' . htmlspecialchars($url, ENT_QUOTES, 'UTF-8') . '"' .
@@ -93,7 +74,6 @@ class ZitatServiceHelper
         } else {
             // synchronous PHP
             try {
-                // don't follow redirect
                 $options = new Registry();
                 $options->set('timeout', 3); // seconds
                 $options->set('transport.curl', array(CURLOPT_FOLLOWLOCATION => 0)); // do not follow redirects
@@ -138,7 +118,7 @@ class ZitatServiceHelper
     /**
      * Oh my dear!
      * shorten error $msg to 100 chars if needed and extend with $url
-     * e.g. 500 Internal Server Error "http://host.docker.internal:3000/v1/quote_html?mod_zitat_service_2.0.0&language=de"
+     * e.g. 500 Internal Server Error "http://host.docker.internal:3000/v1/quote_html?mod_zitat_service_2.0.1&language=de"
      */
     private static function ohDear($url, ...$params)
     {

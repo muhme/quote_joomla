@@ -3,11 +3,11 @@
 Joomla! module for zitat-service.de
 
 Supporting Joomla/PHP versions:
-| PHP | Joomla |
-|-----|--------|
-| 8.0 | 3.10   |
-| 8.1 | 4.4    |
-| 8.2 | 5.0    |
+| Joomla | PHP |
+|--------|-----|
+| 3.10   | 8.0 |
+| 4.4    | 8.1 |
+| 5.0    | 8.2 |
 
 * the Joomla! module is using the new OpenAPI [api.zitat-service.de](https://api.zitat-service.de/)
 * development is not yet finished, but the module works in all three Joomla versions

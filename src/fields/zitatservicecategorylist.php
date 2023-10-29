@@ -1,5 +1,11 @@
 <?php
-
+/*
+ * zitatservicecategorylist.php
+ * Oct-25-2023
+ *
+ * MIT License, Copyright (c) 2008 - 2023 Heiko Lübbe
+ * https://github.com/muhme/quote_joomla
+ */
 defined('_JEXEC') or die;
 
 use \Joomla\CMS\Form\FormField;
@@ -9,15 +15,6 @@ require_once dirname(__FILE__) . '/../helper.php';
 
 /*
  * Custom field which fetches all categories from API to select one by ID.
- * 
- * zitatservicecategorylist.php
- * Joomla 3/4/5 Module to show random quote
- * version: 2.0.0
- * @author Heiko Lübbe
- * @copyright (C) 2023- Heiko Lübbe
- * @licence GNI/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
- * https://www.zitat-service.de
- * Oct/25/2023
  */
 class JFormFieldZitatServiceCategoryList extends FormField
 {

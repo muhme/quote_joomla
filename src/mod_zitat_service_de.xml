@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- (c) www.zitat-service.de, Heiko Lübbe -->
-<!-- Apr-5-2013 - Oct-25-2023              -->
+<!-- mod_zitat_service.de                               -->
+<!-- Apr-5-2013 - Oct-29-2023                           -->
+<!-- MIT License, Copyright (c) 2008 - 2023 Heiko Lübbe -->
+<!-- https://github.com/muhme/quote_joomla              -->
 <extension	type="module"
 		version="3.1"
 		client="site"
 		method="upgrade">
 	<name>zitat-service.de</name>
 	<author>Heiko Lübbe</author>
-	<creationDate>October, 18th 2023</creationDate>
+	<creationDate>October, 29th 2023</creationDate>
 	<copyright>Heiko Lübbe</copyright>
-	<license>GNU/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html</license>
+	<license>MIT https://opensource.org/license/mit</license>
 	<authorEmail>heiko.luebbe@zitat-service.de</authorEmail>
 	<authorUrl>https://github.com/muhme/quote_joomla</authorUrl>
-	<version>2.0.0</version> <!-- corresponds to ZitatService\MODULE_VERSION -->
+	<version>2.0.1</version> <!-- corresponds to ZitatService\MODULE_VERSION -->
 	<description>MOD_ZITAT_SERVICE_DE_XML_DESCRIPTION</description>
 	<files>
 		<filename module="mod_zitat_service_de">mod_zitat_service_de.php</filename>

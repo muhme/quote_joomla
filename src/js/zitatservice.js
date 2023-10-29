@@ -1,7 +1,10 @@
 /**
- * 
+ * zitatservice.js
+ * Oct-25-2023
  *
- */ 
+ * MIT License, Copyright (c) 2008 - 2023 Heiko Lübbe
+ * https://github.com/muhme/quote_joomla
+ */
 document.addEventListener("DOMContentLoaded", function () {
   var moduleData = document.getElementById("zitat-service-data");
   if (moduleData === undefined || moduleData === null) {

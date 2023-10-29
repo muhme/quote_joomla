@@ -1,21 +1,18 @@
 <?php
-
+/*
+ * zitatserviceauthorlist.php
+ * Oct-25-2023
+ *
+ * MIT License, Copyright (c) 2008 - 2023 Heiko Lübbe
+ * https://github.com/muhme/quote_joomla
+ */
 defined('_JEXEC') or die;
 
-use \Joomla\CMS\Http\HttpFactory;
 use \Joomla\CMS\Form\FormField;
+use \Joomla\CMS\Http\HttpFactory;
 
 /*
  * Custom field which fetches all authors from API to select one by ID.
- * 
- * zitatserviceauthorlist.php
- * Joomla 3/4/5 Module to show random quote
- * version: 2.0.0
- * @author Heiko Lübbe
- * @copyright (C) 2023- Heiko Lübbe
- * @licence GNI/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
- * https://www.zitat-service.de
- * Oct/25/2023
  */
 class JFormFieldZitatServiceAuthorList extends FormField
 {
