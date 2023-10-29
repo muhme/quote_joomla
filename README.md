@@ -1,6 +1,6 @@
 # quote_joomla
 
-![Joomla module mod_zitat_service_de configuration screen shot](images/quote_joomla.png)
+<img src="images/quote_joomla.png" alt="Joomla module mod_zitat_service_de configuration screen shot" style="border: 1px solid #000;">
 
 Joomla! module `mod_zitat_service_de` to display random quotes from community [zitat-service.de](https://www.zitat-service.de).
 
