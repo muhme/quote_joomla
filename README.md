@@ -1,8 +1,10 @@
 # quote_joomla
 
-Joomla! module for zitat-service.de
+![Joomla module mod_zitat_service_de configuration screen shot](images/quote_joomla.png)
 
-Supporting Joomla/PHP versions:
+Joomla! module `mod_zitat_service_de` to display random quotes from community [zitat-service.de](https://www.zitat-service.de).
+
+Supported Joomla/PHP versions:
 | Joomla | PHP |
 |--------|-----|
 | 3.10   | 8.0 |
