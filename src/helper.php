@@ -61,9 +61,9 @@ class ZitatServiceHelper
         // use synchronous getHttp() or asynchronous JavaScript?
         $script = $params->get('script'); // boolean 0 or 1
 
-        // TODO: check if JavaScript available in client
         if ($script) {
             // asynchronous JavaScript
+            $url .= "&script=asynchron";
             $document = Factory::getDocument();
             // load asynchron and in the end
             $document->addScript(Uri::base() . 'modules/mod_zitat_service_de/js/zitatservice.js', [], ['defer' => 'false']);
@@ -73,6 +73,7 @@ class ZitatServiceHelper
                 '></div><div ' . $style . 'id="zitat-service"></div>';
         } else {
             // synchronous PHP
+            $url .= "&script=synchron";
             try {
                 $options = new Registry();
                 $options->set('timeout', 3); // seconds
@@ -117,15 +118,15 @@ class ZitatServiceHelper
 
     /**
      * Oh my dear!
-     * shorten error $msg to 100 chars if needed and extend with $url
+     * shorten error $msg to 200 chars if needed and extend with $url
      * e.g. 500 Internal Server Error "http://host.docker.internal:3000/v1/quote_html?mod_zitat_service_2.0.1&language=de"
      */
     private static function ohDear($url, ...$params)
     {
         $processedParams = array_map(function ($param) {
-            // if the parameter is a string and its length is more than 100 characters, truncate it
-            if (is_string($param) && strlen($param) > 100) {
-                return substr($param, 0, 100);
+            // if the parameter is a string and its length is more than 200 characters, truncate it
+            if (is_string($param) && strlen($param) > 200) {
+                return substr($param, 0, 200);
             }
             return $param;
         }, $params);
@@ -138,10 +139,10 @@ class ZitatServiceHelper
     private static function extendWithParams($url, $params)
     {
         // module parameter for URL
-        $user = trim($params->get('user' ?? ''));
-        $author = trim($params->get('author' ?? ''));
-        $category = trim($params->get('category' ?? ''));
-        $language = trim($params->get('language' ?? ''));
+        $user = trim($params->get('user') ?? '');
+        $author = trim($params->get('author') ?? '');
+        $category = trim($params->get('category') ?? '');
+        $language = trim($params->get('language') ?? '');
         if (!empty($language)) {
             if ($language != "all") {
                 // use the explicit set language
@@ -154,7 +155,7 @@ class ZitatServiceHelper
         }
 
         // enhanced module parameter for URL
-        $target = trim($params->get('target' ?? ''));
+        $target = trim($params->get('target') ?? '');
 
         if (!empty($category)) {
             $url .= "&categoryId=$category";
