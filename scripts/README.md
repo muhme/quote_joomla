@@ -8,7 +8,7 @@ Used on Mac command line, should also work under Linux and Windows subsystem for
 * scripts/install.sh - install Joomla and module mod_zitat_service_de
   * with argument 3, 4 or 5 install this Joomla version; w/o argument install all three
 
-And now you are ready for ... double speed :smiley: with the creation of six containers and the installation of Joomla and the modules three times:
+And now you are ready for ... double speed :smiley: with the creation of six containers and the installation of Joomla and the modules three times with only one line:
 ```
 $ scripts/build.sh && scripts/install.sh
 ```

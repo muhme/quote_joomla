@@ -44,16 +44,20 @@
 			<fieldset name="basic" addfieldpath="modules/mod_zitat_service_de/fields">
 				<field	name="author"
 						type="ZitatServiceAuthorList"
-						label="MOD_ZITAT_SERVICE_DE_FIELD_AUTHOR_LABEL" />
+						label="MOD_ZITAT_SERVICE_DE_FIELD_AUTHOR_LABEL"
+						description="MOD_ZITAT_SERVICE_DE_FIELD_AUTHOR_DESC" />
 				<field	name="category"
 						type="ZitatServiceCategoryList"
-						label="MOD_ZITAT_SERVICE_DE_FIELD_CATEGORY_LABEL" />
+						label="MOD_ZITAT_SERVICE_DE_FIELD_CATEGORY_LABEL"
+						description="MOD_ZITAT_SERVICE_DE_FIELD_CATEGORY_DESC" />
 				<field	name="user"
 						type="ZitatServiceUserList"
-						label="MOD_ZITAT_SERVICE_DE_FIELD_USER_LABEL" />
+						label="MOD_ZITAT_SERVICE_DE_FIELD_USER_LABEL"
+						description="MOD_ZITAT_SERVICE_DE_FIELD_USER_DESC" />
 				<field	name="language" 
                 		type="list"
-                		label="MOD_ZITAT_SERVICE_DE_FIELD_LANGUAGE_LABEL">
+                		label="MOD_ZITAT_SERVICE_DE_FIELD_LANGUAGE_LABEL"
+						description="MOD_ZITAT_SERVICE_DE_FIELD_LANGUAGE_DESC">
 					<option value="">frontend</option>
 					<option value="all">&#127757; all</option>        <!-- 🌍 -->
 					<option value="de">&#127465;&#127466; de</option> <!-- 🇩🇪 -->
@@ -68,19 +72,23 @@
 					type="text"
 					filter="safehtml"
 					maxlength="50"
-					label="MOD_ZITAT_SERVICE_DE_FIELD_TARGET_LABEL" />
+					label="MOD_ZITAT_SERVICE_DE_FIELD_TARGET_LABEL"
+					description="MOD_ZITAT_SERVICE_DE_FIELD_TARGET_DESC" />
+				<field	name="script"
+					type="radio"
+					default="1"
+					label="MOD_ZITAT_SERVICE_DE_FIELD_SCRIPT_LABEL"
+					description="MOD_ZITAT_SERVICE_DE_FIELD_SCRIPT_DESC">
+						<option value="0">MOD_ZITAT_SERVICE_DE_FIELD_SCRIPT_0</option>
+						<option value="1">MOD_ZITAT_SERVICE_DE_FIELD_SCRIPT_1</option>
+				</field>
 				<field	name="height"
 					type="text"
 					filter="safehtml"
 					maxlength="50"
-					label="MOD_ZITAT_SERVICE_DE_FIELD_HEIGHT_LABEL" />
-				<field	name="script"
-					type="radio"
-					default="1"
-					label="MOD_ZITAT_SERVICE_DE_FIELD_SCRIPT_LABEL">
-						<option value="0">MOD_ZITAT_SERVICE_DE_FIELD_SCRIPT_0</option>
-						<option value="1">MOD_ZITAT_SERVICE_DE_FIELD_SCRIPT_1</option>
-				</field>
+					label="MOD_ZITAT_SERVICE_DE_FIELD_HEIGHT_LABEL"
+					description="MOD_ZITAT_SERVICE_DE_FIELD_HEIGHT_DESC"
+					showon="script:1" />
 			</fieldset>
 		</fields>
 	</config>
