@@ -49,9 +49,19 @@ describe(`Install Joomla ${Cypress.env("joomla_version")} and module zitat-servi
     cy.displayModuleOnAllPages("zitat-service.de");
     cy.setModulePosition("zitat-service.de", "sidebar-right");
 
+    // install multilingual sample data
+    cy.visit("administrator");
+    cy.get('button[data-type="multilang"]').click();
+
     cy.doAdministratorLogout();
 
     // show the module zitat-service at home page
     cy.visit("/");
+
+    // first test in asynchron mode
+    cy.wait(1000); // 1 sec
+    cy.get('#zitat-service').should('not.be.empty');
+    cy.get('#zitat-service .quote').should('exist').and('not.be.empty');
+    cy.get('#zitat-service .quote .quotation').should('exist').and('not.be.empty');
   });
 });

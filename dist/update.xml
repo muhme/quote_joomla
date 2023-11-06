@@ -1,0 +1,17 @@
+<updates>
+	<update>
+		<name>zitat-service.de</name>
+		<description>Automatic update Joomla module zitat-service.de</description>
+		<element>mod_zitat_service_de</element>
+		<type>module</type>
+		<version>2.0.1</version>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/muhme/quote_joomla/releases/download/2.0.1/mod_zitat_service_de_2.0.1.zip</downloadurl>
+		</downloads>
+		<sha512>086895f2a00efe1775d96dff1ad8646c269fe8e7b360b1b2ef19dcc94cc5a9459df96c918b9a956754a2816b223e4cbf3d124556e54117d61048433cc36da88e</sha512>
+		<maintainer>Heiko Lübbe</maintainer>
+		<maintainerurl>https://github.com/muhme/quote/issues</maintainerurl>
+		<targetplatform name="joomla" version=".*"/>
+		<client>site</client>
+	</update>
+</updates>
