@@ -36,6 +36,12 @@ describe(`Install Joomla ${Cypress.env("joomla_version")} and module zitat-servi
 
     cy.doAdministratorLogin(config.username, config.password);
 
+    // install multilingual sample data
+    cy.visit("administrator");
+    cy.get('button[data-type="multilang"]').click();
+    cy.get('#system-message-container .alert-message', { timeout: 30000 })
+      .should('contain', 'Sample data installed.');
+
     // added to visit admin
     cy.visit("administrator");
     cy.disableStatistics();
@@ -48,10 +54,6 @@ describe(`Install Joomla ${Cypress.env("joomla_version")} and module zitat-servi
 
     cy.displayModuleOnAllPages("zitat-service.de");
     cy.setModulePosition("zitat-service.de", "sidebar-right");
-
-    // install multilingual sample data
-    cy.visit("administrator");
-    cy.get('button[data-type="multilang"]').click();
 
     cy.doAdministratorLogout();
 
