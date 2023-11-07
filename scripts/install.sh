@@ -6,6 +6,7 @@
 #
 # install.sh - install Joomla and module mod_zitat_service_de
 #              with argument 3, 4 or 5 install this Joomla version; w/o argument install all three
+#            - cypress options can be added with CYPRESS_OPTIONS env var, e.g. CYPRESS_OPTIONS="video=true"
 
 if [ "$#" -gt 1 ] || ([ "$#" -eq 1 ] && { [ "$1" != "3" ] && [ "$1" != "4" ] && [ "$1" != "5" ]; }); then
     echo "Error: no argument (for all) or one argument 3, 4 or 5 for the repective Joomla version"
@@ -18,12 +19,18 @@ else
     versions=(3 4 5)
 fi
 
+options=""
+if [ "$CYPRESS_OPTIONS" != "" ]; then
+    options="--config $CYPRESS_OPTIONS"
+fi
+
 for version in "${versions[@]}"; do
     echo "installing Joomla $1 and module mod_zitat_service_de"
     if [ "$version" -eq 3 ]; then
-        # own Cypress 'native' installation
-        docker exec -it quote_joomla_cypress sh -c "JOOMLA_VERSION=$version cypress run --spec cypress/e2e/install3.cy.js"
+        # own Cypress 'native' Joomla installation
+        docker exec -it quote_joomla_cypress sh -c "JOOMLA_VERSION=$version cypress run --spec cypress/e2e/install3.cy.js $options"
     else
-        docker exec -it quote_joomla_cypress sh -c "JOOMLA_VERSION=$version cypress run --spec cypress/e2e/install.cy.js"
+        # joomla-cypress package based Joomla installation
+        docker exec -it quote_joomla_cypress sh -c "JOOMLA_VERSION=$version cypress run --spec cypress/e2e/install.cy.js $options"
     fi
 done
