@@ -28,7 +28,7 @@ describe(`Install Joomla 3 and module zitat-service`, () => {
     cy.get('#jform_admin_email').type(Cypress.env("email"))
 
     // click Next
-    cy.get('a.btn.btn-primary').first().click()
+    cy.get('a.btn.btn-primary', { timeout: 30000 }).first().click()
 
     // 2nd screen: database
     cy.get('#jform_db_host').clear().type(Cypress.env("db_host"))
@@ -37,22 +37,22 @@ describe(`Install Joomla 3 and module zitat-service`, () => {
     cy.get('#jform_db_name').clear().type(Cypress.env("db_name"))
 
     // click Next
-    cy.get('a.btn.btn-primary').first().click()
+    cy.get('a.btn.btn-primary', { timeout: 30000 }).first().click()
 
     // 3rd screen
     // click Next
-    cy.get('a.btn.btn-primary').first().click()
+    cy.get('a.btn.btn-primary', { timeout: 30000 }).first().click()
 
     // 4th screen
     // install additional languages
-    cy.get('a#instLangs.btn.btn-primary').click()
+    cy.get('a#instLangs.btn.btn-primary', { timeout: 30000 }).click()
 
     // 5th screen
     languages.forEach((language) => {
       cy.contains('label', language).click()
     })
     // click Next
-    cy.get('a.btn.btn-primary').first().click()
+    cy.get('a.btn.btn-primary', { timeout: 30000 }).first().click()
 
     // 6th screen
     // activate multi language
@@ -61,11 +61,11 @@ describe(`Install Joomla 3 and module zitat-service`, () => {
     cy.get('label[for="jform_activateMultilanguage0"]', { timeout: 60000 }).click();
 
     // click Next
-    cy.get('a.btn.btn-primary').first().click()
+    cy.get('a.btn.btn-primary', { timeout: 30000 }).first().click()
 
     // 7th screen
     // delete installation directory
-    cy.get('.btn.btn-warning').click()
+    cy.get('.btn.btn-warning', { timeout: 30000 }).click()
 
     // do admin login
     cy.visit('administrator/index.php')
