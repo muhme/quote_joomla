@@ -1,6 +1,6 @@
 # Test
 
-This `test` subfolder contains a set of automated tests developed for the `mod_zitat_service_de`` Joomla module extension. These tests aim to ensure the integrity and reliability of the module's functionality across Joomla versions 3, 4 and 5. 
+This `test` subfolder contains a set of automated tests developed for the `mod_zitat_service_de` Joomla module extension. These tests aim to ensure the integrity and reliability of the module's functionality across Joomla versions 3, 4 and 5. 
 
 For an overview of the module and its features, please refer to the main [../README.md](../README.md) file located in the parent directory.
 
@@ -10,7 +10,7 @@ For an overview of the module and its features, please refer to the main [../REA
 
 ### NPM Package joomla-cypress
 
-As a base for the Cypress test automation in Joomla 4 and Joomla 5 the npm package [joomla-projects/joomla-cypress](https://github.com/joomla-projects/joomla-cypress) is used. Currently my fork is used until all the fixes are packed in next version. If you wish to run Cypress on local host machine you have to install the dependencies:
+As a base for the Cypress test automation in Joomla 4 and Joomla 5 the npm package [joomla-projects/joomla-cypress](https://github.com/joomla-projects/joomla-cypress/tree/develop) in development branch is used. Currently my fork is used until all the fixes are packed in next version. If you wish to run Cypress on local host machine you have to install the dependencies:
 ```
 host$ npm i
 ```

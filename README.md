@@ -52,7 +52,7 @@ cypress/included        0.0.0.0:2080->80/tcp   quote_joomla_cypress
 
 ### Testing
 
-Automated Cypress tests are in subfolder `test`, see [test/README.md](test/README.md).
+Automated Cypress tests are in subfolder [test](./test/)
 
 ### Development
 
