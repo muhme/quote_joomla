@@ -13,16 +13,15 @@ import "joomla-cypress";
 describe(`Test Joomla ${Cypress.env(
   "joomla_version"
 )} module zitat-service.de`, () => {
-
   const languages = ["de", "en", "es", "ja", "uk"];
 
   /**
    * Set module options with:
    *   1. backend login as admin
    *   2. open the module zitat-service.de
-   *   3. set all module options back to the defaults
-   *   4. set given options with #id to value
-   *   5. set all advanced options back to the defaults
+   *   3. reset all four module options to the default values
+   *   4. set given module options with #id to value
+   *   5. reset all three advanced options to the default values
    *   6. set given advanced options with #id to value
    *   7. save module configuration
    */
@@ -43,7 +42,7 @@ describe(`Test Joomla ${Cypress.env(
     //cy.searchForItem("zitat-service.de") - don't use as not available for Joomla 3
     cy.contains("a", "zitat-service.de").should("be.visible").click();
 
-    // 3. set all module options back to the defaults ('*' repective 'frontend' for language)
+    // 3. reset all four module options to the default values ('*', respective 'frontend' for language)
     cy.get("#jform_params_user")
       .invoke("val", "")
       .trigger("change", { force: true });
@@ -55,23 +54,31 @@ describe(`Test Joomla ${Cypress.env(
       .trigger("change", { force: true });
     cy.get("#jform_params_language").select("", { force: true });
 
-    // 4. set given options with #id to value
+    // 4. set given module options with #id to value
     Object.entries(options).forEach(([id, value]) => {
       cy.log(`Set module parameter "${id}" to "${value}"`);
-      cy.get(id).invoke('val', value).trigger('change', { force: true });
+      cy.get(id).invoke("val", value).trigger("change", { force: true });
     });
 
-    // 5. set all advanced options back to the defaults (empty values)
-    // cy.contains('a', 'Advanced').click({ force: true });
-    //cy.get("#jform_params_target").clear();
-    // cy.get('a[data-toggle="tab"]').contains('Advanced').click();
-    // cy.contains('a', 'Advanced').click();
-    // cy.wait(100000);
+    // 5. reset all three advanced options to the default values (clear, respective 1 for the radio-button)
+    if (Cypress.env("joomla_version") === "3") {
+      // Joomla 3 uses the Bootstrap 2.x framework for its admin UI
+      cy.contains("li a", "Advanced").click();
+    } else {
+      cy.get(
+        'div[role="tablist"] button[aria-controls="attrib-advanced"]'
+      ).click();
+    }
+    cy.get("#jform_params_target").clear();
+    cy.get(
+      'input[type="radio"][name="jform[params][script]"][value="1"]'
+    ).check();
+    cy.get("#jform_params_height").clear({ force: true });
 
-    // // 6. set given advanced options with #id to value
-    // Object.entries(advanced).forEach(([id, value]) => {
-    //   cy.get(id).invoke("val", value).trigger("change", { force: true });
-    // });
+    // 6. set given advanced options with #id to value
+    Object.entries(advanced).forEach(([id, value]) => {
+      cy.get(id).invoke("val", value).trigger("change", { force: true });
+    });
 
     // 7. save module configuration
     cy.get("button.button-save").contains("Save & Close").click();
@@ -83,7 +90,7 @@ describe(`Test Joomla ${Cypress.env(
     // ignore backend admin logout
   }
 
-  describe("set user plus frontend multi-language test", () => {
+  describe("set user test and frontend multi-language test", () => {
     // choose user 'heikoAdmin' (id 1) as this one has exactly one quote in each language
     it("prepare multi-language test with choosing user 'heikoAdmin'", function () {
       setOption({ "#jform_params_user": "1" });
