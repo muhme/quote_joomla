@@ -10,9 +10,10 @@
 // using doAdministratorLogin() from npm joomla-cypress, but most by Cypress 'native' as also supporting Joomla 3
 import "joomla-cypress";
 
-describe(`Test Joomla ${Cypress.env(
+describe(`Test module zitat-service.de for Joomla ${Cypress.env(
   "joomla_version"
-)} module zitat-service.de`, () => {
+)}`, () => {
+
   const languages = ["de", "en", "es", "ja", "uk"];
 
   /**
@@ -77,7 +78,14 @@ describe(`Test Joomla ${Cypress.env(
 
     // 6. set given advanced options with #id to value
     Object.entries(advanced).forEach(([id, value]) => {
-      cy.get(id).invoke("val", value).trigger("change", { force: true });
+      if (value === "check") {
+        cy.log(`Check advanced parameter "${id}"`);
+        cy.get(id).check();
+        cy.wait(3000);
+      } else {
+        cy.log(`Set advanced parameter "${id}" to "${value}"`);
+        cy.get(id).invoke("val", value).trigger("change", { force: true });
+      }
     });
 
     // 7. save module configuration
@@ -90,60 +98,77 @@ describe(`Test Joomla ${Cypress.env(
     // ignore backend admin logout
   }
 
-  describe("set user test and frontend multi-language test", () => {
+  /**
+   * do cy.visit() and check for deprecated notice
+   * @param string path
+   */
+  function myVisit(path) {
+    cy.visit(path);
+    // wait for the body element to be available
+    cy.get('body').should(($body) => {
+      // get the text of the body element
+      const text = $body.text();
+      // assert that the 'Deprecated' string is not present
+      expect(text).not.to.include('Deprecated');
+    });
+  }
+
+  // user 'heikoAdmin' (id 1) has exactly one quote in each language
+  const heikoAdminTestData = {
+    de: {
+      quotation: "der zankapfel schmeckt bitter",
+      quotationLink: "https://www.zitat-service.de/de/quotations/1871",
+      source: "Mastodon Tröt, 2023",
+      sourceLink: "https://troet.cafe/@BauernHauer/109633116386811032",
+      author: "SprachFleisch",
+      authorLink: "https://troet.cafe/@BauernHauer",
+    },
+    en: {
+      quotation: "Hardware eventually fails. Software eventually works.",
+      quotationLink: "https://www.zitat-service.de/en/quotations/1872",
+      source: "Michael Hartung",
+      // no authorLink in en
+    },
+    es: {
+      quotation:
+        "No se ve bien sino con el corazón. Lo esencial es invisible a los ojos.",
+      quotationLink: "https://www.zitat-service.de/es/quotations/1919",
+      source: "El principito, 1943",
+      sourceLink: "https://es.wikipedia.org/wiki/Antoine_de_Saint-Exupéry",
+      author: "Antoine de Saint-Exupéry",
+      // no authorLink in es
+    },
+    ja: {
+      quotation: "七転び八起き",
+      quotationLink: "https://www.zitat-service.de/ja/quotations/1913",
+      source: "日本の慣用句",
+      // no sourceLink and no authorLink in ja
+    },
+    uk: {
+      quotation: "Лучше любить і робить, аніж писать і го­ворить.",
+      quotationLink: "https://www.zitat-service.de/uk/quotations/1917",
+      source: "Лист до Я. В. Тарновському, 1860",
+      sourceLink: "https://uk.wikipedia.org/wiki/Шевченко_Тарас_Григорович",
+      author: "Тарас Григорович Шевченко",
+    },
+  };
+
+  describe("JavaScript-based and set user and frontend multi-language test", () => {
+
     // choose user 'heikoAdmin' (id 1) as this one has exactly one quote in each language
     it("prepare multi-language test with choosing user 'heikoAdmin'", function () {
       setOption({ "#jform_params_user": "1" });
     });
 
-    // expected results
-    const testData = {
-      de: {
-        quotation: "der zankapfel schmeckt bitter",
-        quotationLink: "https://www.zitat-service.de/de/quotations/1871",
-        source: "Mastodon Tröt, 2023",
-        sourceLink: "https://troet.cafe/@BauernHauer/109633116386811032",
-        author: "SprachFleisch",
-        authorLink: "https://troet.cafe/@BauernHauer",
-      },
-      en: {
-        quotation: "Hardware eventually fails. Software eventually works.",
-        quotationLink: "https://www.zitat-service.de/en/quotations/1872",
-        source: "Michael Hartung",
-        // no authorLink in en
-      },
-      es: {
-        quotation:
-          "No se ve bien sino con el corazón. Lo esencial es invisible a los ojos.",
-        quotationLink: "https://www.zitat-service.de/es/quotations/1919",
-        source: "El principito, 1943",
-        sourceLink: "https://es.wikipedia.org/wiki/Antoine_de_Saint-Exupéry",
-        author: "Antoine de Saint-Exupéry",
-        // no authorLink in es
-      },
-      ja: {
-        quotation: "七転び八起き",
-        quotationLink: "https://www.zitat-service.de/ja/quotations/1913",
-        source: "日本の慣用句",
-        // no sourceLink and no authorLink in ja
-      },
-      uk: {
-        quotation: "Лучше любить і робить, аніж писать і го­ворить.",
-        quotationLink: "https://www.zitat-service.de/uk/quotations/1917",
-        source: "Лист до Я. В. Тарновському, 1860",
-        sourceLink: "https://uk.wikipedia.org/wiki/Шевченко_Тарас_Григорович",
-        author: "Тарас Григорович Шевченко",
-      },
-    };
-
-    Object.entries(testData).forEach(
+    Object.entries(heikoAdminTestData).forEach(
       ([
         lang,
         { quotation, quotationLink, source, sourceLink, author, authorLink },
       ]) => {
         it(`check the presence of quote elements in ${lang}`, () => {
-          cy.visit("/index.php/" + lang);
+          myVisit("/index.php/" + lang);
 
+          // <div id="zitat-service"> only from JavaScript
           cy.get("#zitat-service").should("exist");
           cy.get("#zitat-service .quote").should("exist");
 
@@ -175,7 +200,60 @@ describe(`Test Joomla ${Cypress.env(
     );
   });
 
+  describe("Joomla-based and set user and frontend multi-language test", () => {
+
+    // choose user 'heikoAdmin' (id 1) as this one has exactly one quote in each language
+    it("prepare multi-language test with choosing user 'heikoAdmin' and query method 'from Joomla'", function () {
+      setOption(
+        { "#jform_params_user": "1" },
+        {
+          'input[type="radio"][name="jform[params][script]"][value="0"]':
+            "check",
+        }
+      );
+    });
+
+    Object.entries(heikoAdminTestData).forEach(
+      ([
+        lang,
+        { quotation, quotationLink, source, sourceLink, author, authorLink },
+      ]) => {
+        it(`check the presence of quote elements in ${lang}`, () => {
+          myVisit("/index.php/" + lang);
+
+          // <div id="zitat-service"> only from JavaScript
+          cy.get("#zitat-service").should("not.exist");
+
+          cy.get(".quote .quotation")
+            .should("exist")
+            .find("a")
+            .should("have.attr", "href", quotationLink)
+            .contains(quotation);
+
+          cy.get(".quote .source").should("exist").contains(source);
+
+          if (sourceLink) {
+            cy.get(".quote .source")
+              .find('a[href="' + sourceLink + '"]')
+              .should("have.attr", "href", sourceLink);
+          }
+
+          if (author) {
+            cy.get(".quote .source").contains(author);
+
+            if (authorLink) {
+              cy.get(".quote .source")
+                .find('a[href="' + authorLink + '"]')
+                .should("have.attr", "href", authorLink);
+            }
+          }
+        });
+      }
+    );
+  });
+
   describe("set author option", () => {
+
     // author Mark Twain (id 36) has 20 quotes in German and English
     it("prepare author test with choosing author 'Mark Twain'", function () {
       setOption({ "#jform_params_author": "36" });
@@ -198,7 +276,7 @@ describe(`Test Joomla ${Cypress.env(
       it(`check ${
         testData[lang] ? "the presence of quote for author" : "error"
       } in ${lang}`, () => {
-        cy.visit(`/index.php/${lang}`);
+        myVisit(`/index.php/${lang}`);
         cy.get("#zitat-service").should("exist");
         if (testData[lang]) {
           cy.get(".quote .source").contains(testData[lang].author);
@@ -217,6 +295,7 @@ describe(`Test Joomla ${Cypress.env(
   });
 
   describe("set category option", () => {
+
     // category 'Ant' (id 305) has one quote in German
     it("prepare category test with choosing category 'Ant'", function () {
       setOption({ "#jform_params_category": "305" });
@@ -235,7 +314,7 @@ describe(`Test Joomla ${Cypress.env(
       it(`check ${
         testData[lang] ? "the presence of quote for category" : "error"
       } in ${lang}`, () => {
-        cy.visit(`/index.php/${lang}`);
+        myVisit(`/index.php/${lang}`);
         cy.get("#zitat-service").should("exist");
         if (testData[lang]) {
           cy.get("#zitat-service .quote").should("exist");
@@ -252,6 +331,7 @@ describe(`Test Joomla ${Cypress.env(
   });
 
   describe("set all languages option", () => {
+
     // category 'Ant' (id 305) has one quote in German
     it("prepare category test with choosing category 'Ant' and language 'all'", function () {
       setOption({
@@ -267,7 +347,7 @@ describe(`Test Joomla ${Cypress.env(
     // five tests in the five languages
     languages.forEach((lang) => {
       it(`check the presence of quote in ${lang}`, () => {
-        cy.visit(`/index.php/${lang}`);
+        myVisit(`/index.php/${lang}`);
         cy.get("#zitat-service").should("exist");
         cy.get("#zitat-service .quote").should("exist");
         cy.get(".quote .quotation").should("exist").contains(quote);
@@ -276,6 +356,7 @@ describe(`Test Joomla ${Cypress.env(
   });
 
   describe("set one language 'de' option", () => {
+
     // category 'Ant' (id 305) has one quote in German
     it("prepare category test with choosing category 'Ant' and language 'de'", function () {
       setOption({
@@ -291,10 +372,118 @@ describe(`Test Joomla ${Cypress.env(
     // five tests in the five languages
     languages.forEach((lang) => {
       it(`check the presence of quote in ${lang}`, () => {
-        cy.visit(`/index.php/${lang}`);
+        myVisit(`/index.php/${lang}`);
         cy.get("#zitat-service").should("exist");
         cy.get("#zitat-service .quote").should("exist");
         cy.get(".quote .quotation").should("exist").contains(quote);
+      });
+    });
+  });
+
+  const target = "quoteCypressTest";
+
+  describe("JavaScript-based and no target for all links", () => {
+
+    it("prepare reset to all defaults", function () {
+      setOption({});
+    });
+
+    // five tests in the five languages
+    languages.forEach((lang) => {
+      it(`check there is no target in any link for ${lang} in ${lang}`, () => {
+        myVisit(`/index.php/${lang}`);
+        cy.get(".quote a").each(($el) => {
+          // for each link found inside a .quote div, check that the target attribute is 'quoteCypressTest'
+          cy.wrap($el).should("not.have.attr", "target", "quoteCypressTest");
+        });
+      });
+    });
+  });
+
+  describe("JavaScript-based and set target for all links", () => {
+
+    it("prepare with target for HTML links", function () {
+      setOption({}, { "#jform_params_target": target });
+    });
+
+    // five tests in the five languages
+    languages.forEach((lang) => {
+      it(`check target is set for all links in ${lang}`, () => {
+        myVisit(`/index.php/${lang}`);
+        cy.get(".quote a").each(($el) => {
+          // for each link found inside a .quote div, check that the target attribute is 'quoteCypressTest'
+          cy.wrap($el).should("have.attr", "target", "quoteCypressTest");
+        });
+      });
+    });
+  });
+
+  describe("Joomla-based and no target for all links", () => {
+
+    it("prepare query method 'from Joomla'", function () {
+      setOption(
+        {},
+        {
+          'input[type="radio"][name="jform[params][script]"][value="0"]':
+            "check",
+        }
+      );
+    });
+
+    // five tests in the five languages
+    languages.forEach((lang) => {
+      it(`check there is no target in any link in ${lang}`, () => {
+        myVisit(`/index.php/${lang}`);
+        cy.get(".quote a").each(($el) => {
+          // for each link found inside a .quote div, check that the target attribute is 'quoteCypressTest'
+          cy.wrap($el).should("not.have.attr", "target", "quoteCypressTest");
+        });
+      });
+    });
+  });
+
+  describe("Joomla-based and set target for all links", () => {
+
+    it("prepare query method 'from Joomla' and set target for all links", function () {
+      setOption(
+        {},
+        {
+          "#jform_params_target": target,
+          'input[type="radio"][name="jform[params][script]"][value="0"]':
+            "check",
+        }
+      );
+    });
+
+    // five tests in the five languages
+    languages.forEach((lang) => {
+      it(`check target is set for all links in ${lang}`, () => {
+        myVisit(`/index.php/${lang}`);
+        cy.get(".quote a").each(($el) => {
+          // for each link found inside a .quote div, check that the target attribute is 'quoteCypressTest'
+          cy.wrap($el).should("have.attr", "target", "quoteCypressTest");
+        });
+      });
+    });
+  });
+
+  describe("set advanced option min-height", () => {
+
+    const minHeight = "234px";
+    it("prepare min-height test with setting height", function () {
+      setOption({}, { "#jform_params_height": minHeight });
+    });
+
+    // five tests in the five languages
+    languages.forEach((lang) => {
+      it(`check min-height in ${lang}`, () => {
+        myVisit(`/index.php/${lang}`);
+        cy.get(".quote a").each(($el) => {
+          cy.get('#zitat-service').should(($div) => {
+            const style = window.getComputedStyle($div[0]);
+            expect(style.minHeight).to.equal(minHeight);
+          });
+        });
       });
     });
   });
