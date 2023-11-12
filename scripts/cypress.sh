@@ -6,8 +6,11 @@
 #
 # cypress.sh - open Cypress GUI on host machine for desired Joomla version
 
-if [ "$#" -ne 1 ] || { [ "$1" -ne 3 ] && [ "$1" -ne 4 ] && [ "$1" -ne 5 ]; }; then
-    echo "Error: argument must be 3, 4 or 5 for the repective Joomla version"
+source scripts/common.sh
+checkVersion $1
+
+if [ "$#" -ne 1 ] ; then
+    echo "Error: argument must be one Joomla version from: ${versions[@]}"
     exit 1
 fi
 
