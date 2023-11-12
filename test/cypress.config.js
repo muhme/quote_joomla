@@ -1,16 +1,13 @@
 const { defineConfig } = require("cypress");
 const fs = require('fs');
 
-// import the available Joomla versions
-const { joomla_versions } = require('../joomla_versions.js');
-
 // set and validate used Joomla! version
-const JOOMLA_VERSION = process.env.JOOMLA_VERSION || '5.0';
-if (!joomla_versions.includes(JOOMLA_VERSION)) {
+const JOOMLA_VERSION = process.env.JOOMLA_VERSION || '5';
+if (!['3', '4', '5'].includes(JOOMLA_VERSION)) {
   throw new Error(`Invalid JOOMLA_VERSION environment variable provided: ${JOOMLA_VERSION}. Possible values are ${joomla_versions}`);
 }
-// ports 2034 ... 2050
-const port = `20${JOOMLA_VERSION.replace('.', '')}`;
+// ports 2003 ... 2005
+const port = `200${JOOMLA_VERSION}`;
 const host = fs.existsSync('/.dockerenv') ? 'host.docker.internal' : 'localhost';
 
 module.exports = defineConfig({

@@ -9,7 +9,7 @@
 #         - cypress options can be added with CYPRESS_OPTIONS env var, e.g. CYPRESS_OPTIONS="video=true"
 
 source scripts/common.sh
-checkVersion $1
+checkVersion $*
 
 for version in ${versions[@]}; do
     echo "testing module mod_zitat_service_de in Joomla $version"

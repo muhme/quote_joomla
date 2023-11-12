@@ -136,23 +136,9 @@ describe(`Install Joomla ${Cypress.env(
 
       let languages = ["German", "Japanese", "Spanish", "Ukrainian"];
 
-      // hack Joomla 4.0|1 & German language pack
-      if (config.joomla_version === "4.1" || config.joomla_version === "4.0") {
-        // language pack update URL has 4.4 for German, but this is not installable
-        // instead install 4.1 German language packet later
-        languages = ["Japanese", "Spanish", "Ukrainian"];
-      }
-
       cy.installJoomlaMultilingualSite(config, languages);
 
       cy.doAdministratorLogin(config.username, config.password);
-
-      // hack Joomla 4.0|1 & German language pack
-      if (config.joomla_version === "4.1" || config.joomla_version === "4.0") {
-        cy.installExtensionFromUrl(
-          "https://downloads.joomla.org/language-packs/translations-joomla4/downloads/joomla4-german/4-1-5-1/de-de_joomla_lang_full_4-1-5v1-zip?format=zip"
-        );
-      }
 
       // install multilingual sample data
       cy.visit("administrator");
@@ -167,38 +153,7 @@ describe(`Install Joomla ${Cypress.env(
 
       cy.setErrorReportingToDevelopment();
 
-      // hack Joomla 4.0 never found .filter-search-bar__button
-      if (config.joomla_version === "4.0") {
-        cy.log("INSIDE");
-        // install module
-        cy.visit("administrator/index.php?option=com_installer#folder");
-        cy.get("#install_directory", { force: true })
-          .clear()
-          .type("/quote_joomla/src");
-        cy.get("#installbutton_directory").click();
-
-        // configure module 1/3 - open Module tab
-        cy.visit("administrator/index.php?option=com_modules");
-        cy.get("a").contains("zitat-service.de").click();
-
-        // configure module 2/3 - choose position-7
-        cy.get("#jform_position + .chzn-container").click();
-        cy.get(".chzn-drop .chzn-results li").contains("position-7").click();
-
-        // configure module 3/3 - Menu assignment tab
-        cy.get('a[href="#assignment"]').click();
-        // cy.get('#jform_assignment').select('On all pages')
-        // This element <select#jform_assignment> is not visible because it has CSS property: display: none
-        // ChatGPT "Joomla 3.10 uses a JavaScript library called "Chosen" to enhance <select> dropdowns
-        //          in the administration area. The "Chosen" library transforms standard select boxes into more
-        //          user-friendly dropdowns. Understanding this can help us create the right Cypress commands." :)
-        cy.get("#jform_assignment + .chzn-container").click();
-        cy.get(".chzn-drop .chzn-results li").contains("On all pages").click();
-        // Save & Close
-        cy.get("button.btn.btn-small.button-save").click();
-      } else {
-        cy.installExtensionFromFolder("/quote_joomla/src"); // as mounted in docker image
-      }
+      cy.installExtensionFromFolder("/quote_joomla/src"); // as mounted in docker image
 
       cy.publishModule("zitat-service.de");
 
@@ -212,7 +167,6 @@ describe(`Install Joomla ${Cypress.env(
     cy.visit("/");
 
     // first test in asynchron mode
-    // TODO cy.wait(1000); // 1 sec
     cy.get("#zitat-service").should("not.be.empty");
     cy.get("#zitat-service .quote").should("exist").and("not.be.empty");
     cy.get("#zitat-service .quote .quotation")

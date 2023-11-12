@@ -18,9 +18,8 @@ containsElement() {
     return 1
 }
 
-# fill array $all_versions from JavaScript definition
-# readarray -t all_versions <<<"$(awk -F"'" '/const joomla_versions/ { for (i=2; i<NF; i+=2) print $i }' ../joomla_versions.js)"
-all_versions=(`awk -F"'" '/const joomla_versions/ { for (i=2; i<NF; i+=2) print $i }' joomla_versions.js`)
+# available Joomla versions
+all_versions=(3 4 5)
 
 #
 # if version given, then check if available
@@ -47,8 +46,11 @@ checkVersion() {
 }
 
 #
-# returns e.g. "50" for "5.1"
+# check valid Joomla version as one argument
 #
-twoNumbers() {
-    echo $1 | tr -d '.'
+checkOneVersion() {
+    if [ "$#" -ne 1 ] || ! containsElement "$1" "${all_versions[@]}"; then
+        echo "Error: needs Joomla version as one and only argument from: ${all_versions[@]}"
+        exit 1
+    fi
 }
