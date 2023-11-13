@@ -13,7 +13,6 @@ import "joomla-cypress";
 describe(`Test module zitat-service.de for Joomla ${Cypress.env(
   "joomla_version"
 )}`, () => {
-
   const languages = ["de", "en", "es", "ja", "uk"];
 
   /**
@@ -105,11 +104,15 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
   function myVisit(path) {
     cy.visit(path);
     // wait for the body element to be available
-    cy.get('body').should(($body) => {
+    cy.get("body").should(($body) => {
       // get the text of the body element
       const text = $body.text();
-      // assert that the 'Deprecated' string is not present
-      expect(text).not.to.include('Deprecated');
+      // assert that the 'Deprecated: ' string is not present
+      expect(text).not.to.include("Deprecated: ");
+      // assert that the 'Warning: ' string is not present
+      expect(text).not.to.include("Warning: ");
+      // assert that the 'Error: ' string is not present
+      expect(text).not.to.include("Error: ");
     });
   }
 
@@ -154,7 +157,6 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
   };
 
   describe("JavaScript-based and set user and frontend multi-language test", () => {
-
     // choose user 'heikoAdmin' (id 1) as this one has exactly one quote in each language
     it("prepare multi-language test with choosing user 'heikoAdmin'", function () {
       setOption({ "#jform_params_user": "1" });
@@ -201,7 +203,6 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
   });
 
   describe("Joomla-based and set user and frontend multi-language test", () => {
-
     // choose user 'heikoAdmin' (id 1) as this one has exactly one quote in each language
     it("prepare multi-language test with choosing user 'heikoAdmin' and query method 'from Joomla'", function () {
       setOption(
@@ -253,7 +254,6 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
   });
 
   describe("set author option", () => {
-
     // author Mark Twain (id 36) has 20 quotes in German and English
     it("prepare author test with choosing author 'Mark Twain'", function () {
       setOption({ "#jform_params_author": "36" });
@@ -295,7 +295,6 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
   });
 
   describe("set category option", () => {
-
     // category 'Ant' (id 305) has one quote in German
     it("prepare category test with choosing category 'Ant'", function () {
       setOption({ "#jform_params_category": "305" });
@@ -331,7 +330,6 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
   });
 
   describe("set all languages option", () => {
-
     // category 'Ant' (id 305) has one quote in German
     it("prepare category test with choosing category 'Ant' and language 'all'", function () {
       setOption({
@@ -356,7 +354,6 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
   });
 
   describe("set one language 'de' option", () => {
-
     // category 'Ant' (id 305) has one quote in German
     it("prepare category test with choosing category 'Ant' and language 'de'", function () {
       setOption({
@@ -383,7 +380,6 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
   const target = "quoteCypressTest";
 
   describe("JavaScript-based and no target for all links", () => {
-
     it("prepare reset to all defaults", function () {
       setOption({});
     });
@@ -401,7 +397,6 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
   });
 
   describe("JavaScript-based and set target for all links", () => {
-
     it("prepare with target for HTML links", function () {
       setOption({}, { "#jform_params_target": target });
     });
@@ -419,7 +414,6 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
   });
 
   describe("Joomla-based and no target for all links", () => {
-
     it("prepare query method 'from Joomla'", function () {
       setOption(
         {},
@@ -443,7 +437,6 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
   });
 
   describe("Joomla-based and set target for all links", () => {
-
     it("prepare query method 'from Joomla' and set target for all links", function () {
       setOption(
         {},
@@ -468,7 +461,6 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
   });
 
   describe("set advanced option min-height", () => {
-
     const minHeight = "234px";
     it("prepare min-height test with setting height", function () {
       setOption({}, { "#jform_params_height": minHeight });
@@ -479,7 +471,7 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
       it(`check min-height in ${lang}`, () => {
         myVisit(`/index.php/${lang}`);
         cy.get(".quote a").each(($el) => {
-          cy.get('#zitat-service').should(($div) => {
+          cy.get("#zitat-service").should(($div) => {
             const style = window.getComputedStyle($div[0]);
             expect(style.minHeight).to.equal(minHeight);
           });
