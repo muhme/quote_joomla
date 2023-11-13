@@ -1,7 +1,7 @@
 <?php
 /*
  * helper.php
- * Oct-21-2023 - Oct-29-2023
+ * Oct-21-2023 - Nov-13-2023
  *
  * MIT License, Copyright (c) 2008 - 2023 Heiko Lübbe
  * https://github.com/muhme/quote_joomla
@@ -17,9 +17,9 @@ define('ZITAT_SERVICE_API_URL', 'https://api.zitat-service.de/v1');
 define('LANGUAGES', ['de', 'es', 'en', 'ja', 'uk']);
 
 use \Joomla\CMS\Factory;
+use \Joomla\CMS\Http\HttpFactory;
 use \Joomla\CMS\Uri\Uri;
 use \Joomla\Registry\Registry;
-use \Joomla\CMS\Http\HttpFactory;
 
 class ZitatServiceHelper
 {
@@ -53,17 +53,19 @@ class ZitatServiceHelper
      */
     public static function getQuote($params)
     {
-        $url = ZITAT_SERVICE_API_URL . '/quote_html?contentOnly=true&mod_zitat_service_' . ZITAT_SERVICE_MODULE_VERSION;
-        $url = self::extendWithParams($url, $params);
-
         // advanced module parameters
         $height = $params->get('height');
         // use synchronous getHttp() or asynchronous JavaScript?
         $script = $params->get('script'); // boolean 0 or 1
 
+        $url = ZITAT_SERVICE_API_URL . '/quote_html?contentOnly=true' .
+            '&V_' . ZITAT_SERVICE_MODULE_VERSION .
+            '_' . JVERSION .
+            '_' . ($script ? 'A' : 'S'); // 'A'synchron JavaScript or Joomla 'S'ynchron
+        $url = self::extendWithParams($url, $params);
+
         if ($script) {
             // asynchronous JavaScript
-            $url .= "&script=asynchron";
             $document = Factory::getDocument();
             // load asynchron and in the end
             $document->addScript(Uri::base() . 'modules/mod_zitat_service_de/js/zitatservice.js', [], ['defer' => 'false']);
@@ -73,7 +75,6 @@ class ZitatServiceHelper
                 '></div><div ' . $style . 'id="zitat-service"></div>';
         } else {
             // synchronous PHP
-            $url .= "&script=synchron";
             try {
                 $options = new Registry();
                 $options->set('timeout', 3); // seconds
