@@ -60,7 +60,6 @@ class ZitatServiceHelper
 
         $url = ZITAT_SERVICE_API_URL . '/quote_html?contentOnly=true' .
             '&V_' . ZITAT_SERVICE_MODULE_VERSION .
-            '_' . JVERSION .
             '_' . ($script ? 'A' : 'S'); // 'A'synchron JavaScript or Joomla 'S'ynchron
         $url = self::extendWithParams($url, $params);
 

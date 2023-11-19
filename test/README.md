@@ -6,7 +6,7 @@ For an overview of the module and its features, please refer to the main [../REA
 
 ## Test Environment
 
-[Cypress](https://www.cypress.io/) is used as the platform for the automated browser testing. It can be used either headless with Docker container `quote_joomla_cypress` or from local host installation with GUI.
+[Cypress](https://www.cypress.io/) is used as the platform for the automated browser testing. It can be used either headless with Docker container `quote_joomla_cypress` or from local host installation with GUI. Some scripts are used for a more pleasant working, see folder [../scripts](../scripts/) and commented list of scripts there.
 
 ### NPM Package joomla-cypress
 

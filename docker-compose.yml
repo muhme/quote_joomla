@@ -42,7 +42,7 @@ services:
 
   joomla4:
     container_name: quote_joomla_4
-    image: joomla:4.4 # actual 4.4.0
+    image: joomla:4 # actual 4.4.0
     restart: unless-stopped
     ports:
       - 2004:80

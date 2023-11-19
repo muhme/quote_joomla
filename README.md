@@ -2,17 +2,18 @@
 
 ![Joomla module mod_zitat_service_de configuration screen shot](images/quote_joomla.png)
 
-Joomla! module `mod_zitat_service_de` to display random quotes from community [zitat-service.de](https://www.zitat-service.de).
+Joomla module `mod_zitat_service_de` to display random quotes from community [zitat-service.de](https://www.zitat-service.de).
 
-Supported Joomla/PHP versions:
+Help for the Joomla module administration is available in five languages at [https://github.com/muhme/quote_joomla/wiki](https://github.com/muhme/quote_joomla/wiki).
+
+Tested Joomla/PHP versions are:
 | Joomla | PHP |
 |--------|-----|
 | 3.10   | 8.0 |
 | 4.4    | 8.1 |
 | 5.0    | 8.2 |
 
-* the Joomla! module is using the new OpenAPI [api.zitat-service.de](https://api.zitat-service.de/)
-* development is not yet finished, but the module works in all three Joomla versions
+* the Joomla module is using the new OpenAPI [api.zitat-service.de](https://api.zitat-service.de/)
 
 ## Test & Development Environment
 <details>
@@ -43,16 +44,16 @@ cypress/included        0.0.0.0:2080->80/tcp   quote_joomla_cypress
 
 - quote_joomla_mysqladmin – phpMyAdmin (database user root/root)
   - http://localhost:2001
-- quote_joomla_3 – Joomla! 3, ready for installation
+- quote_joomla_3 – Joomla 3, ready for installation
   - http://localhost:2003
-- quote_joomla_4 – Joomla! 4, ready for installation
+- quote_joomla_4 – Joomla 4, ready for installation
   - http://localhost:2004
-- quote_joomla_5 – Joomla! 5, ready for installation
+- quote_joomla_5 – Joomla 5, ready for installation
   - http://localhost:2005
 
 ### Testing
 
-Automated Cypress tests are in subfolder [test](./test/)
+Automated Cypress tests are in subfolder [test](./test/) and detailed README there.
 
 ### Development
 
@@ -66,9 +67,12 @@ quote_joomla_5# rm -r mod_zitat_service_de
 quote_joomla_5# ln -s /quote_joomla mod_zitat_service_de
 ```
 
+> [!WARNING]
+> If you uninstall the module after symbolic linking the module folder you delete all source files in your host folder! :point_right: Inside container, you have to delete symbolic link before.
+
 ### Scripts
 
-There are scripts prepared for a more pleasant and also faster development, see folder [scripts](./scripts/)
+There are scripts prepared for a more pleasant and also faster development, see folder [scripts](./scripts/) and commented list of scripts there.
 
 </details>
 

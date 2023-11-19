@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- mod_zitat_service.de                               -->
-<!-- Apr-5-2013 - Oct-29-2023                           -->
+<!-- Apr-5-2013 - Nov-19-2023                           -->
 <!-- MIT License, Copyright (c) 2008 - 2023 Heiko Lübbe -->
 <!-- https://github.com/muhme/quote_joomla              -->
-<extension	type="module"
-		version="3.1"
-		client="site"
-		method="upgrade">
+<extension type="module" client="site" method="upgrade">
 	<name>zitat-service.de</name>
 	<author>Heiko Lübbe</author>
-	<creationDate>October, 29th 2023</creationDate>
-	<copyright>Heiko Lübbe</copyright>
+	<creationDate>19.11.2023</creationDate>
+	<copyright>(c) 2008 - 2023 Heiko Lübbe. All rights reserved.</copyright>
 	<license>MIT https://opensource.org/license/mit</license>
 	<authorEmail>heiko.luebbe@zitat-service.de</authorEmail>
 	<authorUrl>https://github.com/muhme/quote_joomla</authorUrl>
@@ -95,6 +92,6 @@
 		</fields>
 	</config>
 	<updateservers>
-    	<server type="extension" priority="1" name="zitat-service.de">https://www.zitat-service.de/joomla/zitat-service-update.xml</server>
+    	<server type="extension" priority="1" name="zitat-service.de Update Site">https://raw.githubusercontent.com/muhme/quote_joomla/main/dist/update.xml</server>
   	</updateservers>
 </extension>
