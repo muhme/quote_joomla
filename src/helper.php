@@ -1,7 +1,7 @@
 <?php
 /*
  * helper.php
- * Oct-21-2023 - Nov-13-2023
+ * Oct-21-2023 - Nov-22-2023
  *
  * MIT License, Copyright (c) 2008 - 2023 Heiko Lübbe
  * https://github.com/muhme/quote_joomla
@@ -10,7 +10,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-define('ZITAT_SERVICE_MODULE_VERSION', '2.0.1');
+define('ZITAT_SERVICE_MODULE_VERSION', '2.0.2');
 // define('ZITAT_SERVICE_API_URL', 'http://host.docker.internal:3000/v1');
 define('ZITAT_SERVICE_API_URL', 'https://api.zitat-service.de/v1');
 // list of valid languages as from https://api.zitat-service.de/v1/languages
