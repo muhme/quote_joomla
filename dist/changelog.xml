@@ -4,20 +4,20 @@
         <type>module</type>
         <version>2.0.2</version>
         <language>
-            <item>In addition to English 🇺🇸 and German 🇩🇪, the languages Español 🇪🇸, 日本語 🇯🇵 and Українська 🇺🇦 have been added for the quotes and for the backend.</item>
+            <item><![CDATA[In addition to English 🇺🇸 and German 🇩🇪, the languages Español 🇪🇸, 日本語 🇯🇵 and Українська 🇺🇦 have been added for the quotes and for the backend.]]></item>
         </language>
         <addition>
             <item>The language of the quotations can be selected from various options: the front-end language, all languages or a specific language.</item>
-            <item>Source code and issues are now public on GitHub https://github.com/muhme/quote_joomla.</item>
-            <item>There is a demo site created with https://joomla.zitat-service.de.</item>
-            <item>There is help page created with https://github.com/muhme/quote_joomla/wiki in five languages.</item>
+            <item><![CDATA[Source code and issues are now public on GitHub <a href="https://github.com/muhme/quote_joomla">github.com/muhme/quote_joomla</a>.]]></item>
+            <item><![CDATA[There is a demo site created with <a href="https://joomla.zitat-service.de">joomla.zitat-service.de</a>.]]></item>
+            <item><![CDATA[There is help page created with <a href="https://github.com/muhme/quote_joomla/wiki">github.com/muhme/quote_joomla/wiki</a> in five languages.]]></item>
         </addition>
         <change>
-            <item>The module is now using the new API https://api.zitat-service.de, which is supporting five languages and using unique identifieres instead of names.</item>
+            <item><![CDATA[The module is now using the new API <a href="https://api.zitat-service.de">api.zitat-service.de</a>, which is supporting five languages and using unique identifieres instead of names.]]></item>
             <item>In the backend, you can select the author, category or user directly from a list of possible entries.</item>
         </change>
         <note>
-            <item>After updating the plugin to a version from 2.0.0, a saved author, category and user parameter must be reselected once in order to switch to the unique IDs.</item>
+            <item>After updating the plugin to a version from 2.0.0, a saved author, category and user parameter MUST be reselected once in order to switch to the unique IDs.</item>
         </note>
     </changelog>
 </changelogs>
