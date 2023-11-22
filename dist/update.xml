@@ -5,10 +5,11 @@
 		<element>mod_zitat_service_de</element>
 		<type>module</type>
 		<version>2.0.2</version>
+		<changelogurl>https://raw.githubusercontent.com/muhme/quote_joomla/main/dist/changelog.xml</changelogurl>
 		<downloads>
 			<downloadurl type="full" format="zip">https://github.com/muhme/quote_joomla/releases/download/2.0.2/mod_zitat_service_de_2.0.2.zip</downloadurl>
 		</downloads>
-		<sha512>c607f3886cedac70fc3cb94442a0dfdee2987416e95e8864078177f53360bc79b62f37773ffc56fe591504e61704efedd775c25dbcd8f5e82387a83b5a726659</sha512>
+		<sha512>db24ba3bd7950db202f2087d8e61a7847713e6d489e14b1c434ceaeb420a5cff71615e04ec832fc3ed8d4eced34d58a876dd6ff324c105302d6a5dd731d52d51</sha512>
 		<maintainer>Heiko Lübbe</maintainer>
 		<maintainerurl>https://github.com/muhme/quote_joomla</maintainerurl>
 		<targetplatform name="joomla" version="[345].*"/><!-- at least 3.10, 4.4 and 5.0 are tested -->
