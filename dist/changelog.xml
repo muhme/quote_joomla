@@ -17,7 +17,7 @@
             <item>In the backend, you can select the author, category or user directly from a list of possible entries.</item>
         </change>
         <note>
-            <item>After updating the plugin to a version from 2.0.0, a saved author, category and user parameter MUST be reselected once in order to switch to the unique IDs.</item>
+            <item>After updating the plugin to a version from 2.0.0, a saved author, category and user parameter MUST be reselected once, in order to switch to the unique IDs.</item>
         </note>
     </changelog>
 </changelogs>
