@@ -27,7 +27,7 @@ class ModZitatServiceInstallerScript
     // set changelogurl field by yourself
     private function updateChangelogUrl()
     {
-        $db = JFactory::getDbo();
+        $db = \Joomla\CMS\Factory::getDbo();
         $query = $db->getQuery(true)
             ->update($db->quoteName('#__extensions'))
             ->set($db->quoteName('changelogurl') . ' = ' . $db->quote('https://raw.githubusercontent.com/muhme/quote_joomla/main/dist/changelog.xml'))
