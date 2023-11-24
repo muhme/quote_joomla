@@ -91,6 +91,7 @@
 			</fieldset>
 		</fields>
 	</config>
+	<changelogurl>https://raw.githubusercontent.com/muhme/quote_joomla/main/dist/changelog.xml</changelogurl>
 	<updateservers>
     	<server type="extension" priority="1" name="zitat-service.de Update Site">https://raw.githubusercontent.com/muhme/quote_joomla/main/dist/update.xml</server>
   	</updateservers>

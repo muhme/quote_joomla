@@ -9,7 +9,7 @@
 		<downloads>
 			<downloadurl type="full" format="zip">https://github.com/muhme/quote_joomla/releases/download/2.0.2/mod_zitat_service_de_2.0.2.zip</downloadurl>
 		</downloads>
-		<sha512>db24ba3bd7950db202f2087d8e61a7847713e6d489e14b1c434ceaeb420a5cff71615e04ec832fc3ed8d4eced34d58a876dd6ff324c105302d6a5dd731d52d51</sha512>
+		<sha512>5a892aef542b13f4df7fa36c0dd4a9aae0c18b36902c676e3f80574610adaed4649648f5257cd74d718af520504383789f4ef67e749efe5b85cf50a077e2668e</sha512>
 		<maintainer>Heiko Lübbe</maintainer>
 		<maintainerurl>https://github.com/muhme/quote_joomla</maintainerurl>
 		<targetplatform name="joomla" version="[345].*"/><!-- at least 3.10, 4.4 and 5.0 are tested -->
