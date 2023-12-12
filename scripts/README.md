@@ -14,7 +14,7 @@ The scripts are used on the Mac command line, but should also work on Linux and 
 | `scripts/pack.sh` | Create Joomla extension ZIP, including SHA512 |  |
 | `scripts/clean.sh` | Removes all quote_joomla_* Docker containers |  |
 
-And now you are ready for ... triple speed :smiley: with the creation of six Docker containers, the installation of Joomla and the modules three times and testing the module in all three Joomla versions with only one command line:
+And now you are ready for ... triple speed :smiley: with the creation of six Docker containers, the installation of Joomla and the modules three times and testing the module in all three Joomla versions with only one command line.
 ```
 $ scripts/compose.sh && sleep 5 && scripts/install.sh && scripts/test.sh
 ```
