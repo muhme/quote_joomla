@@ -10,12 +10,14 @@ For an overview of the module and its features, please refer to the main [../REA
 
 ### NPM Package joomla-cypress
 
-As a base for the Cypress test automation in Joomla 4 and Joomla 5 the npm package [joomla-projects/joomla-cypress](https://github.com/joomla-projects/joomla-cypress/tree/develop) in development branch is used. Currently my fork is used until all the fixes are packed in next version. If you wish to run Cypress on local host machine you have to install the dependencies:
+As a base for the Cypress installation in Joomla 4 and Joomla 5 the npm package [joomla-projects/joomla-cypress](https://github.com/joomla-projects/joomla-cypress/tree/develop) in development branch is used. Currently my fork is used until all the fixes are packed in next version. If you wish to run Cypress on local host machine you have to install the dependencies:
 ```
 host$ npm i
 ```
 
 Joomla 3 is not supported, installation and test is Cypress 'native' implemented and switched via environment variable `JOOMLA_VERSION`.
+
+In the meantime (since the admin login now requires a locale) the package `joomla-cypress` is no longer used in the tests.
 
 ### 1st Preparing with the Installation
 
@@ -58,7 +60,7 @@ host$ scripts/install.sh
 
 ### 2nd Testing
 
-There is the end-to-end test suite `test.cy.js` with actual 66 tests for the different four module and three advanced options in the five supported languages. You can run with script e.g. for Joomla 5:
+There is the end-to-end test suite `test.cy.js` with actual 76 tests for the backend translation, the different four module and three advanced options in the five supported languages. You can run with script e.g. for Joomla 5:
 ```
 host$ scripts/test.sh 5
 ```

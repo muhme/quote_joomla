@@ -14,9 +14,64 @@ import * as TestHelpers from "./testHelper";
 describe(`Test module zitat-service.de for Joomla ${Cypress.env(
   "joomla_version"
 )}`, () => {
-  const languages = ["de", "en", "es", "ja", "uk"];
 
-  // user 'heikoAdmin' (id 1) has exactly one quote in each language
+  // https://github.com/muhme/quote_joomla/issues/2 "backend translation of the modules is broken"
+  describe("Backend I18N translation", () => {
+
+    const description = {
+      en: "Displays a random quote",
+      de: "Zeigt ein zufälliges Zitat",
+      es: "Muestra una cita aleatoria",
+      ja: "ランダムな引用",
+      uk: "Відображає випадкову цитату"
+    }
+    // five tests for the five locales
+    TestHelpers.LOCALES.forEach((locale) => {
+      it(`verify module translation for ${locale} on Module tab`, function () {
+        TestHelpers.doLogin(locale);
+        TestHelpers.openModule();
+        cy.contains('h2', 'zitat-service.de').should('exist');
+        cy.contains(description[locale.substring(0, 2)]).should('be.visible');
+        cy.get('body').then($body => {
+          if ($body.text().includes('MOD_ZITAT_')) {
+            throw new Error('String "MOD_ZITAT_" found on Module tab');
+          }
+        });
+      });
+    });
+
+    const queryMethod = {
+      en: "Query Method",
+      de: "Abfragemethode",
+      es: "Método de Consulta",
+      ja: "クエリ方法",
+      uk: "Метод запиту"
+    }
+    // five tests for the five locales
+    TestHelpers.LOCALES.forEach((locale) => {
+      it(`verify module translation for ${locale} on Advanced tab`, function () {
+        TestHelpers.doLogin(locale);
+        TestHelpers.openModule();
+        cy.contains('h2', 'zitat-service.de').should('exist');
+        if (Cypress.env("joomla_version") === "3") {
+          // Joomla 3 uses the Bootstrap 2.x framework for its admin UI
+          cy.contains("li a", /Advanced|Erweitert|Avanzado|高度な設定|Розгорнутий/).click();
+        } else {
+          cy.get(
+            'div[role="tablist"] button[aria-controls="attrib-advanced"]'
+          ).click();
+        }
+        cy.contains(queryMethod[locale.substring(0, 2)]).should('be.visible');
+        cy.get('body').then($body => {
+          if ($body.text().includes('MOD_ZITAT_')) {
+            throw new Error('String "MOD_ZITAT_" found on Advanced tab');
+          }
+        });
+      });
+    });
+  });
+
+  // zitat-service user 'heikoAdmin' (id 1) has exactly one quote in each language
   interface TestData {
     quotation: string;
     quotationLink: string;
@@ -68,8 +123,8 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
   };
 
   describe("JavaScript-based and set user and frontend multi-language test", () => {
-    // choose user 'heikoAdmin' (id 1) as this one has exactly one quote in each language
-    it("prepare multi-language test with choosing user 'heikoAdmin'", function () {
+    // choose zitat-service user 'heikoAdmin' (id 1) as this one has exactly one quote in each language
+    it("prepare multi-language test with choosing zitat-service user 'heikoAdmin'", function () {
       TestHelpers.setOption({ "#jform_params_user": "1" });
     });
 
@@ -114,8 +169,8 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
   });
 
   describe("Joomla-based and set user and frontend multi-language test", () => {
-    // choose user 'heikoAdmin' (id 1) as this one has exactly one quote in each language
-    it("prepare multi-language test with choosing user 'heikoAdmin' and query method 'from Joomla'", function () {
+    // choose zitat-service user 'heikoAdmin' (id 1) as this one has exactly one quote in each language
+    it("prepare multi-language test with choosing zitat-service user 'heikoAdmin' and query method 'from Joomla'", function () {
       TestHelpers.setOption(
         { "#jform_params_user": "1" },
         {
@@ -183,7 +238,7 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
     };
 
     // five tests in the five languages
-    languages.forEach((lang) => {
+    TestHelpers.languages().forEach((lang) => {
       it(`check ${testData[lang] ? "the presence of quote for author" : "error"
         } in ${lang}`, () => {
           TestHelpers.myVisit(`/index.php/${lang}`);
@@ -219,7 +274,7 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
     };
 
     // five tests in the five languages
-    languages.forEach((lang) => {
+    TestHelpers.languages().forEach((lang) => {
       it(`check ${testData[lang] ? "the presence of quote for category" : "error"
         } in ${lang}`, () => {
           TestHelpers.myVisit(`/index.php/${lang}`);
@@ -252,7 +307,7 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
       "Treffen sich zwei Ameisen. Fragt die eine: „Und – was machen Sie so?” Sagt die andere: „Sie meinen beruflich?”";
 
     // five tests in the five languages
-    languages.forEach((lang) => {
+    TestHelpers.languages().forEach((lang) => {
       it(`check the presence of quote in ${lang}`, () => {
         TestHelpers.myVisit(`/index.php/${lang}`);
         cy.get("#zitat-service").should("exist");
@@ -276,7 +331,7 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
       "Treffen sich zwei Ameisen. Fragt die eine: „Und – was machen Sie so?” Sagt die andere: „Sie meinen beruflich?”";
 
     // five tests in the five languages
-    languages.forEach((lang) => {
+    TestHelpers.languages().forEach((lang) => {
       it(`check the presence of quote in ${lang}`, () => {
         TestHelpers.myVisit(`/index.php/${lang}`);
         cy.get("#zitat-service").should("exist");
@@ -294,7 +349,7 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
     });
 
     // five tests in the five languages
-    languages.forEach((lang) => {
+    TestHelpers.languages().forEach((lang) => {
       it(`check there is no target in any link for ${lang} in ${lang}`, () => {
         TestHelpers.myVisit(`/index.php/${lang}`);
         cy.get(".quote a").each(($el) => {
@@ -311,7 +366,7 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
     });
 
     // five tests in the five languages
-    languages.forEach((lang) => {
+    TestHelpers.languages().forEach((lang) => {
       it(`check target is set for all links in ${lang}`, () => {
         TestHelpers.myVisit(`/index.php/${lang}`);
         cy.get(".quote a").each(($el) => {
@@ -334,7 +389,7 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
     });
 
     // five tests in the five languages
-    languages.forEach((lang) => {
+    TestHelpers.languages().forEach((lang) => {
       it(`check there is no target in any link in ${lang}`, () => {
         TestHelpers.myVisit(`/index.php/${lang}`);
         cy.get(".quote a").each(($el) => {
@@ -358,7 +413,7 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
     });
 
     // five tests in the five languages
-    languages.forEach((lang) => {
+    TestHelpers.languages().forEach((lang) => {
       it(`check target is set for all links in ${lang}`, () => {
         TestHelpers.myVisit(`/index.php/${lang}`);
         cy.get(".quote a").each(($el) => {
@@ -376,7 +431,7 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
     });
 
     // five tests in the five languages
-    languages.forEach((lang) => {
+    TestHelpers.languages().forEach((lang) => {
       it(`check min-height in ${lang}`, () => {
         TestHelpers.myVisit(`/index.php/${lang}`);
         cy.get(".quote a").each(($el) => {
@@ -388,21 +443,4 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
       });
     });
   });
-
-  // describe("Backend I18N translation", () => {
-  //   it("prepare reset to all defaults", function () {
-  //     TestHelpers.setOption({});
-  //   });
-
-  //   // five tests in the five languages
-  //   languages.forEach((lang) => {
-  //     it(`check  ${lang}`, () => {
-  //       TestHelpers.myVisit(`/index.php/${lang}`);
-  //       cy.get(".quote a").each(($el) => {
-  //         // for each link found inside a .quote div, check that the target attribute is 'quoteCypressTest'
-  //         cy.wrap($el).should("not.have.attr", "target", "quoteCypressTest");
-  //       });
-  //     });
-  //   });
-  // });
 });
