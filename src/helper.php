@@ -10,7 +10,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-define('ZITAT_SERVICE_MODULE_VERSION', '2.0.2');
+define('ZITAT_SERVICE_MODULE_VERSION', '2.0.3');
 // define('ZITAT_SERVICE_API_URL', 'http://host.docker.internal:3000/v1');
 define('ZITAT_SERVICE_API_URL', 'https://api.zitat-service.de/v1');
 // list of valid languages as from https://api.zitat-service.de/v1/languages

@@ -2,6 +2,14 @@
     <changelog>
         <element>mod_zitat_service_de</element>
         <type>module</type>
+        <version>2.0.3</version>
+        <fix>
+            <item><![CDATA[Fixed issue <a href="https://github.com/muhme/quote_joomla/issues/2">#2</a> – backend translation of the modules is broken.]]></item>
+        </fix>
+    </changelog>
+    <changelog>
+        <element>mod_zitat_service_de</element>
+        <type>module</type>
         <version>2.0.2</version>
         <language>
             <item><![CDATA[In addition to English 🇺🇸 and German 🇩🇪, the languages Español 🇪🇸, 日本語 🇯🇵 and Українська 🇺🇦 have been added for the quotes and for the backend.]]></item>
