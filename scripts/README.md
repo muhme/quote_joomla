@@ -6,7 +6,7 @@ The scripts are used on the Mac command line, but should also work on Linux and 
 
 | Script | Description | Additional Info |
 | --- | --- | --- |
-| `scripts/compose.sh` | Delete the six Docker containers and build them new |  |
+| `scripts/compose.sh` | Delete the six Docker containers and build them new | - with optional argument `build` an  docker compose build --no-cache is executed in advance |
 | `scripts/exec.sh` | Get access to the Joomla Docker container and **linking** the module source | - Linking maps the local host folder into the Joomla Docker container to test code changes immediately |
 | `scripts/cypress.sh` | Open Cypress in GUI mode on local host for desired Joomla version | Needs Cypress installed on host. |
 | `scripts/install.sh` | Install Joomla and module `mod_zitat_service_de` | - Using Cypress in headless mode<br>- With argument 3, 4, or 5 install this Joomla version; without argument install all three<br>- With environment variable `CYPRESS_OPTIONS`, e.g., `CYPRESS_OPTIONS="video=true" scripts/install.sh 5` |
@@ -16,8 +16,8 @@ The scripts are used on the Mac command line, but should also work on Linux and 
 
 And now you are ready for ... triple speed :smiley: with the creation of six Docker containers, the installation of Joomla and the modules three times and testing the module in all three Joomla versions with only one command line.
 ```
-$ scripts/compose.sh && sleep 5 && scripts/install.sh && scripts/test.sh
+$ scripts/compose.sh && scripts/install.sh && scripts/test.sh
 ```
 
 > [!WARNING]
-> After using `scripts/exec.sh` the module folder inside Docker container is symbolic linked. If you uninstall the module you delete all source files in your host folder! :point_right: Inside container, you have to delete symbolic link before.
+> After using `scripts/exec.sh` the module folder inside Docker container is symbolic linked. If you uninstall the module in Joomla, you will delete all source files in your host folder! :point_right: Inside container, you have to delete symbolic link before.

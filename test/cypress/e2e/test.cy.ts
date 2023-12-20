@@ -9,115 +9,26 @@
 
 // using doAdministratorLogin() from npm joomla-cypress, but most by Cypress 'native' as also supporting Joomla 3
 import "joomla-cypress";
+import * as TestHelpers from "./testHelper";
 
 describe(`Test module zitat-service.de for Joomla ${Cypress.env(
   "joomla_version"
 )}`, () => {
   const languages = ["de", "en", "es", "ja", "uk"];
 
-  /**
-   * Set module options with:
-   *   1. backend login as admin
-   *   2. open the module zitat-service.de
-   *   3. reset all four module options to the default values
-   *   4. set given module options with #id to value
-   *   5. reset all three advanced options to the default values
-   *   6. set given advanced options with #id to value
-   *   7. save module configuration
-   */
-  function setOption(options, advanced = {}) {
-    // 1. backend login as admin
-    if (Cypress.env("joomla_version") === "3") {
-      // do admin login by own
-      cy.visit("/administrator/index.php");
-      cy.get("#mod-login-username").type(Cypress.env("username"));
-      cy.get("#mod-login-password").type(Cypress.env("password"));
-      cy.get("button.btn.btn-primary.btn-block.btn-large.login-button").click();
-    } else {
-      cy.doAdministratorLogin(Cypress.env("username"), Cypress.env("password"));
-    }
-
-    // 2. open the module zitat-service.de
-    cy.visit("/administrator/index.php?option=com_modules");
-    //cy.searchForItem("zitat-service.de") - don't use as not available for Joomla 3
-    cy.contains("a", "zitat-service.de").should("be.visible").click();
-
-    // 3. reset all four module options to the default values ('*', respective 'frontend' for language)
-    cy.get("#jform_params_user")
-      .invoke("val", "")
-      .trigger("change", { force: true });
-    cy.get("#jform_params_author")
-      .invoke("val", "")
-      .trigger("change", { force: true });
-    cy.get("#jform_params_category")
-      .invoke("val", "")
-      .trigger("change", { force: true });
-    cy.get("#jform_params_language").select("", { force: true });
-
-    // 4. set given module options with #id to value
-    Object.entries(options).forEach(([id, value]) => {
-      cy.log(`Set module parameter "${id}" to "${value}"`);
-      cy.get(id).invoke("val", value).trigger("change", { force: true });
-    });
-
-    // 5. reset all three advanced options to the default values (clear, respective 1 for the radio-button)
-    if (Cypress.env("joomla_version") === "3") {
-      // Joomla 3 uses the Bootstrap 2.x framework for its admin UI
-      cy.contains("li a", "Advanced").click();
-    } else {
-      cy.get(
-        'div[role="tablist"] button[aria-controls="attrib-advanced"]'
-      ).click();
-    }
-    cy.get("#jform_params_target").clear();
-    cy.get(
-      'input[type="radio"][name="jform[params][script]"][value="1"]'
-    ).check();
-    cy.get("#jform_params_height").clear({ force: true });
-
-    // 6. set given advanced options with #id to value
-    Object.entries(advanced).forEach(([id, value]) => {
-      if (value === "check") {
-        cy.log(`Check advanced parameter "${id}"`);
-        cy.get(id).check();
-        cy.wait(3000);
-      } else {
-        cy.log(`Set advanced parameter "${id}" to "${value}"`);
-        cy.get(id).invoke("val", value).trigger("change", { force: true });
-      }
-    });
-
-    // 7. save module configuration
-    cy.get("button.button-save").contains("Save & Close").click();
-    // Check for the success message (Joomla 3 w/o final dot)
-    cy.contains(".alert-message", /Module saved\.?/, { timeout: 30000 }).should(
-      "be.visible"
-    );
-
-    // ignore backend admin logout
-  }
-
-  /**
-   * do cy.visit() and check for deprecated notice
-   * @param string path
-   */
-  function myVisit(path) {
-    cy.visit(path);
-    // wait for the body element to be available
-    cy.get("body").should(($body) => {
-      // get the text of the body element
-      const text = $body.text();
-      // assert that the 'Deprecated: ' string is not present
-      expect(text).not.to.include("Deprecated: ");
-      // assert that the 'Warning: ' string is not present
-      expect(text).not.to.include("Warning: ");
-      // assert that the 'Error: ' string is not present
-      expect(text).not.to.include("Error: ");
-    });
-  }
-
   // user 'heikoAdmin' (id 1) has exactly one quote in each language
-  const heikoAdminTestData = {
+  interface TestData {
+    quotation: string;
+    quotationLink: string;
+    source: string;
+    sourceLink?: string;
+    author?: string;
+    authorLink?: string;
+  }
+  interface LanguageTestData {
+    [key: string]: TestData;
+  }
+  const heikoAdminTestData: LanguageTestData = {
     de: {
       quotation: "der zankapfel schmeckt bitter",
       quotationLink: "https://www.zitat-service.de/de/quotations/1871",
@@ -159,7 +70,7 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
   describe("JavaScript-based and set user and frontend multi-language test", () => {
     // choose user 'heikoAdmin' (id 1) as this one has exactly one quote in each language
     it("prepare multi-language test with choosing user 'heikoAdmin'", function () {
-      setOption({ "#jform_params_user": "1" });
+      TestHelpers.setOption({ "#jform_params_user": "1" });
     });
 
     Object.entries(heikoAdminTestData).forEach(
@@ -168,7 +79,7 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
         { quotation, quotationLink, source, sourceLink, author, authorLink },
       ]) => {
         it(`check the presence of quote elements in ${lang}`, () => {
-          myVisit("/index.php/" + lang);
+          TestHelpers.myVisit("/index.php/" + lang);
 
           // <div id="zitat-service"> only from JavaScript
           cy.get("#zitat-service").should("exist");
@@ -205,7 +116,7 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
   describe("Joomla-based and set user and frontend multi-language test", () => {
     // choose user 'heikoAdmin' (id 1) as this one has exactly one quote in each language
     it("prepare multi-language test with choosing user 'heikoAdmin' and query method 'from Joomla'", function () {
-      setOption(
+      TestHelpers.setOption(
         { "#jform_params_user": "1" },
         {
           'input[type="radio"][name="jform[params][script]"][value="0"]':
@@ -220,7 +131,7 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
         { quotation, quotationLink, source, sourceLink, author, authorLink },
       ]) => {
         it(`check the presence of quote elements in ${lang}`, () => {
-          myVisit("/index.php/" + lang);
+          TestHelpers.myVisit("/index.php/" + lang);
 
           // <div id="zitat-service"> only from JavaScript
           cy.get("#zitat-service").should("not.exist");
@@ -256,7 +167,7 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
   describe("set author option", () => {
     // author Mark Twain (id 36) has 20 quotes in German and English
     it("prepare author test with choosing author 'Mark Twain'", function () {
-      setOption({ "#jform_params_author": "36" });
+      TestHelpers.setOption({ "#jform_params_author": "36" });
     });
 
     // expected results
@@ -273,31 +184,30 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
 
     // five tests in the five languages
     languages.forEach((lang) => {
-      it(`check ${
-        testData[lang] ? "the presence of quote for author" : "error"
-      } in ${lang}`, () => {
-        myVisit(`/index.php/${lang}`);
-        cy.get("#zitat-service").should("exist");
-        if (testData[lang]) {
-          cy.get(".quote .source").contains(testData[lang].author);
-          if (testData[lang].authorLink) {
-            cy.get(".quote .source")
-              .find('a[href="' + testData[lang].authorLink + '"]')
-              .should("have.attr", "href", testData[lang].authorLink);
+      it(`check ${testData[lang] ? "the presence of quote for author" : "error"
+        } in ${lang}`, () => {
+          TestHelpers.myVisit(`/index.php/${lang}`);
+          cy.get("#zitat-service").should("exist");
+          if (testData[lang]) {
+            cy.get(".quote .source").contains(testData[lang].author);
+            if (testData[lang].authorLink) {
+              cy.get(".quote .source")
+                .find('a[href="' + testData[lang].authorLink + '"]')
+                .should("have.attr", "href", testData[lang].authorLink);
+            }
+          } else {
+            cy.get("#zitat-service").contains(
+              "Error: No quote found for given parameters"
+            );
           }
-        } else {
-          cy.get("#zitat-service").contains(
-            "Error: No quote found for given parameters"
-          );
-        }
-      });
+        });
     });
   });
 
   describe("set category option", () => {
     // category 'Ant' (id 305) has one quote in German
     it("prepare category test with choosing category 'Ant'", function () {
-      setOption({ "#jform_params_category": "305" });
+      TestHelpers.setOption({ "#jform_params_category": "305" });
     });
 
     // expected results
@@ -310,29 +220,28 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
 
     // five tests in the five languages
     languages.forEach((lang) => {
-      it(`check ${
-        testData[lang] ? "the presence of quote for category" : "error"
-      } in ${lang}`, () => {
-        myVisit(`/index.php/${lang}`);
-        cy.get("#zitat-service").should("exist");
-        if (testData[lang]) {
-          cy.get("#zitat-service .quote").should("exist");
-          cy.get(".quote .quotation")
-            .should("exist")
-            .contains(testData[lang].quotation);
-        } else {
-          cy.get("#zitat-service").contains(
-            "Error: No quote found for given parameters"
-          );
-        }
-      });
+      it(`check ${testData[lang] ? "the presence of quote for category" : "error"
+        } in ${lang}`, () => {
+          TestHelpers.myVisit(`/index.php/${lang}`);
+          cy.get("#zitat-service").should("exist");
+          if (testData[lang]) {
+            cy.get("#zitat-service .quote").should("exist");
+            cy.get(".quote .quotation")
+              .should("exist")
+              .contains(testData[lang].quotation);
+          } else {
+            cy.get("#zitat-service").contains(
+              "Error: No quote found for given parameters"
+            );
+          }
+        });
     });
   });
 
   describe("set all languages option", () => {
     // category 'Ant' (id 305) has one quote in German
     it("prepare category test with choosing category 'Ant' and language 'all'", function () {
-      setOption({
+      TestHelpers.setOption({
         "#jform_params_category": "305",
         "#jform_params_language": "all",
       });
@@ -345,7 +254,7 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
     // five tests in the five languages
     languages.forEach((lang) => {
       it(`check the presence of quote in ${lang}`, () => {
-        myVisit(`/index.php/${lang}`);
+        TestHelpers.myVisit(`/index.php/${lang}`);
         cy.get("#zitat-service").should("exist");
         cy.get("#zitat-service .quote").should("exist");
         cy.get(".quote .quotation").should("exist").contains(quote);
@@ -356,7 +265,7 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
   describe("set one language 'de' option", () => {
     // category 'Ant' (id 305) has one quote in German
     it("prepare category test with choosing category 'Ant' and language 'de'", function () {
-      setOption({
+      TestHelpers.setOption({
         "#jform_params_category": "305",
         "#jform_params_language": "de",
       });
@@ -369,7 +278,7 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
     // five tests in the five languages
     languages.forEach((lang) => {
       it(`check the presence of quote in ${lang}`, () => {
-        myVisit(`/index.php/${lang}`);
+        TestHelpers.myVisit(`/index.php/${lang}`);
         cy.get("#zitat-service").should("exist");
         cy.get("#zitat-service .quote").should("exist");
         cy.get(".quote .quotation").should("exist").contains(quote);
@@ -381,13 +290,13 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
 
   describe("JavaScript-based and no target for all links", () => {
     it("prepare reset to all defaults", function () {
-      setOption({});
+      TestHelpers.setOption({});
     });
 
     // five tests in the five languages
     languages.forEach((lang) => {
       it(`check there is no target in any link for ${lang} in ${lang}`, () => {
-        myVisit(`/index.php/${lang}`);
+        TestHelpers.myVisit(`/index.php/${lang}`);
         cy.get(".quote a").each(($el) => {
           // for each link found inside a .quote div, check that the target attribute is 'quoteCypressTest'
           cy.wrap($el).should("not.have.attr", "target", "quoteCypressTest");
@@ -398,13 +307,13 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
 
   describe("JavaScript-based and set target for all links", () => {
     it("prepare with target for HTML links", function () {
-      setOption({}, { "#jform_params_target": target });
+      TestHelpers.setOption({}, { "#jform_params_target": target });
     });
 
     // five tests in the five languages
     languages.forEach((lang) => {
       it(`check target is set for all links in ${lang}`, () => {
-        myVisit(`/index.php/${lang}`);
+        TestHelpers.myVisit(`/index.php/${lang}`);
         cy.get(".quote a").each(($el) => {
           // for each link found inside a .quote div, check that the target attribute is 'quoteCypressTest'
           cy.wrap($el).should("have.attr", "target", "quoteCypressTest");
@@ -415,7 +324,7 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
 
   describe("Joomla-based and no target for all links", () => {
     it("prepare query method 'from Joomla'", function () {
-      setOption(
+      TestHelpers.setOption(
         {},
         {
           'input[type="radio"][name="jform[params][script]"][value="0"]':
@@ -427,7 +336,7 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
     // five tests in the five languages
     languages.forEach((lang) => {
       it(`check there is no target in any link in ${lang}`, () => {
-        myVisit(`/index.php/${lang}`);
+        TestHelpers.myVisit(`/index.php/${lang}`);
         cy.get(".quote a").each(($el) => {
           // for each link found inside a .quote div, check that the target attribute is 'quoteCypressTest'
           cy.wrap($el).should("not.have.attr", "target", "quoteCypressTest");
@@ -438,7 +347,7 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
 
   describe("Joomla-based and set target for all links", () => {
     it("prepare query method 'from Joomla' and set target for all links", function () {
-      setOption(
+      TestHelpers.setOption(
         {},
         {
           "#jform_params_target": target,
@@ -451,7 +360,7 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
     // five tests in the five languages
     languages.forEach((lang) => {
       it(`check target is set for all links in ${lang}`, () => {
-        myVisit(`/index.php/${lang}`);
+        TestHelpers.myVisit(`/index.php/${lang}`);
         cy.get(".quote a").each(($el) => {
           // for each link found inside a .quote div, check that the target attribute is 'quoteCypressTest'
           cy.wrap($el).should("have.attr", "target", "quoteCypressTest");
@@ -463,13 +372,13 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
   describe("set advanced option min-height", () => {
     const minHeight = "234px";
     it("prepare min-height test with setting height", function () {
-      setOption({}, { "#jform_params_height": minHeight });
+      TestHelpers.setOption({}, { "#jform_params_height": minHeight });
     });
 
     // five tests in the five languages
     languages.forEach((lang) => {
       it(`check min-height in ${lang}`, () => {
-        myVisit(`/index.php/${lang}`);
+        TestHelpers.myVisit(`/index.php/${lang}`);
         cy.get(".quote a").each(($el) => {
           cy.get("#zitat-service").should(($div) => {
             const style = window.getComputedStyle($div[0]);
@@ -479,4 +388,21 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
       });
     });
   });
+
+  // describe("Backend I18N translation", () => {
+  //   it("prepare reset to all defaults", function () {
+  //     TestHelpers.setOption({});
+  //   });
+
+  //   // five tests in the five languages
+  //   languages.forEach((lang) => {
+  //     it(`check  ${lang}`, () => {
+  //       TestHelpers.myVisit(`/index.php/${lang}`);
+  //       cy.get(".quote a").each(($el) => {
+  //         // for each link found inside a .quote div, check that the target attribute is 'quoteCypressTest'
+  //         cy.wrap($el).should("not.have.attr", "target", "quoteCypressTest");
+  //       });
+  //     });
+  //   });
+  // });
 });

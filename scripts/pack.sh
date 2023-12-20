@@ -32,7 +32,7 @@ calculate_hash() {
     shasum -a 512 "$FILE" | awk '{print $1}'
   # If neither command is found, print an error message
   else
-    echo "Error: Command sha512sum or shasum not found." >&2
+    echo "*** Error: Command sha512sum or shasum not found." >&2
     return 1
   fi
 }
@@ -46,7 +46,7 @@ ZIP="dist/mod_zitat_service_de_${VERSION}.zip" # module extension packed as ZIP
 UPDATE="dist/update.xml"
 
 if [ ! -f "$MANIFEST" ]; then 
-    echo "Error: Missing file \"$MANIFEST\" – are you in project root directory?"
+    echo "*** Error: Missing file \"$MANIFEST\" – are you in project root directory?"
     exit 1
 fi
 
@@ -62,4 +62,4 @@ sed "s|\(.*<sha512>\).*</sha512>|\1${HASH}</sha512>|; \
      s|\(.*\)/download/.*/mod_zitat_service_de_.*\.zip\(.*\)|\1/download/${VERSION}/mod_zitat_service_de_${VERSION}.zip\2|" $UPDATE > $TMP && cp $TMP $UPDATE
 
 # work is done
-echo "version $VERSION packed as $ZIP and $UPDATE updated"
+echo "*** Version $VERSION packed as $ZIP and $UPDATE updated"

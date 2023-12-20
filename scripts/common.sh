@@ -29,7 +29,7 @@ all_versions=(3 4 5)
 #
 checkVersion() {
     if [ "$#" -gt 1 ] || ([ "$#" -eq 1 ] && ! containsElement "$1" "${all_versions[@]}"); then
-        echo "Error: no argument (for all) or Joomla version from: ${all_versions[@]}"
+        echo "*** Error: no argument (for all) or Joomla version from: ${all_versions[@]}"
         exit 1
     fi
 
@@ -50,7 +50,7 @@ checkVersion() {
 #
 checkOneVersion() {
     if [ "$#" -ne 1 ] || ! containsElement "$1" "${all_versions[@]}"; then
-        echo "Error: needs Joomla version as one and only argument from: ${all_versions[@]}"
+        echo "*** Error: needs Joomla version as one and only argument from: ${all_versions[@]}"
         exit 1
     fi
 }

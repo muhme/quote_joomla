@@ -39,7 +39,7 @@ host$ scripts/install.sh 5
                                                                                                     
   Running:  install.cy.js                                                         (1 of 1)
 
-  Install Joomla 4 and module zitat-service
+  *** Install Joomla 5 and module zitat-service
     ✓ Install Joomla and module zitat-service (40084ms)
 
   (Run Finished)

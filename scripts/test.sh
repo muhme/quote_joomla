@@ -12,6 +12,6 @@ source scripts/common.sh
 checkVersion $*
 
 for version in ${versions[@]}; do
-    echo "testing module mod_zitat_service_de in Joomla $version"
-    docker exec -it quote_joomla_cypress sh -c "JOOMLA_VERSION=$version cypress run --spec cypress/e2e/test.cy.js $options"
+    echo "*** Testing module mod_zitat_service_de in Joomla $version"
+    docker exec -it quote_joomla_cypress sh -c "JOOMLA_VERSION=$version cypress run --spec cypress/e2e/test.cy.ts $options"
 done

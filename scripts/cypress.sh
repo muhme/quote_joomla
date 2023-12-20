@@ -9,5 +9,5 @@
 source scripts/common.sh
 checkOneVersion $*
 
-echo "open Cypress for Joomla $1"
+echo "*** Open Cypress for Joomla $1"
 cd test && export "JOOMLA_VERSION=$1" && npx cypress open

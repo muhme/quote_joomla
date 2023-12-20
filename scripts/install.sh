@@ -12,6 +12,7 @@ source scripts/common.sh
 checkVersion $*
 
 for version in ${versions[@]}; do
-    echo "installing Joomla $version and module mod_zitat_service_de"
+    echo "*** Installing Joomla $version and module mod_zitat_service_de"
+    node_modules/wait-on/bin/wait-on -l -t "60s" "http://localhost:200${version}" 
     docker exec -it quote_joomla_cypress sh -c "JOOMLA_VERSION=$version cypress run --spec cypress/e2e/install.cy.js $config_cypress_options"
 done
