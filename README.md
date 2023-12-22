@@ -42,37 +42,33 @@ joomla:5.0              0.0.0.0:2005->80/tcp   quote_joomla_5
 cypress/included        0.0.0.0:2080->80/tcp   quote_joomla_cypress
 ```
 
-- quote_joomla_mysqladmin – phpMyAdmin (database user root/root)
-  - http://localhost:2001
-- quote_joomla_3 – Joomla 3, ready for installation
-  - http://localhost:2003
-- quote_joomla_4 – Joomla 4, ready for installation
-  - http://localhost:2004
-- quote_joomla_5 – Joomla 5, ready for installation
-  - http://localhost:2005
+Available Ports are:
+- http://localhost:2001 – phpMyAdmin (database user root/root)
+- http://localhost:2003 – Joomla 3, ready for installation
+- http://localhost:2004 – Joomla 4, ready for installation
+- http://localhost:2005 – Joomla 5, ready for installation
 
-### Testing
+### Cypress
 
-Automated Cypress tests are in subfolder [test](./test/) and detailed README there.
+[Cypress](https://cypress.io) is used for running Joomla installation and for the automated end-to-end tests. This is described in detail in subfolder [test](./test/).
+
+### Scripts
+
+There are scripts prepared for a more pleasant and also faster development, see folder [scripts](./scripts/) and commented list of scripts there.
 
 ### Development
 
-One way to work inside the Docker container is to use "Attach to running Docker container" from VS Code.
-
-If you want to sync your checkout with Docker as well, that's a bit tricky. The reason is that the Joomla container uses a volume for folder `/var/www/html` and inside the folder `modules/mod_zitat_service_en` does not exist before the module installation.  As an example for the Joomla 5 container:
+For development purposes, it is useful to synchronise the files from the host with the Joomla module inside the Docker container in order to test changes immediately. The current host folder is already mapped in the docker container as `/quote_joomla` for module installation. After installing the module, the mapped files can then be used directly with a symbolic link, e.g. for the Joomla 5 container:
 ```
-host$ docker exec -it quote_joomla_5 /bin/bash
+host$ docker exec -it quote_joomla_5 bash
 quote_joomla_5# cd /var/www/html/modules
 quote_joomla_5# rm -r mod_zitat_service_de
 quote_joomla_5# ln -s /quote_joomla mod_zitat_service_de
 ```
 
-> [!WARNING]
-> If you uninstall the module after symbolic linking the module folder you delete all source files in your host folder! :point_right: Inside container, you have to delete symbolic link before.
+:point_right: The script `scripts/exec.sh` not only runs an interactive shell within the container, but also creates this symbolic link.
 
-### Scripts
-
-There are scripts prepared for a more pleasant and also faster development, see folder [scripts](./scripts/) and commented list of scripts there.
+> :warning: **Caution:** If you uninstall the module in Joomla after symbolic linking the module folder you delete all source files in your host folder! :point_right: Inside container, you have to delete symbolic link before.
 
 </details>
 
