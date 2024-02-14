@@ -13,8 +13,6 @@ Tested Joomla/PHP versions are:
 | 4.4    | 8.1 |
 | 5.0    | 8.2 |
 
-* the Joomla module is using the new OpenAPI [api.zitat-service.de](https://api.zitat-service.de/)
-
 ## Test & Development Environment
 <details>
   <summary>There is a docker test and development environment prepared, including automated Cypress installation.</summary>
@@ -71,6 +69,10 @@ quote_joomla_5# ln -s /quote_joomla mod_zitat_service_de
 > :warning: **Caution:** If you uninstall the module in Joomla after symbolic linking the module folder you delete all source files in your host folder! :point_right: Inside container, you have to delete symbolic link before.
 
 </details>
+
+## API zitat-service.de
+
+The Joomla module fechtes all data from <a href="https://api.zitat-service.de">api.zitat-service.de</a>. Terms of use and privacy statement can be found in the <a href="https://www.zitat-service.de/en/start/contact">Imprint</a>.
 
 ## License
 
