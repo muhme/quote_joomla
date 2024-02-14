@@ -72,7 +72,7 @@ quote_joomla_5# ln -s /quote_joomla mod_zitat_service_de
 
 ## API zitat-service.de
 
-The Joomla module fechtes all data from <a href="https://api.zitat-service.de">api.zitat-service.de</a>. Terms of use and privacy statement can be found in the <a href="https://www.zitat-service.de/en/start/contact">Imprint</a>.
+The Joomla module fetches all data from <a href="https://api.zitat-service.de">api.zitat-service.de</a>. Terms of use and privacy statement can be found in the <a href="https://www.zitat-service.de/en/start/contact">Imprint</a>.
 
 ## License
 
