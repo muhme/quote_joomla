@@ -41,7 +41,7 @@ cypress/included        0.0.0.0:2080->80/tcp   quote_joomla_cypress
 ```
 
 Available Ports are:
-- http://localhost:2001 – phpMyAdmin (database user root/root)
+- http://localhost:2001 – phpMyAdmin (database user root/root already set)
 - http://localhost:2003 – Joomla 3, ready for installation
 - http://localhost:2004 – Joomla 4, ready for installation
 - http://localhost:2005 – Joomla 5, ready for installation
