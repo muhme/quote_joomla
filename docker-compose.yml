@@ -1,10 +1,8 @@
 # docker-compose.yml
-# Oct-14-2013 - Oct-27-2023
+# Oct-14-2013 - May-4-2024
 #
-# MIT License, Copyright (c) 2008 - 2023 Heiko Lübbe
+# MIT License, Copyright (c) 2008 - 2024 Heiko Lübbe
 # https://github.com/muhme/quote_joomla
-
-version: '3.1'
 
 services:
 
