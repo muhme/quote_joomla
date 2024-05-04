@@ -7,4 +7,4 @@
 # clean.sh - delete all quote_joomla_* docker containers
 
 echo '*** Removing all docker containers quote_joomla_*'
-docker ps -a --format '{{.Names}}' | grep '^quote_joomla_' | xargs docker rm -f
+docker ps -a --format '{{.Names}}' | grep '^quote_joomla_' | xargs -r docker rm -f
