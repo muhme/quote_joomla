@@ -77,4 +77,6 @@ services:
       - 2080:80
     volumes:
       - .:/quote_joomla
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     working_dir: /quote_joomla/test
