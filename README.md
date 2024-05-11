@@ -19,7 +19,7 @@ Tested Joomla/PHP versions are:
 
 ### Docker Containers
 
-There is a Docker based test and development environment prepared:
+As a prerequisite, [git](https://git-scm.com/), [docker](https://www.docker.com/) and [npm](https://www.npmjs.com/) must be installed (under Microsoft Windows in [WSL2](https://learn.microsoft.com/de-de/windows/wsl/install)). Then:
 
 ```
 host$ git clone https://github.com/muhme/quote_joomla
