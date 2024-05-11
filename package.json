@@ -4,10 +4,8 @@
   "description": "Joomla module for zitat-service.de",
   "author": "Heiko Lübbe",
   "license": "MIT",
-  "dependencies": {
-    "joomla-cypress": "github:muhme/joomla-cypress#issue-9-fix-functions"
-  },
   "devDependencies": {
-    "wait-on": "^7.2.0"
+    "wait-on": "",
+    "joomla-cypress": ""
   }
 }
