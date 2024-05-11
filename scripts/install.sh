@@ -11,6 +11,9 @@
 source scripts/common.sh
 checkVersion $*
 
+echo "*** npm install"
+npm install
+
 for version in ${versions[@]}; do
     echo "*** Installing Joomla $version and module mod_zitat_service_de"
     node_modules/wait-on/bin/wait-on -l -t "60s" "http://localhost:200${version}" 
