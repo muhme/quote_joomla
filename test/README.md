@@ -10,14 +10,12 @@ For an overview of the module and its features, please refer to the main [../REA
 
 ### NPM Package joomla-cypress
 
-As a base for the Cypress installation in Joomla 4 and Joomla 5 the npm package [joomla-projects/joomla-cypress](https://github.com/joomla-projects/joomla-cypress/tree/develop) in development branch is used. Currently my fork is used until all the fixes are packed in next version. If you wish to run Cypress on local host machine you have to install the dependencies:
+As a base for the Cypress installation in Joomla 4 and Joomla 5 the npm package [joomla-projects/joomla-cypress](https://github.com/joomla-projects/joomla-cypress) is used. If you wish to run Cypress on local host machine you have to install the dependencies:
 ```
-host$ npm i
+npm i
 ```
 
-Joomla 3 is not supported, installation and test is Cypress 'native' implemented and switched via environment variable `JOOMLA_VERSION`.
-
-In the meantime (since the admin login now requires a locale) the package `joomla-cypress` is no longer used in the tests.
+Joomla 3 is not supported by joomla-cypress. Installation and test for Joomla 3 is Cypress 'native' implemented and switched via environment variable `JOOMLA_VERSION`.
 
 ### 1st Preparing with the Installation
 
@@ -27,7 +25,10 @@ As preparation for the end-to-end tests you can use automated Joomla and module 
 
 You can use the prepared docker container `quote_joomla_cypress` to install with Cypress headless mode e.g. for Joomla 5:
 ```
-host$ scripts/install.sh 5
+scripts/install.sh 5
+```
+Sample Output:
+```
 
   (Run Starting)
 
@@ -55,14 +56,14 @@ host$ scripts/install.sh 5
 
 :bulb: **Tip:** You can also install all three Joomla versions at once:
 ```
-host$ scripts/install.sh
+scripts/install.sh
 ```
 
 ### 2nd Testing
 
 There is the end-to-end test suite `test.cy.js` with actual 76 tests for the backend translation, the different four module and three advanced options in the five supported languages. You can run with script e.g. for Joomla 5:
 ```
-host$ scripts/test.sh 5
+scripts/test.sh 5
 ```
 <details>
   <summary>See screen recording sample.</summary>
@@ -72,10 +73,10 @@ host$ scripts/test.sh 5
 
 #### Interactive on Local Host
 
-You can choose the desired Joomla! version with environment variable `JOOMLA_VERSION`. [Cypress](https://www.cypress.io/) can be started inside subfolder `test`.
+You can run Cypress on the host system, e.g. to use the GUI. Choose the desired Joomla version with environment variable `JOOMLA_VERSION`. [Cypress](https://www.cypress.io/) can be started inside subfolder `test`.
 ```
-host$ cd test
-host$ JOOMLA_VERSION=4 npx cypress open
+cd test
+JOOMLA_VERSION=4 npx cypress open
 ```
 
 In Cypress, you use E2E Testing, launch your favorite browser and with the `install.cy.js` script you have automatic Joomla and module installation. This can run once after the Docker containers are created. And you have the end-to-end module test script `test.cy.js` which can be started multiple times.
