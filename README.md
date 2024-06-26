@@ -22,15 +22,17 @@ Tested Joomla/PHP versions are:
 As a prerequisite, [git](https://git-scm.com/), [docker](https://www.docker.com/) and [npm](https://www.npmjs.com/) must be installed (under Microsoft Windows in [WSL2](https://learn.microsoft.com/de-de/windows/wsl/install)). To create your test and development environment run:
 
 ```
-host$ git clone https://github.com/muhme/quote_joomla
-host$ cd quote_joomla
-host$ docker compose up -d
+git clone https://github.com/muhme/quote_joomla
+cd quote_joomla
+docker compose up -d
 ```
 
 Six Docker containers are running:
 
 ```
-host$ docker ps
+docker ps
+```
+```
 IMAGE                   PORTS                  NAMES
 mysql                   3306/tcp, 33060/tcp    quote_joomla_mysql
 phpmyadmin/phpmyadmin   0.0.0.0:2001->80/tcp   quote_joomla_mysqladmin
@@ -58,10 +60,7 @@ There are scripts prepared for a more pleasant and also faster development, see 
 
 For development purposes, it is useful to synchronise the files from the host with the Joomla module inside the Docker container in order to test changes immediately. The current host folder is already mapped in the docker container as `/quote_joomla` for module installation. After installing the module, the mapped files can then be used directly with a symbolic link, e.g. for the Joomla 5 container:
 ```
-host$ docker exec -it quote_joomla_5 bash
-quote_joomla_5# cd /var/www/html/modules
-quote_joomla_5# rm -r mod_zitat_service_de
-quote_joomla_5# ln -s /quote_joomla mod_zitat_service_de
+docker exec -it quote_joomla_5 bash -e 'cd /var/www/html/modules && rm -r mod_zitat_service_de && ln -s /quote_joomla mod_zitat_service_de'
 ```
 
 :point_right: The script `scripts/exec.sh` not only runs an interactive shell within the container, but also creates this symbolic link.
