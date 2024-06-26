@@ -10,9 +10,9 @@ For an overview of the module and its features, please refer to the main [../REA
 
 ### NPM Package joomla-cypress
 
-As a base for the Cypress installation in Joomla 4 and Joomla 5 the npm package [joomla-projects/joomla-cypress](https://github.com/joomla-projects/joomla-cypress) is used. If you wish to run Cypress on local host machine you have to install the dependencies:
+As a base for the Cypress installation in Joomla 4 and Joomla 5 the npm package [joomla-projects/joomla-cypress](https://github.com/joomla-projects/joomla-cypress) is used. If you wish to run Cypress on local host machine you have to clean-install the dependencies:
 ```
-npm i
+npm ci
 ```
 
 Joomla 3 is not supported by joomla-cypress. Installation and test for Joomla 3 is Cypress 'native' implemented and switched via environment variable `JOOMLA_VERSION`.
