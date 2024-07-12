@@ -82,3 +82,14 @@ JOOMLA_VERSION=4 npx cypress open
 In Cypress, you use E2E Testing, launch your favorite browser and with the `install.cy.js` script you have automatic Joomla and module installation. This can run once after the Docker containers are created. And you have the end-to-end module test script `test.cy.js` which can be started multiple times.
 
 ![Cypress install screen shoot](../images/install_screen.png)
+
+#### Display Console Messages During Installation or Testing
+
+Console messages in Cypress Test Runner from the Electron browser can be displayed in the JavaScript console
+of the Cypress GUI.
+If Cypress is executed headless with the install or test script then the environment variable
+`ELECTRON_ENABLE_LOGGING=1` can be set.
+```
+export ELECTRON_ENABLE_LOGGING=1
+scripts/install.sh 3
+```
