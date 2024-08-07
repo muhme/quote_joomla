@@ -12,8 +12,8 @@
 source scripts/common.sh
 checkVersion $*
 
-echo "*** npm install"
-npm install
+echo "*** npm clean install"
+npm ci
 
 for version in ${versions[@]}; do
     echo "*** Installing Joomla $version and module mod_zitat_service_de"
