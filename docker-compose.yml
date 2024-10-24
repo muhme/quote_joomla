@@ -28,7 +28,7 @@ services:
 
   joomla3:
     container_name: quote_joomla_3
-    image: joomla:3 # actual 3.10.12
+    image: joomla:3 # October 2024: 3.10.12
     restart: always
     ports:
       - 2003:80
@@ -42,7 +42,7 @@ services:
 
   joomla4:
     container_name: quote_joomla_4
-    image: joomla:4 # actual 4.4.0
+    image: joomla:4 # October 2024: 4.4.4
     restart: unless-stopped
     ports:
       - 2004:80
@@ -56,7 +56,7 @@ services:
 
   joomla5:
     container_name: quote_joomla_5
-    image: joomla:5 # actual 5.0.0
+    image: joomla:5 # October 2024: 5.0.0
     restart: unless-stopped
     ports:
       - 2005:80
@@ -70,7 +70,7 @@ services:
 
   cypress:
     container_name: quote_joomla_cypress
-    image: cypress/included # actual 13. + Chrome 116. + Edge 116. + Firefox 117.
+    image: cypress/included # October 2024: 13.3.0 + Chrome 116. + Edge 116. + Firefox 117.
     restart: unless-stopped
     entrypoint: ["sleep", "31536000"] # don't use cypress run, instead sleep one year
     ports:
