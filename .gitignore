@@ -1,2 +1,8 @@
+# Ignore NPM module directories everywhere
 node_modules/
+
+# Ignore screenshot directories everywhere
 screenshots/
+
+# macOS system files
+.DS_Store
