@@ -6,6 +6,6 @@
   "license": "MIT",
   "devDependencies": {
     "wait-on": "",
-    "joomla-cypress": "^1.1.1"
+    "joomla-cypress": "^1.3.0"
   }
 }
