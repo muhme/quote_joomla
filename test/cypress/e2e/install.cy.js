@@ -140,6 +140,12 @@ describe(`Install Joomla ${Cypress.env(
 
       cy.doAdministratorLogin(config.username, config.password);
 
+      // from Joomla version 5.1 onward, we need to disable the Guided Tour to ensure that subsequent visuals remain unobstructed.
+      if (Cypress.env("joomla_version") === "5") {
+        cy.visit("administrator");
+        cy.cancelTour();
+      }
+
       // install multilingual sample data
       cy.visit("administrator");
       cy.get('button[data-type="multilang"]').click();
