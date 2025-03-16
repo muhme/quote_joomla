@@ -55,7 +55,7 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
         cy.contains('h2', 'zitat-service.de').should('exist');
         if (Cypress.env("joomla_version") === "3") {
           // Joomla 3 uses the Bootstrap 2.x framework for its admin UI
-          cy.contains("li a", /Advanced|Erweitert|Avanzado|高度な設定|Розгорнутий/).click();
+          cy.get('a[href="#attrib-advanced"]').click({ force: true });
         } else {
           cy.get(
             'div[role="tablist"] button[aria-controls="attrib-advanced"]'
