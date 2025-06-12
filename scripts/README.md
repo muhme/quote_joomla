@@ -8,9 +8,9 @@ The scripts are used on the macOS command line, but should also work on Linux an
 | --- | --- | --- |
 | [scripts/compose.sh](./compose.sh) | Delete the six Docker containers and build them new | - with optional argument `build` an `docker compose build --no-cache` is executed in advance |
 | [scripts/exec.sh](./exec.sh) | Get access to the Joomla Docker container and **linking** the module source | - Linking maps the local host folder into the Joomla Docker container to test code changes immediately |
-| [scripts/cypress.sh](./cypress.sh) | Open Cypress in GUI mode on local host for desired Joomla version | Needs Cypress installed on host. |
-| [scripts/install.sh](./install.sh) | Install Joomla and module `mod_zitat_service_de` | - Using Cypress in headless mode<br>- With argument 3, 4, or 5 you install this one Joomla version; without argument install all three<br>- With environment variable `CYPRESS_OPTIONS`, e.g., `CYPRESS_OPTIONS="video=true" scripts/install.sh 5`<br />- Can only be executed once |
-| [scripts/test.sh](./test.sh) | Module end-to-end test | - Using Cypress in headless mode<br>- With argument 3, 4, or 5 you test this one Joomla version; without argument to test all three versions<br>- With environment variable `CYPRESS_OPTIONS`, e.g., `CYPRESS_OPTIONS="video=true" scripts/test.sh 5` |
+| [scripts/cypress.sh](./cypress.sh) | Open Cypress in GUI mode on local host for desired Joomla version | Needs Cypress installed on host and argument 3, 4, 5 or 6 for the Joomla version. |
+| [scripts/install.sh](./install.sh) | Install Joomla and module `mod_zitat_service_de` | - Using Cypress in headless mode<br>- With argument 3, 4, 5 or 6 you install this one Joomla version; without argument install all three<br>- With environment variable `CYPRESS_OPTIONS`, e.g., `CYPRESS_OPTIONS="video=true" scripts/install.sh 5`<br />- Can only be executed once |
+| [scripts/test.sh](./test.sh) | Module end-to-end test | - Using Cypress in headless mode<br>- With argument 3, 4, 5 or 6 you test this one Joomla version; without argument to test all three versions<br>- With environment variable `CYPRESS_OPTIONS`, e.g., `CYPRESS_OPTIONS="video=true" scripts/test.sh 5` |
 | [scripts/pack.sh](./pack.sh) | Create Joomla extension ZIP, including SHA512 |  |
 | [scripts/clean.sh](./clean.sh) | Removes all quote_joomla_* Docker containers and the network |  |
 

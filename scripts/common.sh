@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (c) 2023 Heiko Lübbe
+# Copyright (c) 2023 - 2025 Heiko Lübbe
 # This software is licensed under the MIT License.
 # For the full license text, see the LICENSE file in the project root or visit https://opensource.org/licenses/MIT
 #
@@ -19,7 +19,7 @@ containsElement() {
 }
 
 # available Joomla versions
-all_versions=(3 4 5)
+all_versions=(3 4 5 6)
 
 #
 # if version given, then check if available

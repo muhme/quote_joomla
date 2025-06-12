@@ -1,6 +1,6 @@
 # Test
 
-This `test` subfolder contains a set of automated tests developed for the `mod_zitat_service_de` Joomla module extension. These tests aim to ensure the integrity and reliability of the module's functionality across Joomla versions 3, 4 and 5. 
+This `test` subfolder contains a set of automated tests developed for the `mod_zitat_service_de` Joomla module extension. These tests aim to ensure the integrity and reliability of the module's functionality across Joomla versions 3, 4, 5 and 6. 
 
 For an overview of the module and its features, please refer to the main [../README.md](../README.md) file located in the parent directory.
 
@@ -9,12 +9,14 @@ For an overview of the module and its features, please refer to the main [../REA
 The following containers are available after the installation step
 to perform manual checks in parallel to the automated tests:
 
-| Container | URL | User / Password |
-|-----------|-----|---------|
-| `quote_joomla_mysqladmin` | http://localhost:2001 | root / root |
-| `quote_joomla_3` | http://localhost:2003 | admin / admin12345678 |
-| `quote_joomla_4` | http://localhost:2004 | admin / admin12345678 |
-| `quote_joomla_5` | http://localhost:2005 | admin / admin12345678 |
+| Container                    | URL                   | User / Password       |
+|------------------------------|-----------------------|-----------------------|
+| `quote_joomla_mysqladmin`    | http://localhost:2001 | root / root           |
+| `quote_joomla_3`             | http://localhost:2003 | admin / admin12345678 |
+| `quote_joomla_4`             | http://localhost:2004 | admin / admin12345678 |
+| `quote_joomla_5`             | http://localhost:2005 | admin / admin12345678 |
+| `quote_joomla_6`             | http://localhost:2006 | admin / admin12345678 |
+| `quote_joomla_update_server` |                       |                       |
 
 [Cypress](https://www.cypress.io/) is used as the platform for the automated browser testing. It can be used either headless with Docker container `quote_joomla_cypress` or from local host installation with GUI. Some scripts are used for a more pleasant working, see folder [../scripts](../scripts/) and commented list of scripts there.
 

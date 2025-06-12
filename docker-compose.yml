@@ -1,8 +1,13 @@
 # docker-compose.yml
-# 2023 - 2024
 #
-# MIT License, Copyright (c) 2008 - 2024 Heiko Lübbe
+# MIT License, Copyright (c) 2008 - 2025 Heiko Lübbe
 # https://github.com/muhme/quote_joomla
+
+networks:
+  quote_net:
+    ipam:
+      config:
+        - subnet: 172.25.0.0/16
 
 services:
 
@@ -12,6 +17,8 @@ services:
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: root
+    networks:
+      - quote_net
 
   mysqladmin:
     container_name: quote_joomla_mysqladmin
@@ -25,10 +32,12 @@ services:
     restart: unless-stopped
     depends_on:
       - mysql
+    networks:
+      - quote_net
 
   joomla3:
     container_name: quote_joomla_3
-    image: joomla:3 # October 2024: 3.10.12
+    image: joomla:3 # June 2025: 3.10.12
     restart: always
     ports:
       - 2003:80
@@ -39,10 +48,12 @@ services:
       - .:/quote_joomla
     depends_on:
       - mysql
+    networks:
+      - quote_net
 
   joomla4:
     container_name: quote_joomla_4
-    image: joomla:4 # October 2024: 4.4.4
+    image: joomla:4 # June 2025: 4.4.13
     restart: unless-stopped
     ports:
       - 2004:80
@@ -53,10 +64,12 @@ services:
       - .:/quote_joomla
     depends_on:
       - mysql
+    networks:
+      - quote_net
 
   joomla5:
     container_name: quote_joomla_5
-    image: joomla:5 # October 2024: 5.0.0
+    image: joomla:5 # June 2025: 5.3.1
     restart: unless-stopped
     ports:
       - 2005:80
@@ -67,6 +80,28 @@ services:
       - .:/quote_joomla
     depends_on:
       - mysql
+    networks:
+      - quote_net
+
+  joomla6:
+    container_name: quote_joomla_6
+    image: joomla:6.0 # June 2025: there exist no 6, used is 6.0.0-alpha1
+    restart: unless-stopped
+    ports:
+      - 2006:80
+    environment:
+      JOOMLA_DB_HOST: mysql
+      JOOMLA_DB_PASSWORD: root
+      JOOMLA_INSTALLATION_DISABLE_HTTPS_VERIFICATION: "1"
+    volumes:
+      - .:/quote_joomla
+    depends_on:
+      - mysql
+    extra_hosts:
+      - "update.joomla.org:172.25.0.88"
+    networks:
+      - quote_net
+
 
   cypress:
     container_name: quote_joomla_cypress
@@ -80,3 +115,19 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     working_dir: /quote_joomla/test
+    networks:
+      - quote_net
+
+  jupdate: # Joomla 6 language hack
+    container_name: quote_joomla_update_server
+    image: nginx:alpine
+    ports:
+      - "2061:443"
+    volumes:
+      - ./mirror:/usr/share/nginx/html:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+    restart: unless-stopped
+    networks:
+      quote_net:
+        ipv4_address: 172.25.0.88

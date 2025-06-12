@@ -6,3 +6,7 @@ screenshots/
 
 # macOS system files
 .DS_Store
+
+# Joomla 6 language hacks
+nginx/certs/
+mirror/

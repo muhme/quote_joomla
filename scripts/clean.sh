@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (c) 2023 - 2024 Heiko Lübbe
+# Copyright (c) 2023 - 2025 Heiko Lübbe
 # This software is licensed under the MIT License.
 # For the full license text, see the LICENSE file in the project root or visit https://opensource.org/licenses/MIT
 #
@@ -22,3 +22,5 @@ if docker network inspect "$NETWORK_NAME" >/dev/null 2>&1; then
   echo "*** Remove still existing Docker network"
   docker network rm "$NETWORK_NAME"
 fi
+
+rm -rf nginx/certs mirror

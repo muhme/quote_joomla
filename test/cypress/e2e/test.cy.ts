@@ -10,10 +10,9 @@
 // using doAdministratorLogin() from npm joomla-cypress, but most by Cypress 'native' as also supporting Joomla 3
 import "joomla-cypress";
 import * as TestHelpers from "./testHelper";
+const major = parseInt(Cypress.env("joomla_version"), 10);
 
-describe(`Test module zitat-service.de for Joomla ${Cypress.env(
-  "joomla_version"
-)}`, () => {
+describe(`Test module zitat-service.de for Joomla ${major}`, () => {
 
   // https://github.com/muhme/quote_joomla/issues/2 "backend translation of the modules is broken"
   describe("Backend I18N translation", () => {
@@ -53,9 +52,9 @@ describe(`Test module zitat-service.de for Joomla ${Cypress.env(
         TestHelpers.doLogin(locale);
         TestHelpers.openModule();
         cy.contains('h2', 'zitat-service.de').should('exist');
-        if (Cypress.env("joomla_version") === "3") {
+        if (major === 3) {
           // Joomla 3 uses the Bootstrap 2.x framework for its admin UI
-          cy.get('a[href="#attrib-advanced"]').click({ force: true });
+          cy.get('a[href="#attrib-advanced"]').click({ force: true }).click({ force: true });
         } else {
           cy.get(
             'div[role="tablist"] button[aria-controls="attrib-advanced"]'

@@ -11,11 +11,11 @@
 // based on npm joomla-cypress, import type definitions for Cypress object "cy"
 import "joomla-cypress";
 
-describe(`Install Joomla ${Cypress.env(
-  "joomla_version"
-)} and module zitat-service`, () => {
+const major = parseInt(Cypress.env("joomla_version"), 10);
+
+describe(`Install Joomla ${major} and module zitat-service`, () => {
   it("Install Joomla and module zitat-service", function () {
-    if (Cypress.env("joomla_version") === "3") {
+    if (major === 3) {
       // for Joomla 3.* user Cypress 'native' installation
       const languages = ["German", "Japanese", "Spanish", "Ukrainian"];
 
@@ -116,11 +116,11 @@ describe(`Install Joomla ${Cypress.env(
       // Save & Close
       cy.get("button.btn.btn-small.button-save").click();
     } else {
-      // for Joomla 4.* and 5.* use NPM joomla-cypress
+      // starting with Joomla 4 use NPM joomla-cypress
       cy.exec("rm configuration.php", { failOnNonZeroExit: false });
 
       let config = {
-        joomla_version: Cypress.env("joomla_version"),
+        joomla_version: major,
         sitename: Cypress.env("sitename"),
         name: Cypress.env("name"),
         username: Cypress.env("username"),
@@ -141,7 +141,7 @@ describe(`Install Joomla ${Cypress.env(
       cy.doAdministratorLogin(config.username, config.password);
 
       // from Joomla version 5.1 onward, we need to disable the Guided Tour to ensure that subsequent visuals remain unobstructed.
-      if (Cypress.env("joomla_version") === "5") {
+      if (major >= 5) {
         cy.visit("administrator");
         cy.cancelTour();
       }
