@@ -17,7 +17,16 @@ if [ "$ELECTRON_ENABLE_LOGGING" == "1" ]; then
     electron_enable_logging="ELECTRON_ENABLE_LOGGING=1"
 fi
 
+success=0
+failed=0
 for version in ${versions[@]}; do
     echo "*** Testing module mod_zitat_service_de in Joomla $version"
-    docker exec -it quote_joomla_cypress sh -c "$electron_enable_logging JOOMLA_VERSION=$version cypress run --spec cypress/e2e/test.cy.ts $options"
+    if docker exec -it quote_joomla_cypress sh -c "$electron_enable_logging JOOMLA_VERSION=$version \
+           cypress run --spec cypress/e2e/test.cy.ts $options"; then
+      success=$((success + 1))
+    else
+      failed=$((failed + 1))
+    fi
 done
+
+echo "Finished with ${success} successful test/s and ${failed} failed test/s. Have a nice day."

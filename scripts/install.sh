@@ -15,6 +15,8 @@ checkVersion $*
 echo "*** npm clean install"
 npm ci
 
+success=0
+failed=0
 for version in ${versions[@]}; do
     echo "*** Installing Joomla $version and module mod_zitat_service_de"
     node_modules/wait-on/bin/wait-on -l -t "60s" "http://localhost:200${version}" 
@@ -24,5 +26,12 @@ for version in ${versions[@]}; do
         electron_enable_logging="ELECTRON_ENABLE_LOGGING=1"
     fi
 
-    docker exec -it quote_joomla_cypress sh -c "$electron_enable_logging JOOMLA_VERSION=$version cypress run --spec cypress/e2e/install.cy.js $config_cypress_options"
+    if docker exec -it quote_joomla_cypress sh -c "$electron_enable_logging JOOMLA_VERSION=$version \
+              cypress run --spec cypress/e2e/install.cy.js $config_cypress_options"; then
+      success=$((success + 1))
+    else
+      failed=$((failed + 1))
+    fi
 done
+
+echo "Finished with ${success} successful installation/s and ${failed} failed installation/s. Have a nice day."

@@ -37,7 +37,7 @@ services:
 
   joomla3:
     container_name: quote_joomla_3
-    image: joomla:3 # June 2025: 3.10.12
+    image: joomla:3 # August 2025: 3.10.12
     restart: always
     ports:
       - 2003:80
@@ -53,7 +53,7 @@ services:
 
   joomla4:
     container_name: quote_joomla_4
-    image: joomla:4 # June 2025: 4.4.13
+    image: joomla:4 # August 2025: 4.4.13
     restart: unless-stopped
     ports:
       - 2004:80
@@ -69,7 +69,7 @@ services:
 
   joomla5:
     container_name: quote_joomla_5
-    image: joomla:5 # June 2025: 5.3.1
+    image: joomla:5 # August 2025: 5.3.2
     restart: unless-stopped
     ports:
       - 2005:80
@@ -85,7 +85,7 @@ services:
 
   joomla6:
     container_name: quote_joomla_6
-    image: joomla:6.0 # June 2025: there exist no 6, used is 6.0.0-alpha1
+    image: joomla:6.0 # August 2025: there exist no 6, used is 6.0.0-alpha3
     restart: unless-stopped
     ports:
       - 2006:80

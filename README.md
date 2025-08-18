@@ -6,13 +6,13 @@ Joomla module `mod_zitat_service_de` to display random quotes from community [zi
 
 Help for the Joomla module administration is available in five languages at [https://github.com/muhme/quote_joomla/wiki](https://github.com/muhme/quote_joomla/wiki).
 
-Used Joomla and PHP versions (as of Juni 2025) in the tests are:
+Used Joomla and PHP versions (as of August 2025) in the tests are:
 | Joomla       | PHP |
 |--------------|-----|
 | 3.10.12      | 8.0 |
 | 4.4.13       | 8.2 |
-| 5.3.1        | 8.3 |
-| 6.0.0-alpha1 | 8.3 |
+| 5.3.2        | 8.3 |
+| 6.0.0-alpha3 | 8.3 |
 
 👉 Since Joomla 6 has not yet been released (as of June 2025), the language files are not available. An nginx
    Docker container with all required language files and SSL certificate pretends to be update.joomla.org for Joomla 6.
@@ -82,7 +82,7 @@ The Joomla module fetches all data from <a href="https://api.zitat-service.de">a
 
 ## License
 
-MIT License, Copyright (c) 2008 - 2023 Heiko Lübbe, see [LICENSE](LICENSE)
+MIT License, Copyright (c) 2008 - 2025 Heiko Lübbe, see [LICENSE](LICENSE)
 
 ## Contact
 
