@@ -1,3 +1,5 @@
+[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua) This Joomla module supports the selection of the Ukrainian language. Цей модуль Joomla підтримує вибір української мови.
+
 # quote_joomla
 
 ![Joomla module mod_zitat_service_de configuration screen shot](images/quote_joomla.png)
