@@ -7,6 +7,6 @@ screenshots/
 # macOS system files
 .DS_Store
 
-# Joomla 6 language hacks
+# Language hack before Joomla 6 release
 nginx/certs/
 mirror/

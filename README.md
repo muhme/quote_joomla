@@ -8,16 +8,13 @@ Joomla module `mod_zitat_service_de` to display random quotes from community [zi
 
 Help for the Joomla module administration is available in five languages at [https://github.com/muhme/quote_joomla/wiki](https://github.com/muhme/quote_joomla/wiki).
 
-Used Joomla and PHP versions (as of August 2025) in the tests are:
+Used Joomla and PHP versions (as of December 2025) in the tests are:
 | Joomla       | PHP |
 |--------------|-----|
 | 3.10.12      | 8.0 |
-| 4.4.13       | 8.2 |
-| 5.3.2        | 8.3 |
-| 6.0.0-alpha3 | 8.3 |
-
-👉 Since Joomla 6 has not yet been released (as of June 2025), the language files are not available. An nginx
-   Docker container with all required language files and SSL certificate pretends to be update.joomla.org for Joomla 6.
+| 4.4.14       | 8.2 |
+| 5.4.1        | 8.3 |
+| 6.0.1        | 8.3 |
 
 ## Test & Development Environment
 <details>
@@ -33,7 +30,7 @@ cd quote_joomla
 docker compose up -d
 ```
 
-Eight Docker containers are running:
+Seven Docker containers are running:
 
 ```
 docker ps
@@ -45,9 +42,8 @@ phpmyadmin/phpmyadmin   0.0.0.0:2001->80/tcp            quote_joomla_mysqladmin
 joomla:3                0.0.0.0:2003->80/tcp            quote_joomla_3
 joomla:4                0.0.0.0:2004->80/tcp            quote_joomla_4
 joomla:5                0.0.0.0:2005->80/tcp            quote_joomla_5
-joomla:6.0              0.0.0.0:2006->80/tcp            quote_joomla_6
+joomla:6                0.0.0.0:2006->80/tcp            quote_joomla_6
 cypress/included        0.0.0.0:2080->80/tcp            quote_joomla_cypress
-nginx:alpine            80/tcp, 0.0.0.0:2061->443/tcp   quote_joomla_update_server
 ```
 
 Available Ports are:

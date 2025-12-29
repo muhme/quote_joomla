@@ -37,7 +37,7 @@ services:
 
   joomla3:
     container_name: quote_joomla_3
-    image: joomla:3 # August 2025: 3.10.12
+    image: joomla:3 # December 2025: 3.10.12
     restart: always
     ports:
       - 2003:80
@@ -53,7 +53,7 @@ services:
 
   joomla4:
     container_name: quote_joomla_4
-    image: joomla:4 # August 2025: 4.4.13
+    image: joomla:4 # December 2025: 4.4.14
     restart: unless-stopped
     ports:
       - 2004:80
@@ -69,7 +69,7 @@ services:
 
   joomla5:
     container_name: quote_joomla_5
-    image: joomla:5 # August 2025: 5.3.2
+    image: joomla:5 # December 2025: 5.4.1
     restart: unless-stopped
     ports:
       - 2005:80
@@ -85,23 +85,19 @@ services:
 
   joomla6:
     container_name: quote_joomla_6
-    image: joomla:6.0 # August 2025: there exist no 6, used is 6.0.0-alpha3
+    image: joomla:6 # December 2025: 6.0.1
     restart: unless-stopped
     ports:
       - 2006:80
     environment:
       JOOMLA_DB_HOST: mysql
       JOOMLA_DB_PASSWORD: root
-      JOOMLA_INSTALLATION_DISABLE_HTTPS_VERIFICATION: "1"
     volumes:
       - .:/quote_joomla
     depends_on:
       - mysql
-    extra_hosts:
-      - "update.joomla.org:172.25.0.88"
     networks:
       - quote_net
-
 
   cypress:
     container_name: quote_joomla_cypress
@@ -117,17 +113,3 @@ services:
     working_dir: /quote_joomla/test
     networks:
       - quote_net
-
-  jupdate: # Joomla 6 language hack
-    container_name: quote_joomla_update_server
-    image: nginx:alpine
-    ports:
-      - "2061:443"
-    volumes:
-      - ./mirror:/usr/share/nginx/html:ro
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/certs:/etc/nginx/certs:ro
-    restart: unless-stopped
-    networks:
-      quote_net:
-        ipv4_address: 172.25.0.88

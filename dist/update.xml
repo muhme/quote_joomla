@@ -12,7 +12,7 @@
 		<sha512>c6b9cb3cc926267ec6917b49764ba3cf9899a628551a0cd43e747d277bb346ae749fe3b4366262e84b5f1cb829d629dc3ab6f853cad96a3ccdc7a75a3b3f1a9d</sha512>
 		<maintainer>Heiko Lübbe</maintainer>
 		<maintainerurl>https://github.com/muhme/quote_joomla</maintainerurl>
-		<targetplatform name="joomla" version="[3456].*"/><!-- at least 3.10.12, 4.4.13, 5.3.1 and 6.0.0-alpha1 are tested -->
+		<targetplatform name="joomla" version="[3456].*"/><!-- December 2025 tested are 3.10.12, 4.4.14, 5.4.1 and 6.0.1 -->
 		<php_minimum>8.0</php_minimum>
 		<client>site</client>
 	</update>
